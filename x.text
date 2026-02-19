@@ -1,0 +1,43 @@
+Create a fully responsive admin inventory dashboard using Tailwind CSS.
+
+Requirements:
+
+Font Family: Inter or system-ui
+
+Heading font-size: 20px–24px bold
+
+Body font-size: 14px–16px
+
+Border radius: 12px–16px
+
+Use soft shadow (shadow-sm)
+
+Color palette:
+
+Primary: Amber-500
+
+Success: Green-500
+
+Danger: Red-500
+
+Info: Indigo/Purple gradient
+
+Cards must have gradient icon backgrounds
+
+Buttons must have hover transitions (0.3s)
+
+Table must be responsive with overflow-x-auto
+
+Status badges must be rounded-full with soft background
+
+Inputs must have focus:ring-2 focus:ring-amber-400
+
+Dropdown actions must include Edit, Delete, View
+
+Modal should have smooth scale animation
+
+Pagination should use rounded-pill buttons
+
+Spacing must use Tailwind spacing system (p-6, gap-4, space-y-6)
+
+Design style: Clean modern SaaS admin panel (like modern dashboard UI).
