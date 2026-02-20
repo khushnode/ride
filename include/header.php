@@ -35,7 +35,7 @@
         <p class="text-[10px] font-bold text-mayview-accent tracking-[3px] uppercase">Super Admin Portal</p>
     </div>
 
-    <nav class="px-4 py-6 space-y-6 flex-1">
+    <!-- <nav class="px-4 py-6 space-y-6 flex-1">
         
         <div>
             <p class="text-[10px] font-bold uppercase text-slate-500 px-4 mb-2 tracking-widest">Master Control</p>
@@ -113,7 +113,92 @@
             </div>
         </div>
 
-    </nav>
+    </nav> -->
+    <?php
+// Get the current filename (e.g., index.php)
+$current_page = basename($_SERVER['PHP_SELF']);
+
+// Helper function to return active classes if the page matches
+function activeClass($pageName, $current_page) {
+    $active = "bg-mayview-blue text-white rounded-xl font-semibold shadow-lg shadow-blue-900/20";
+    $inactive = "hover:text-white hover:bg-slate-800 rounded-xl transition-all group";
+    return ($pageName === $current_page) ? $active : $inactive;
+}
+
+// Helper function for the icons/badges to ensure they change color when active
+function iconColor($pageName, $current_page) {
+    return ($pageName === $current_page) ? "text-white" : "group-hover:text-mayview-accent";
+}
+?>
+    <nav class="px-4 py-6 space-y-6 flex-1">
+    
+    <div>
+        <p class="text-[10px] font-bold uppercase text-slate-500 px-4 mb-2 tracking-widest">Master Control</p>
+        <div class="space-y-1">
+            <a href="index.php" class="flex items-center gap-3 px-4 py-3 <?php echo activeClass('index.php', $current_page); ?>">
+                <i class="fas fa-grid-2 w-5 text-center <?php echo iconColor('index.php', $current_page); ?>"></i> Overview
+            </a>
+            <a href="notification.php" class="flex items-center justify-between px-4 py-3 <?php echo activeClass('notification.php', $current_page); ?>">
+                <span class="flex items-center gap-3">
+                    <i class="fa-solid fa-bell w-5 text-center <?php echo iconColor('notification.php', $current_page); ?>"></i> Notifications
+                </span>
+                <span class="bg-red-500 text-[10px] px-2 py-0.5 rounded-full text-white font-bold">12</span>
+            </a>
+        </div>
+    </div>
+
+    <div>
+        <p class="text-[10px] font-bold uppercase text-slate-500 px-4 mb-2 tracking-widest">Stakeholders</p>
+        <div class="space-y-1">
+            <a href="partner.php" class="flex items-center justify-between px-4 py-3 <?php echo activeClass('partner.php', $current_page); ?>">
+                <span class="flex items-center gap-3">
+                    <i class="fa-solid fa-store w-5 text-center <?php echo iconColor('partner.php', $current_page); ?>"></i> Total Vendors
+                </span>
+                <span class="bg-mayview-blue text-[10px] px-2 py-0.5 rounded-full text-white">24</span>
+            </a>
+            <a href="users.php" class="flex items-center justify-between px-4 py-3 <?php echo activeClass('users.php', $current_page); ?>">
+                <span class="flex items-center gap-3">
+                    <i class="fa-solid fa-user-group w-5 text-center <?php echo iconColor('users.php', $current_page); ?>"></i> Total Customers
+                </span>
+                <span class="bg-slate-700 text-[10px] px-2 py-0.5 rounded-full text-white">1.2k</span>
+            </a>
+            <a href="rider.php" class="flex items-center gap-3 px-4 py-3 <?php echo activeClass('rider.php', $current_page); ?>">
+                <i class="fa-solid fa-motorcycle w-5 text-center <?php echo iconColor('rider.php', $current_page); ?>"></i> Delivery Fleet
+            </a>
+        </div>
+    </div>
+
+    <div>
+        <p class="text-[10px] font-bold uppercase text-slate-500 px-4 mb-2 tracking-widest">Marketplace Control</p>
+        <div class="space-y-1">
+            <a href="order.php" class="flex items-center justify-between px-4 py-3 <?php echo activeClass('order.php', $current_page); ?>">
+                <span class="flex items-center gap-3">
+                    <i class="fa-solid fa-dolly w-5 text-center <?php echo iconColor('order.php', $current_page); ?>"></i> Total Orders
+                </span>
+                <span class="border border-mayview-accent text-mayview-accent text-[10px] px-2 py-0.5 rounded-full font-bold">New</span>
+            </a>
+            <a href="category.php" class="flex items-center gap-3 px-4 py-3 <?php echo activeClass('category.php', $current_page); ?>">
+                <i class="fa-solid fa-layer-group w-5 text-center <?php echo iconColor('category.php', $current_page); ?>"></i> Categories & Slugs
+            </a>
+            <a href="addproduct.php" class="flex items-center gap-3 px-4 py-3 <?php echo activeClass('addproduct.php', $current_page); ?>">
+                <i class="fa-solid fa-boxes-stacked w-5 text-center <?php echo iconColor('addproduct.php', $current_page); ?>"></i> Product Catalog
+            </a>
+        </div>
+    </div>
+
+    <div>
+        <p class="text-[10px] font-bold uppercase text-slate-500 px-4 mb-2 tracking-widest">System & Admin</p>
+        <div class="space-y-1">
+            <a href="manageAdmin.php" class="flex items-center gap-3 px-4 py-3 <?php echo activeClass('manageAdmin.php', $current_page); ?>">
+                <i class="fa-solid fa-user-shield w-5 text-center <?php echo iconColor('manageAdmin.php', $current_page); ?>"></i> Manage Sub-Admins
+            </a>
+            <a href="report.php" class="flex items-center gap-3 px-4 py-3 <?php echo activeClass('report.php', $current_page); ?>">
+                <i class="fa-solid fa-chart-pie w-5 text-center <?php echo iconColor('report.php', $current_page); ?>"></i> Analytics Reports
+            </a>
+        </div>
+    </div>
+
+</nav>
     
     <div class="p-4 border-t border-slate-800 mt-auto">
         <a href="login.php" class="flex items-center gap-3 px-4 py-3 text-red-400 hover:bg-red-500/10 rounded-xl font-bold transition-all">
