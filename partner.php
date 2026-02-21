@@ -10,8 +10,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body >
+<body class="flex min-h-screen bg-gray-50">
     <?php include 'include/header.php'; ?>
+    <div class="flex flex-col flex-1 min-h-screen">
     <main class="flex-1 flex flex-col min-w-0">
          <header class="h-20 bg-white border-b border-slate-200 sticky top-0 z-30 px-8 flex items-center justify-between">
         <div>
@@ -95,8 +96,7 @@
         </div>
     </header>
   
-
-<div class="p-6 bg-gray-50 min-h-screen">
+<div class="p-6 bg-gray-50">
   <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
     <h1 class="text-2xl font-bold text-gray-800">Vendors Details</h1>
 
@@ -204,6 +204,7 @@ $partners = [
         "partner_name" => "Partner_7446",
         "partner_id" => "PARTNER7774468212",
         "contact" => "9876543210",
+        "email"=>"Khush735265@gmail.com",
         "store_name" => "Mayview Fresh",
         "store_id" => "Store7774468212",
         "status" => "Active"
@@ -215,6 +216,7 @@ $partners = [
         "partner_name" => "Partner_9921",
         "partner_id" => "PARTNER11223344",
         "contact" => "9988776655",
+        "email"=>"Kaif835265@gmail.com",
         "store_name" => "Daily Needs",
         "store_id" => "Store11223344",
         "status" => "Inactive"
@@ -232,6 +234,7 @@ $partners = [
                     <th class="px-6 py-4 font-semibold text-sm">Reg.Date</th>
                     <th class="px-6 py-4 font-semibold text-sm">Partner Info.</th>
                     <th class="px-6 py-4 font-semibold text-sm">Contact</th>
+                    <th class="px-6 py-4 font-semibold text-sm">Email</th>
                     <th class="px-6 py-4 font-semibold text-sm">Store Name</th>
                     <th class="px-6 py-4 font-semibold text-sm text-center">Status</th>
                     <th class="px-6 py-4 font-semibold text-sm text-right rounded-tr-xl">Actions</th>
@@ -250,6 +253,7 @@ $partners = [
                         <div class="text-[10px] font-mono text-gray-400"><?php echo $partner['partner_id']; ?></div>
                     </td>
                     <td class="px-6 py-4 font-medium"><?php echo $partner['contact']; ?></td>
+                                        <td class="px-6 py-4 font-medium"><?php echo $partner['email']; ?></td>
                     <td class="px-6 py-4">
                         <div class="font-medium text-gray-800"><?php echo $partner['store_name']; ?></div>
                         <div class="text-xs text-gray-400 italic">ID: <?php echo $partner['store_id']; ?></div>
@@ -321,77 +325,108 @@ $partners = [
     </nav>
   </div>
 </div>
-<div id="viewModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-black bg-opacity-50 flex items-center justify-center p-4">
-  <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-    
+<div id="viewModal" class="hidden fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
+<div class="bg-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[90vh] overflow-y-auto">
     <!-- Header -->
-    <div class="flex items-center justify-between p-4 border-b">
-      <h5 id="v_partnerName" class="text-xl font-semibold flex items-center gap-2"></h5>
-      <button onclick="toggleModal('viewModal')" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+    <div class="flex items-center justify-between p-4 border-b bg-indigo-600 text-white rounded-t-xl">
+      <h5 class="text-lg font-bold">Partner Details</h5>
+      <button onclick="toggleModal('viewModal')" class="text-2xl">&times;</button>
     </div>
-    
-    <div class="p-6 text-xs uppercase tracking-wider">
+
+    <!-- Body -->
+   <div class="p-6 space-y-8 text-sm">
+
+  <div>
+    <h6 class="font-bold text-gray-800 mb-4 border-b pb-1">Partners Details</h6>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div>
+        <p class="text-gray-500">First Name</p>
+        <p class="font-semibold bg-gray-50 p-2 rounded border mt-1 min-h-[42px] flex items-center" id="v_firstName"></p>
+      </div>
+      <div>
+        <p class="text-gray-500">Last Name</p>
+        <p class="font-semibold bg-gray-50 p-2 rounded border mt-1 min-h-[42px] flex items-center" id="v_lastName"></p>
+      </div>
+      <div>
+        <p class="text-gray-500">Phone Number</p>
+        <p class="font-semibold bg-gray-50 p-2 rounded border mt-1 min-h-[42px] flex items-center" id="v_phone"></p>
+      </div>
+      <div>
+        <p class="text-gray-500">Shop Name</p>
+        <p class="font-semibold bg-gray-50 p-2 rounded border mt-1 min-h-[42px] flex items-center" id="v_shopName"></p>
+      </div>
+      <div>
+        <p class="text-gray-500">Owner Name</p>
+        <p class="font-semibold bg-gray-50 p-2 rounded border mt-1 min-h-[42px] flex items-center" id="v_ownerName"></p>
+      </div>
+      <div>
+        <p class="text-gray-500">Shop Address</p>
+        <p class="font-semibold bg-gray-50 p-2 rounded border mt-1 min-h-[42px] flex items-center" id="v_shopAddress"></p>
+      </div>
+      <div>
+        <p class="text-gray-500">Pin Code</p>
+        <p class="font-semibold bg-gray-50 p-2 rounded border mt-1 min-h-[42px] flex items-center" id="v_pinCode"></p>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <h6 class="font-bold text-gray-800 mb-4 border-b pb-1">Bank Details</h6>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div>
+        <p class="text-gray-500">A/C Holder Name</p>
+        <p class="font-semibold bg-gray-50 p-2 rounded border mt-1 min-h-[42px] flex items-center" id="v_accHolder"></p>
+      </div>
+      <div>
+        <p class="text-gray-500">A/C Number</p>
+        <p class="font-semibold bg-gray-50 p-2 rounded border mt-1 min-h-[42px] flex items-center" id="v_accNumber"></p>
+      </div>
+      <div>
+        <p class="text-gray-500">IFSC Code</p>
+        <p class="font-semibold bg-gray-50 p-2 rounded border mt-1 min-h-[42px] flex items-center" id="v_ifsc"></p>
+      </div>
+      <div>
+        <p class="text-gray-500">UPI ID</p>
+        <p class="font-semibold bg-gray-50 p-2 rounded border mt-1 min-h-[42px] flex items-center" id="v_upiId"></p>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <h6 class="font-bold text-gray-800 mb-4 border-b pb-1">User Documents & Aadhaar Details</h6>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="space-y-4">
+        <div>
+          <p class="text-gray-500">PAN Number</p>
+          <p class="font-semibold bg-gray-50 p-2 rounded border mt-1 min-h-[42px] flex items-center" id="v_panNumber"></p>
+        </div>
+        <div>
+          <p class="text-gray-500">FSSAI License Number</p>
+          <p class="font-semibold bg-gray-50 p-2 rounded border mt-1 min-h-[42px] flex items-center" id="v_fssaiNumber"></p>
+        </div>
+        <div>
+          <p class="text-gray-500">Aadhaar Number</p>
+          <p class="font-semibold bg-gray-50 p-2 rounded border mt-1 min-h-[42px] flex items-center" id="v_aadhaarNumber"></p>
+        </div>
+      </div>
       
-      <!-- Partner Details -->
-      <h6 class="font-bold text-gray-700 mb-3">Partners Details</h6>
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        <div>
-          <label class="block text-gray-500 mb-1">First Name</label>
-          <p id="v_firstName" class="border rounded px-3 py-2 bg-gray-50"></p>
+      <div>
+        <p class="text-gray-500 mb-2">Aadhaar Card Photo</p>
+        <div class="flex gap-4">
+          <div class="w-1/2 h-32 bg-gray-100 border rounded flex items-center justify-center text-gray-400 italic">
+            <img id="v_aadhaarFront" class="hidden w-full h-full object-cover rounded">
+            <span id="v_frontPlaceholder">No front image</span>
+          </div>
+          <div class="w-1/2 h-32 bg-gray-100 border rounded flex items-center justify-center text-gray-400 italic">
+            <img id="v_aadhaarBack" class="hidden w-full h-full object-cover rounded">
+            <span id="v_backPlaceholder">No back image</span>
+          </div>
         </div>
-        <div>
-          <label class="block text-gray-500 mb-1">Phone Number</label>
-          <p id="v_phone" class="border rounded px-3 py-2 bg-gray-50"></p>
-        </div>
-        <div>
-          <label class="block text-gray-500 mb-1">Shop Name</label>
-          <p id="v_shop" class="border rounded px-3 py-2 bg-gray-50"></p>
-        </div>
-        <div>
-          <label class="block text-gray-500 mb-1">Pin Code</label>
-          <p id="v_pin" class="border rounded px-3 py-2 bg-gray-50"></p>
-        </div>
-      </div>
-
-      <!-- Bank Details -->
-      <h6 class="font-bold text-gray-700 mb-3">Bank Details</h6>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div class="border rounded p-3">
-          <span class="font-bold block text-gray-500">Branch</span>
-          <span id="v_branch"></span>
-        </div>
-        <div class="border rounded p-3">
-          <span class="font-bold block text-gray-500">A/C Number</span>
-          <span id="v_account"></span>
-        </div>
-        <div class="border rounded p-3">
-          <span class="font-bold block text-gray-500">IFSC Code</span>
-          <span id="v_ifsc"></span>
-        </div>
-      </div>
-
-      <!-- Images -->
-      <div class="flex flex-wrap gap-6 mb-6">
-        <div>
-          <h6 class="font-bold mb-2">Photo of Shop</h6>
-          <img id="v_shopImage" class="h-32 rounded border shadow-sm">
-        </div>
-        <div>
-          <h6 class="font-bold mb-2">Photo of Food License</h6>
-          <img id="v_licenseImage" class="h-32 rounded border shadow-sm">
-        </div>
-      </div>
-
-      <!-- Footer -->
-      <div class="flex justify-end gap-3 mt-6 pt-4 border-t">
-        <button class="px-6 py-2 border border-red-500 text-red-500 rounded hover:bg-red-50 transition uppercase font-bold">
-          Reject
-        </button>
-        <button class="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition uppercase font-bold">
-          Verify
-        </button>
       </div>
     </div>
+  </div>
+
+</div>
   </div>
 </div>
 
@@ -445,6 +480,7 @@ $partners = [
     </div>
   </div>
 </div>
+
 <div id="earningModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-black bg-opacity-50 flex items-center justify-center p-4">
   <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl">
     
@@ -464,28 +500,15 @@ $partners = [
             <th class="p-3 text-right font-bold">Earning</th>
           </tr>
         </thead>
-        <tbody id="earningTableBody" class="divide-y"></tbody>
+        <tbody id="earningTableBody" class="divide-y">
+          
+        </tbody>
       </table>
     </div>
   </div>
 </div>
 </div>
- </main>
-         <footer class="mt-auto bg-white border-t border-slate-100 px-8 py-6">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="text-center md:text-left">
-                <p class="text-sm text-slate-500 font-medium tracking-tight">
-                    &copy; 2026 <span class="text-mayview-blue font-bold">Mayview Health</span>. All rights reserved.
-                </p>
-            </div>
-            <div class="flex items-center gap-2 px-4 py-2 bg-slate-50 rounded-full border border-slate-100">
-                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Design & Developed by</span>
-                <span class="text-xs font-black text-mayview-dark tracking-tighter">BMDU</span>
-                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-            </div>
-        </div>
-    </footer>
-        <?php include 'include/footer.php'; ?>
+ </main>        
 </body>
 <script>
     // --- Modal Logic ---
@@ -560,12 +583,6 @@ function toggleDropdown(event, id) {
     dropdown.classList.toggle('hidden');
 }
 
-// Bahar click karne par dropdown band ho jaye
-window.onclick = function(event) {
-    document.querySelectorAll('[id^="dropdown-"]').forEach(el => {
-        el.classList.add('hidden');
-    });
-}
 </script>
 <script>
 
@@ -636,18 +653,21 @@ const partnersData = {
 // ================= VIEW MODAL =================
 
 function openViewModal(id) {
+  closeAllDropdowns();   // 👈 ADD THIS LINE
+
   const p = partnersData[id];
 
-  document.getElementById("v_partnerName").innerText = p.name;
-  document.getElementById("v_firstName").innerText = p.firstName;
-  document.getElementById("v_phone").innerText = p.phone;
-  document.getElementById("v_shop").innerText = p.shop;
-  document.getElementById("v_pin").innerText = p.pin;
-  document.getElementById("v_branch").innerText = p.branch;
-  document.getElementById("v_account").innerText = p.account;
-  document.getElementById("v_ifsc").innerText = p.ifsc;
-  document.getElementById("v_shopImage").src = p.shopImage;
-  document.getElementById("v_licenseImage").src = p.licenseImage;
+  document.getElementById("v_firstName").innerText = p.firstName || "";
+  document.getElementById("v_lastName").innerText = "";
+  document.getElementById("v_phone").innerText = p.phone || "";
+  document.getElementById("v_shopName").innerText = p.shop || "";
+  document.getElementById("v_ownerName").innerText = p.name || "";
+  document.getElementById("v_shopAddress").innerText = "";
+  document.getElementById("v_pinCode").innerText = p.pin || "";
+
+  document.getElementById("v_accHolder").innerText = p.name || "";
+  document.getElementById("v_accNumber").innerText = p.account || "";
+  document.getElementById("v_ifsc").innerText = p.ifsc || "";
 
   toggleModal("viewModal");
 }
@@ -657,6 +677,7 @@ function openViewModal(id) {
 // ================= ORDER MODAL =================
 
 function openOrderModal(id) {
+  closeAllDropdowns();
   const p = partnersData[id];
   const tbody = document.getElementById("orderTableBody");
   tbody.innerHTML = "";
@@ -688,6 +709,7 @@ function openOrderModal(id) {
 // ================= INVENTORY MODAL =================
 
 function openInventoryModal(id) {
+  closeAllDropdowns();
   const p = partnersData[id];
   const tbody = document.getElementById("inventoryTableBody");
   tbody.innerHTML = "";
@@ -719,21 +741,33 @@ function openInventoryModal(id) {
 // ================= EARNING MODAL =================
 
 function openEarningModal(id) {
+  closeAllDropdowns();
+
   const p = partnersData[id];
   const tbody = document.getElementById("earningTableBody");
   tbody.innerHTML = "";
 
-  p.earnings.forEach((e, index) => {
-    tbody.innerHTML += `
+  if (!p || !p.earnings || p.earnings.length === 0) {
+    tbody.innerHTML = `
       <tr>
-        <td class="p-3">${index+1}</td>
-        <td class="p-3">${e.product}</td>
-        <td class="p-3 text-right">${e.paid}</td>
-        <td class="p-3 text-red-500">${e.commission}</td>
-        <td class="p-3 text-right font-bold text-green-600">${e.earning}</td>
+        <td colspan="5" class="p-4 text-center text-gray-500">
+          No Earnings Data Found
+        </td>
       </tr>
     `;
-  });
+  } else {
+    p.earnings.forEach((e, index) => {
+      tbody.innerHTML += `
+        <tr class="hover:bg-gray-50 transition-colors">
+          <td class="p-3">${index + 1}</td>
+          <td class="p-3 font-medium">${e.product}</td>
+          <td class="p-3 text-right">${e.paid}</td>
+          <td class="p-3 text-red-500">${e.commission}</td>
+          <td class="p-3 text-right font-bold text-green-600">${e.earning}</td>
+        </tr>
+      `;
+    });
+  }
 
   toggleModal("earningModal");
 }
@@ -778,5 +812,42 @@ document.getElementById("printButton").addEventListener("click", function () {
     win.document.close();
     win.print();
 });
+function closeAllDropdowns() {
+  document.querySelectorAll('[id^="dropdown-"]').forEach(dropdown => {
+    dropdown.classList.add('hidden');
+  });
+}
+
+
+function populateEarningTable() {
+  const tableBody = document.getElementById('earningTableBody');
+  tableBody.innerHTML = ''; // Purana data clear karne ke liye
+
+  earningData.forEach((item, index) => {
+    // Earning calculation: (Price * Commission) / 100
+    const earning = (item.paidPrice * item.commission) / 100;
+
+    const row = `
+      <tr class="hover:bg-gray-50 transition-colors">
+        <td class="p-3 text-gray-600">${index + 1}</td>
+        <td class="p-3 font-medium text-gray-800">${item.product}</td>
+        <td class="p-3 text-right text-gray-700">₹${item.paidPrice}</td>
+        <td class="p-3 text-center">
+            <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-md text-xs font-bold">
+                ${item.commission}%
+            </span>
+        </td>
+        <td class="p-3 text-right font-bold text-green-600">
+            ₹${earning.toFixed(2)}
+        </td>
+      </tr>
+    `;
+    
+    tableBody.innerHTML += row;
+  });
+}
+
+// Function ko call karein
+populateEarningTable();
 </script>
 </html>

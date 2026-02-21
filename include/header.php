@@ -157,19 +157,18 @@ function iconColor($pageName, $current_page) {
     </div>
 
     <div>
-        <p class="text-[10px] font-bold uppercase text-slate-500 px-4 mb-2 tracking-widest">Stakeholders</p>
-        <div class="space-y-1">
-            <a href="category.php" class="flex items-center gap-3 px-4 py-3 <?php echo activeClass('category.php', $current_page); ?>">
-                <i class="fa-solid fa-layer-group w-5 text-center <?php echo iconColor('category.php', $current_page); ?>"></i> Categories
-            </a>
-            <a href="#" class="flex items-center gap-3 px-4 py-3 <?php echo activeClass('subcategory.php', $current_page); ?>">
-                <i class="fa-solid fa-layer-group w-5 text-center <?php echo iconColor('subcategory.php', $current_page); ?>"></i>Sub-Categories
-            </a>
-            <!-- <a href="rider.php" class="flex items-center gap-3 px-4 py-3 <?php echo activeClass('rider.php', $current_page); ?>">
-                <i class="fa-solid fa-motorcycle w-5 text-center <?php echo iconColor('rider.php', $current_page); ?>"></i> Delivery Fleet
-            </a> -->
+    <p class="text-[10px] font-bold uppercase text-slate-500 px-4 mb-2 tracking-widest">Stakeholders</p>
+    <div class="space-y-1">
+        <a href="category.php" class="flex items-center gap-3 px-4 py-3 <?php echo activeClass('category.php', $current_page); ?>">
+            <i class="fa-solid fa-layer-group w-5 text-center <?php echo iconColor('category.php', $current_page); ?>"></i> Categories
+        </a>
+
+        <a href="subcategory.php" class="flex items-center gap-3 px-4 py-3 <?php echo activeClass('subcategory.php', $current_page); ?>">
+            <i class="fa-solid fa-sitemap w-5 text-center <?php echo iconColor('subcategory.php', $current_page); ?>"></i> Sub-Categories
+        </a>
+
         </div>
-    </div>
+</div>
 
     <div>
         <p class="text-[10px] font-bold uppercase text-slate-500 px-4 mb-2 tracking-widest">Marketplace Control</p>
@@ -177,7 +176,7 @@ function iconColor($pageName, $current_page) {
             <a href="addproduct.php" class="flex items-center gap-3 px-4 py-3 <?php echo activeClass('addproduct.php', $current_page); ?>">
                 <i class="fa-solid fa-boxes-stacked w-5 text-center <?php echo iconColor('addproduct.php', $current_page); ?>"></i> Product Catalog
             </a>
-            <a href="#" class="flex items-center gap-3 px-4 py-3 <?php echo activeClass('banner.php', $current_page); ?>">
+            <a href="banner.php" class="flex items-center gap-3 px-4 py-3 <?php echo activeClass('banner.php', $current_page); ?>">
                 <i class="fa-solid fa-boxes-stacked w-5 text-center <?php echo iconColor('banner.php', $current_page); ?>"></i> Banner
             </a>
             <!-- <a href="order.php" class="flex items-center justify-between px-4 py-3 <?php echo activeClass('order.php', $current_page); ?>">

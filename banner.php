@@ -86,226 +86,77 @@
   <!-- Header -->
   <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
     <h1 class="text-xl sm:text-2xl font-bold text-slate-800">
-      Vendors Details
+      Bennar Details
     </h1>
 
-    <div class="flex items-center gap-3">
-
-      <!-- Excel -->
-      <button class="text-emerald-600 hover:scale-110 transition"
-        title="Excel">
-        <i class="fa-solid fa-file-excel text-2xl"></i>
-      </button>
-
-      <!-- PDF -->
-      <button class="text-red-600 hover:scale-110 transition"
-        title="PDF">
-        <i class="fa-solid fa-file-pdf text-2xl"></i>
-      </button>
-
-      <!-- Print -->
-      <button class="text-green-600 hover:scale-110 transition"
-        title="Print">
-        <i class="fa-solid fa-print text-2xl"></i>
-      </button>
-
-    </div>
   </div>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-6">
-
-  <!-- Total Orders -->
-  <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 flex items-center justify-between">
-    
-    <div>
-      <p class="text-sm text-slate-500 font-medium">Total Orders</p>
-      <h2 class="text-3xl font-bold text-slate-800 mt-1">6</h2>
-    </div>
-
-    <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-500 
-                flex items-center justify-center shadow-md">
-      <i class="fa-solid fa-cart-shopping text-white text-xl"></i>
-    </div>
-
-  </div>
-
-  <!-- Active Partners -->
-  <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 flex items-center justify-between">
-    
-    <div>
-      <p class="text-sm text-slate-500 font-medium">Active Partners</p>
-      <h2 class="text-3xl font-bold text-emerald-600 mt-1">6</h2>
-    </div>
-
-    <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-400 to-emerald-600 
-                flex items-center justify-center shadow-md">
-      <i class="fa-solid fa-user-check text-white text-xl"></i>
-    </div>
-
-  </div>
-
-  <!-- Inactive Partners -->
-  <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 flex items-center justify-between">
-    
-    <div>
-      <p class="text-sm text-slate-500 font-medium">Inactive Partners</p>
-      <h2 class="text-3xl font-bold text-red-600 mt-1">0</h2>
-    </div>
-
-    <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-red-400 to-red-600 
-                flex items-center justify-center shadow-md">
-      <i class="fa-solid fa-user-xmark text-white text-xl"></i>
-    </div>
-
-  </div>
-
-  <!-- Total Admin -->
-  <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 flex items-center justify-between">
-    
-    <div>
-      <p class="text-sm text-slate-500 font-medium">Total Admin</p>
-      <h2 class="text-3xl font-bold text-indigo-600 mt-1">5</h2>
-    </div>
-
-    <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-indigo-500 to-blue-500 
-                flex items-center justify-center shadow-md">
-      <i class="fa-solid fa-user-gear text-white text-xl"></i>
-    </div>
-
-  </div>
-
-</div>
 
 
   <!-- Filters -->
-  <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-4 mb-6">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
-
-      <input type="text"
-        placeholder="Search"
-        class="px-4 py-2 rounded-xl bg-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
-
-      <input type="text"
-        placeholder="Category"
-        class="px-4 py-2 rounded-xl bg-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
-
-      <select
-        class="px-4 py-2 rounded-xl bg-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
-        <option>Status</option>
-        <option>Active</option>
-        <option>Deactive</option>
-      </select>
-
-      <input type="date"
-        class="px-4 py-2 rounded-xl bg-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
-
-      <input type="date"
-        class="px-4 py-2 rounded-xl bg-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
-
-      <div class="flex items-center gap-3">
+     <div class="flex justify-end mb-6">
         <button
-          class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">
-          Reset
+             onclick="openAddModal()"
+            class="inline-block w-auto bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">
+            + Add Banner
         </button>
-
-        <button
-  onclick="openModal()"
-  class="w-full bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">
-  + Add
-</button>
-
-      </div>
-
     </div>
-  </div>
 
-  <!-- Table -->
-  <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-x-auto">
+<div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-visible">
 
-    <table class="min-w-[900px] w-full text-sm">
-
+  <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-1">
+  <div class="overflow-x-auto" style="min-height: 300px;"> <table class="min-w-[900px] w-full text-sm">
       <thead class="bg-indigo-600 text-white uppercase text-xs tracking-wider">
         <tr>
           <th class="px-6 py-4 text-left">Sr. No.</th>
-          <th class="px-6 py-4 text-left">Offer Title</th>
-          <th class="px-6 py-4 text-left">Subtext</th>
-          <th class="px-6 py-4 text-left">Tag</th>
+          <th class="px-6 py-4 text-left">Name</th>
+          <th class="px-6 py-4 text-left">Location</th>
           <th class="px-6 py-4 text-left">Image</th>
-          <th class="px-6 py-4 text-left">Validity</th>
           <th class="px-6 py-4 text-left">Status</th>
           <th class="px-6 py-4 text-right">Action</th>
         </tr>
       </thead>
 
       <tbody class="divide-y divide-slate-100">
-
         <tr class="hover:bg-slate-50 transition">
-          <td class="px-6 py-4">2</td>
-          <td class="px-6 py-4 font-semibold text-slate-700">
-            PREMIUM CUTS FIRST ORDER DEAL
-          </td>
-          <td class="px-6 py-4">Free delivery + ₹50 OFF</td>
-
+          <td class="px-6 py-4 text-slate-500 font-medium">01</td>
+          <td class="px-6 py-4 font-semibold text-slate-700">Premium Cuts Store</td>
+          <td class="px-6 py-4 text-slate-600">Hero Section</td>
           <td class="px-6 py-4">
-            <span class="px-3 py-1 text-xs bg-amber-100 text-amber-700 rounded-full font-semibold">
-              Limited Time
-            </span>
+            <img src="https://via.placeholder.com/150" class="w-12 h-12 rounded-lg object-cover border border-slate-200">
           </td>
-
           <td class="px-6 py-4">
-            <img src="./assets/images/banner2.jpg"
-              class="w-14 h-10 rounded-lg object-cover">
+            <span class="px-3 py-1 text-xs bg-emerald-100 text-emerald-600 rounded-full font-semibold">Active</span>
           </td>
 
-          <td class="px-6 py-4">24–30 Jun 2025</td>
+          <td class="px-6 py-4 text-right">
+            <div class="relative inline-block text-left">
+              <button onclick="toggleDropdown(this, event)" class="p-2 rounded-full hover:bg-slate-100 transition focus:outline-none">
+                <i class="fa-solid fa-ellipsis-vertical text-slate-500"></i>
+              </button>
 
-          <td class="px-6 py-4">
-            <span class="px-3 py-1 text-xs bg-emerald-100 text-emerald-600 rounded-full font-semibold">
-              Active
-            </span>
+              <div class="dropdown-menu hidden absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-2xl border border-slate-100 py-2 z-[9999]">
+                <button onclick="openActionModal('active')" class="flex items-center gap-3 w-full px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 transition">
+                  <i class="fa-solid fa-circle-check text-emerald-500 w-4"></i> Active
+                </button>
+                <button onclick="openActionModal('deactivate')" class="flex items-center gap-3 w-full px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 transition">
+                  <i class="fa-solid fa-circle-pause text-amber-500 w-4"></i> Deactivate
+                </button>
+                <button onclick="openEditModal('1', 'Premium Cuts', 'heroSection')" class="flex items-center gap-3 w-full px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 transition">
+                  <i class="fa-solid fa-pen-to-square text-blue-500 w-4"></i> Edit
+                </button>
+                <div class="my-1 border-t border-slate-100"></div>
+                <button onclick="openActionModal('delete')" class="flex items-center gap-3 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition">
+                  <i class="fa-solid fa-trash w-4"></i> Delete
+                </button>
+              </div>
+            </div>
           </td>
-
-          <td class="px-6 py-4 text-right relative">
-
-  <div class="relative inline-block text-left">
-
-    <!-- 3 Dot Button -->
-    <button onclick="toggleDropdown(this)"
-      class="p-2 rounded-lg hover:bg-slate-100 transition">
-      <i class="fa-solid fa-ellipsis-vertical text-slate-600"></i>
-    </button>
-
-    <!-- Dropdown -->
-    <div class="dropdown-menu hidden absolute right-0 mt-2 w-44 
-                bg-white rounded-xl shadow-xl border border-slate-200 
-                py-2 z-50">
-
-      <button
-        class="flex items-center gap-2 w-full px-4 py-2 text-sm 
-               text-amber-600 hover:bg-amber-50 transition">
-        <i class="fa-solid fa-pause"></i>
-        Deactivate
-      </button>
-
-      <button
-        class="flex items-center gap-2 w-full px-4 py-2 text-sm 
-               text-red-600 hover:bg-red-50 transition">
-        <i class="fa-solid fa-trash"></i>
-        Delete
-      </button>
-
-    </div>
-
-  </div>
-
-</td>
-
         </tr>
-
       </tbody>
     </table>
-
   </div>
+</div>
 
   <!-- Pagination -->
   <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-6">
@@ -347,7 +198,7 @@
         Add Banner Details
       </h5>
 
-      <button onclick="closeModal()"
+      <button  onclick="closeAddModal()"
         class="text-white hover:text-slate-200 text-xl">
         ✕
       </button>
@@ -361,82 +212,34 @@
         <!-- Offer Title -->
         <div>
           <label class="block text-sm font-medium text-slate-600 mb-1">
-            Offer Title
+            Banner name
           </label>
           <input type="text"
-            name="bannerTitle"
-            placeholder="Enter banner title"
+            name="bannername"
+            placeholder="Enter banner name"
             required
             class="w-full px-4 py-2 rounded-xl bg-slate-100 
                    focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
         </div>
 
-        <!-- Subtext -->
         <div>
           <label class="block text-sm font-medium text-slate-600 mb-1">
-            Subtext
+           Banner img
           </label>
-          <textarea name="bannerSubtext"
-            rows="2"
-            placeholder="Enter subtext"
-            required
-            class="w-full px-4 py-2 rounded-xl bg-slate-100 
-                   focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"></textarea>
+          <input type="file" name="bannerimg"class="w-full px-4 py-2 rounded-xl bg-slate-100 
+                   focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
         </div>
 
         <!-- Tag -->
         <div>
           <label class="block text-sm font-medium text-slate-600 mb-1">
-            Tag
+            Location
           </label>
-          <input type="text"
-            name="bannerTag"
-            placeholder="e.g., Limited Time Offer"
-            required
-            class="w-full px-4 py-2 rounded-xl bg-slate-100 
+           <select name="location" id="" class="w-full px-4 py-2 rounded-xl bg-slate-100 
                    focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
-        </div>
-
-        <!-- Upload Image -->
-        <div>
-          <label class="block text-sm font-medium text-slate-600 mb-1">
-            Upload Image
-          </label>
-          <input type="file"
-            name="bannerImage"
-            accept="image/*"
-            required
-            class="w-full text-sm file:mr-4 file:py-2 file:px-4
-                   file:rounded-xl file:border-0
-                   file:bg-indigo-600 file:text-white
-                   hover:file:bg-indigo-700">
-        </div>
-
-        <!-- Date Row (Same 2 Column Layout) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-          <div>
-            <label class="block text-sm font-medium text-slate-600 mb-1">
-              Start Date
-            </label>
-            <input type="date"
-              name="startDate"
-              required
-              class="w-full px-4 py-2 rounded-xl bg-slate-100 
-                     focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium text-slate-600 mb-1">
-              End Date
-            </label>
-            <input type="date"
-              name="endDate"
-              required
-              class="w-full px-4 py-2 rounded-xl bg-slate-100 
-                     focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
-          </div>
-
+            <option value="heroSection">Hero Section</option>
+            <option value="heroSection">Sidebar Section</option>
+           </select>
         </div>
 
       </div>
@@ -461,6 +264,113 @@
 
   </div>
 </div>
+<!-- Modal -->
+<div id="actionModal" 
+     class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-[9999]">
+
+  <div class="bg-white rounded-2xl shadow-2xl w-96 p-6 relative">
+
+    <h2 id="modalTitle" class="text-lg font-semibold mb-4">
+      Action
+    </h2>
+
+    <p class="text-gray-600 mb-6">
+      Are you sure you want to continue?
+    </p>
+
+    <div class="flex justify-end gap-3">
+      <button onclick="closeActionModal()" 
+        class="px-4 py-2 text-sm bg-gray-100 rounded-lg hover:bg-gray-200">
+        Cancel
+      </button>
+
+      <button 
+        class="px-4 py-2 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+        Confirm
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<div id="editBannerModal"
+     class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+
+  <div class="bg-white w-full max-w-3xl rounded-2xl shadow-2xl overflow-hidden">
+
+    <div class="flex items-center justify-between px-6 py-4 bg-blue-600"> <h5 class="text-lg font-semibold text-white">
+        Update Banner Details
+      </h5>
+
+      <button onclick="closeEditModal()"
+        class="text-white hover:text-slate-200 text-xl">
+        ✕
+      </button>
+    </div>
+
+    <form id="editBannerForm" enctype="multipart/form-data">
+      
+      <input type="hidden" name="banner_id" id="edit_banner_id">
+
+      <div class="p-6 space-y-5">
+
+        <div>
+          <label class="block text-sm font-medium text-slate-600 mb-1">
+            Banner name
+          </label>
+          <input type="text"
+            id="edit_bannername"
+            name="bannername"
+            placeholder="Enter banner name"
+            required
+            class="w-full px-4 py-2 rounded-xl bg-slate-100 
+                   focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-slate-600 mb-1">
+            Banner img (Leave empty to keep current)
+          </label>
+          <input type="file" name="bannerimg" 
+            class="w-full px-4 py-2 rounded-xl bg-slate-100 
+                   focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-slate-600 mb-1">
+            Location
+          </label>
+          <select name="location" id="edit_location" 
+            class="w-full px-4 py-2 rounded-xl bg-slate-100 
+                   focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+            <option value="heroSection">Hero Section</option>
+            <option value="sidebarSection">Sidebar Section</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="flex justify-end gap-3 px-6 py-4 bg-slate-50">
+
+        <button type="button" onclick="closeEditModal()"
+          class="px-4 py-2 text-sm rounded-xl bg-slate-200 hover:bg-slate-300 transition">
+          Cancel
+        </button>
+
+        <button type="submit"
+          class="px-5 py-2 text-sm font-semibold rounded-xl 
+                 bg-blue-600 hover:bg-blue-700 text-white transition">
+          Update Changes
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+</div>
+</div>
+
 <footer class="mt-auto bg-white border-t border-slate-100 px-8 py-6">
         <div class="flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="text-center md:text-left">
@@ -476,40 +386,97 @@
         </div>
     </footer>
 <script>
-  function openModal() {
-    document.getElementById('addBannerModal').classList.remove('hidden');
-    document.getElementById('addBannerModal').classList.add('flex');
-  }
+  // Modal open karne ka function
+function openEditModal(id, name, location) {
+    const modal = document.getElementById('editBannerModal');
+    
+    // Values ko fields mein set karna
+    document.getElementById('edit_banner_id').value = id;
+    document.getElementById('edit_bannername').value = name;
+    document.getElementById('edit_location').value = location;
 
-  function closeModal() {
-    document.getElementById('addBannerModal').classList.add('hidden');
-    document.getElementById('addBannerModal').classList.remove('flex');
-  }
-</script>
-<script>
-  function toggleDropdown(button) {
-    const dropdown = button.parentElement.querySelector(".dropdown-menu");
+    // Modal dikhane ke liye
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+}
 
-    // Close all other dropdowns
-    document.querySelectorAll(".dropdown-menu").forEach(menu => {
-      if (menu !== dropdown) {
-        menu.classList.add("hidden");
-      }
+// Modal close karne ka function
+function closeEditModal() {
+    const modal = document.getElementById('editBannerModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+}
+
+/* ------------------ DROPDOWN ------------------ */
+
+function toggleDropdown(btn, e) {
+    e.stopPropagation();
+
+    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+        if (menu !== btn.nextElementSibling) {
+            menu.classList.add('hidden');
+        }
     });
 
-    dropdown.classList.toggle("hidden");
-  }
+    btn.nextElementSibling.classList.toggle('hidden');
+}
 
-  // Outside click close
-  document.addEventListener("click", function (event) {
-    if (!event.target.closest(".relative.inline-block")) {
-      document.querySelectorAll(".dropdown-menu").forEach(menu => {
-        menu.classList.add("hidden");
-      });
+document.addEventListener('click', function () {
+    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+        menu.classList.add('hidden');
+    });
+});
+
+
+/* ------------------ ADD BANNER MODAL ------------------ */
+
+function openAddModal() {
+    document.getElementById('addBannerModal').classList.remove('hidden');
+    document.getElementById('addBannerModal').classList.add('flex');
+}
+
+function closeAddModal() {
+    document.getElementById('addBannerModal').classList.add('hidden');
+}
+
+
+/* ------------------ ACTION MODAL (Edit/Delete/Active) ------------------ */
+
+function openActionModal(action) {
+
+    // Close dropdown first
+    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+        menu.classList.add('hidden');
+    });
+
+    const modal = document.getElementById("actionModal");
+    const title = document.getElementById("modalTitle");
+
+    title.innerText = action.charAt(0).toUpperCase() + action.slice(1);
+
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+}
+
+function closeActionModal() {
+    document.getElementById("actionModal").classList.add("hidden");
+}
+
+
+/* ------------------ CLOSE MODAL OUTSIDE CLICK ------------------ */
+
+document.getElementById("addBannerModal").addEventListener("click", function(e) {
+    if (e.target.id === "addBannerModal") {
+        closeAddModal();
     }
-  });
+});
+
+document.getElementById("actionModal").addEventListener("click", function(e) {
+    if (e.target.id === "actionModal") {
+        closeActionModal();
+    }
+});
+
 </script>
-
-
 </main>
 <?php include 'include/footer.php'; ?>

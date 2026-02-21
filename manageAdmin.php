@@ -6,6 +6,9 @@
     <title>ManageAdmin</title>
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
         <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
 </head>
 <body>
@@ -95,7 +98,7 @@
     <div class="bg-gray-100 p-4">
          <!-- Header Section -->
   <div class="flex flex-col md:flex-row justify-between items-center mb-6">
-    <h1 class="text-2xl font-bold text-gray-800 mb-4 md:mb-0">Vendors Details</h1>
+    <h1 class="text-2xl font-bold text-gray-800 mb-4 md:mb-0">Manage Admin Detail Details</h1>
 
     <div class="flex space-x-3">
       <!-- Excel -->
@@ -211,76 +214,22 @@
 
   <!-- Table -->
   <div class="bg-white rounded-2xl shadow-sm border overflow-x-auto mt-5">
-   <table class="min-w-[800px] w-full text-sm">
-  <thead class="bg-indigo-600 text-white uppercase text-xs tracking-wider">
-    <tr>
-      <th class="px-4 py-3 text-left font-medium">Sr. No.</th>
-      <th class="px-4 py-3 text-left font-medium">Created date</th>
-      <th class="px-4 py-3 text-left font-medium">User Name</th>
-      <th class="px-4 py-3 text-left font-medium">Email</th>
-      <th class="px-4 py-3 text-left font-medium">Role</th>
-      <th class="px-4 py-3 text-right font-medium">Actions</th>
-    </tr>
-  </thead>
-
-  <tbody class="divide-y divide-gray-200 bg-white">
-    <tr>
-      <td class="px-4 py-3">1</td>
-      <td class="px-4 py-3">15/may/2025</td>
-      <td class="px-4 py-3 font-semibold text-gray-700">Admin</td>
-      <td class="px-4 py-3 text-gray-600">hr@gmsil.com</td>
-      <td class="px-4 py-3">
-        <span class="px-2 py-1 bg-green-100 text-green-700 rounded-md text-xs">All</span>
-      </td>
-      <td class="px-4 py-3 text-right">
-        <div class="relative inline-block text-left dropdown-container">
-          <button onclick="toggleDropdown(this)" class="p-2 hover:bg-gray-100 rounded-full transition-colors focus:outline-none">
-            <i class="bi bi-three-dots-vertical text-lg"></i>
-          </button>
-          
-          <div class="dropdown-menu hidden absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-xl z-30">
-            <div class="py-1">
-              <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">
-                <i class="bi bi-pencil-square me-3"></i> Edit
-              </a>
-              <button onclick="toggleModal('deleteModal')" class="flex items-center w-full px-4 py-2 text-red-600 hover:bg-red-50 transition-colors">
-                <i class="bi bi-trash3 me-3"></i> Delete
-              </button>
-            </div>
-          </div>
-        </div>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="px-4 py-3">2</td>
-      <td class="px-4 py-3">17/may/2025</td>
-      <td class="px-4 py-3 font-semibold text-gray-700">Admin</td>
-      <td class="px-4 py-3 text-gray-600">hr@gmsil.com</td>
-      <td class="px-4 py-3">
-        <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded-md text-xs">HR</span>
-      </td>
-      <td class="px-4 py-3 text-right">
-        <div class="relative inline-block text-left dropdown-container">
-          <button onclick="toggleDropdown(this)" class="p-2 hover:bg-gray-100 rounded-full transition-colors focus:outline-none">
-            <i class="bi bi-three-dots-vertical text-lg"></i>
-          </button>
-          <div class="dropdown-menu hidden absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-xl z-30">
-            <div class="py-1">
-              <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">
-                <i class="bi bi-pencil-square me-3"></i> Edit
-              </a>
-              <button class="flex items-center w-full px-4 py-2 text-red-600 hover:bg-red-50 transition-colors">
-                <i class="bi bi-trash3 me-3"></i> Delete
-              </button>
-            </div>
-          </div>
-        </div>
-      </td>
-    </tr>
-  </tbody>
-</table>
-  </div>
+  <table class="min-w-[800px] w-full text-sm" id="dataTable">
+    <thead class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white uppercase text-xs tracking-wider">
+      <tr>
+        <th class="px-4 py-3 text-left font-medium">Sr. No.</th>
+        <th class="px-4 py-3 text-left font-medium">User Name</th>
+        <th class="px-4 py-3 text-left font-medium">Email</th>
+        <th class="px-4 py-3 text-left font-medium">Role</th>
+        <th class="px-4 py-3 text-left font-medium">Status</th>
+        <th class="px-4 py-3 text-right font-medium">Actions</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody" class="divide-y divide-gray-200 bg-white">
+      <!-- Dynamic Data Here -->
+    </tbody>
+  </table>
+</div>
 
 
   <!-- Pagination -->
@@ -302,13 +251,13 @@
   </div>
 
     </div>
-    <div 
+   <div 
   id="addRoleModal" 
-  class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"
+  class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 overflow-y-auto"
 >
   <div 
-    class="bg-white w-full max-w-lg rounded-2xl shadow-2xl transform scale-95 transition-transform duration-300 overflow-hidden"
-  >
+  class="relative bg-white w-full max-w-4xl my-10 rounded-2xl shadow-2xl transform scale-95 transition-transform duration-300"
+>
     <div class="flex items-center justify-between p-6 border-b border-slate-100">
       <h5 class="text-xl font-bold text-slate-800">Add Organize Task</h5>
       <button 
@@ -321,66 +270,125 @@
       </button>
     </div>
 
-    <div class="p-6">
-      <form id="addRoleForm" class="space-y-5">
+    <div class="p-6 max-h-[75vh] overflow-y-auto">
+      <div class="bg-white rounded-lg shadow-sm p-10 border border-slate-200">
+      <form id="manageAdminForm" class="space-y-6">
+        
         <div>
-          <label class="block text-sm font-semibold text-slate-700 mb-1">User Name</label>
+          <label class="block text-sm font-medium text-slate-600 mb-1">Name</label>
           <input 
             type="text" 
-            placeholder="Enter Your Name" 
-            class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 focus:bg-white transition-all"
+            placeholder="Name" 
+            class="w-full px-4 py-2 border border-slate-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all"
           />
         </div>
 
         <div>
-          <label class="block text-sm font-semibold text-slate-700 mb-1">Email Address</label>
+          <label class="block text-sm font-medium text-slate-600 mb-1">Email</label>
           <input 
             type="email" 
-            placeholder="hr@gmail.com" 
-            class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 focus:bg-white transition-all"
+            placeholder="Email" 
+            class="w-full px-4 py-2 border border-slate-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all"
           />
         </div>
 
         <div>
-          <label class="block text-sm font-semibold text-slate-700 mb-1">Create Password</label>
+          <label class="block text-sm font-medium text-slate-600 mb-1">Create Password</label>
           <input 
             type="password" 
-            placeholder="Minimum 8 characters" 
-            class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 focus:bg-white transition-all"
+            placeholder="*****" 
+            class="w-full px-4 py-2 border border-slate-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all"
           />
         </div>
 
         <div>
-          <label class="block text-sm font-semibold text-slate-700 mb-1">Role</label>
-          <select class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 cursor-pointer transition-all">
-            <option selected disabled>--Select Role--</option>
-            <option>Super Admin</option>
-            <option>Admin</option>
-            <option>Manager</option>
-            <option>Auditor</option>
-          </select>
+          <label class="block text-sm font-medium text-slate-600 mb-1">Role</label>
+          <input 
+            type="text" 
+            placeholder="Role" 
+            class="w-full px-4 py-2 border border-slate-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all"
+          />
         </div>
+
+        <div>
+          <label class="block text-sm font-bold text-slate-700 mb-4">Assign Modules</label>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-y-3 gap-x-8 text-sm text-slate-600">
+            
+            <div class="space-y-3">
+              <label class="flex items-center gap-3">
+                <input type="checkbox" checked class="w-4 h-4 text-blue-600 rounded"> Active User
+              </label>
+              <label class="flex items-center gap-3">
+                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> User Status
+              </label>
+              <label class="flex items-center gap-3">
+                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> Scheme Transaction
+              </label>
+              <label class="flex items-center gap-3">
+                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> Notification
+              </label>
+            </div>
+
+            <div class="space-y-3">
+              <label class="flex items-center gap-3">
+                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> User Profile
+              </label>
+              <label class="flex items-center gap-3">
+                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> My Products
+              </label>
+              <label class="flex items-center gap-3">
+                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> Catelogue
+              </label>
+              <label class="flex items-center gap-3">
+                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> Manage Page
+              </label>
+            </div>
+
+            <div class="space-y-3">
+              <label class="flex items-center gap-3">
+                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> Ranking
+              </label>
+              <label class="flex items-center gap-3">
+                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> Cash Transaction
+              </label>
+              <label class="flex items-center gap-3">
+                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> Order
+              </label>
+              <label class="flex items-center gap-3">
+                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> Scheme / Offer
+              </label>
+              <label class="flex items-center gap-3">
+                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> History
+              </label>
+            </div>
+
+            <div class="space-y-3">
+              <label class="flex items-center gap-3">
+                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> Feedback
+              </label>
+              <label class="flex items-center gap-3">
+                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> Complaints
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-center pt-6">
+          <button 
+            type="submit" 
+            class="bg-[#001f3f] text-white px-10 py-2 rounded font-bold uppercase tracking-wider hover:bg-slate-800 transition-colors shadow-lg"
+          >
+            Assign Roles
+          </button>
+        </div>
+
       </form>
     </div>
-
-    <div class="flex justify-end gap-3 p-6 bg-slate-50/50 border-t border-slate-100">
-      <button 
-        onclick="toggleModal('addRoleModal')" 
-        class="px-5 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-200 rounded-xl transition-colors"
-      >
-        Back
-      </button>
-      <button 
-        type="submit" 
-        form="addRoleForm"
-        class="flex-1 bg-indigo-600 text-white rounded-xl px-4 py-2 hover:bg-indigo-700 transition">
-      
-        Submit
-      </button>
-    </div>
   </div>
-</div>
-     <footer class="mt-auto bg-white border-t border-slate-100 px-8 py-6">
+</div></div>
+<div>
+    <footer class="mt-auto bg-white border-t border-slate-100 px-8 py-6">
         <div class="flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="text-center md:text-left">
                 <p class="text-sm text-slate-500 font-medium tracking-tight">
@@ -394,29 +402,49 @@
             </div>
         </div>
     </footer>
+  </div>
 </main>
+
 <?php include 'include/footer.php'; ?>
 <script>
-  function toggleModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (!modal) return; // Check if modal exists
+  
+  document.getElementById("exportPdf").addEventListener("click", function () {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
 
-    const modalContent = modal.querySelector('div:first-child > div'); 
+    doc.autoTable({
+        html: '#dataTable'
+    });
 
-    if (modal.classList.contains('opacity-0')) {
-      // OPEN MODAL
-      modal.classList.remove('opacity-0', 'pointer-events-none');
-      modalContent.classList.remove('scale-95');
-      modalContent.classList.add('scale-100');
-      document.body.classList.add('overflow-hidden'); // Tailwind class to prevent scroll
-    } else {
-      // CLOSE MODAL
-      modal.classList.add('opacity-0', 'pointer-events-none');
-      modalContent.classList.add('scale-95');
-      modalContent.classList.remove('scale-100');
-      document.body.classList.remove('overflow-hidden'); 
-    }
-  }
+    doc.save("data.pdf");
+});
+
+
+document.getElementById("exportExcel").addEventListener("click", function () {
+    var table = document.getElementById("dataTable");
+    var wb = XLSX.utils.table_to_book(table, { sheet: "Sheet1" });
+    XLSX.writeFile(wb, "data.xlsx");
+});
+  // function toggleModal(modalId) {
+  //   const modal = document.getElementById(modalId);
+  //   if (!modal) return; // Check if modal exists
+
+  //   const modalContent = modal.querySelector('div:first-child > div'); 
+
+  //   if (modal.classList.contains('opacity-0')) {
+  //     // OPEN MODAL
+  //     modal.classList.remove('opacity-0', 'pointer-events-none');
+  //     modalContent.classList.remove('scale-95');
+  //     modalContent.classList.add('scale-100');
+  //     document.body.classList.add('overflow-hidden'); // Tailwind class to prevent scroll
+  //   } else {
+  //     // CLOSE MODAL
+  //     modal.classList.add('opacity-0', 'pointer-events-none');
+  //     modalContent.classList.add('scale-95');
+  //     modalContent.classList.remove('scale-100');
+  //     document.body.classList.remove('overflow-hidden'); 
+  //   }
+  // }
 
   // Close modal when clicking outside the white card
   window.addEventListener('click', function(event) {
@@ -449,6 +477,118 @@
       });
     }
   });
+</script>
+<script>
+function toggleModal(modalId) {
+  const modal = document.getElementById(modalId);
+  const modalContent = modal.querySelector('.relative');
+
+  const isOpening = modal.classList.contains('opacity-0');
+
+  if (isOpening) {
+    // Scrollbar width calculate karo
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+    // Open modal
+    modal.classList.remove('opacity-0', 'pointer-events-none');
+    modalContent.classList.remove('scale-95');
+    modalContent.classList.add('scale-100');
+
+    // Body scroll lock + compensate scrollbar
+    document.body.style.overflow = 'hidden';
+    document.body.style.paddingRight = scrollbarWidth + 'px';
+
+  } else {
+    // Close modal
+    modal.classList.add('opacity-0', 'pointer-events-none');
+    modalContent.classList.add('scale-95');
+    modalContent.classList.remove('scale-100');
+
+    // Restore body
+    document.body.style.overflow = '';
+    document.body.style.paddingRight = '';
+  }
+}
+</script>
+<script>
+const users = [
+  { id: 1, name: "Harry Potter", email: "harry@mayview.com", role: "Super Admin", status: "Active" },
+  { id: 2, name: "John Smith", email: "john@mayview.com", role: "HR", status: "Inactive" },
+  { id: 3, name: "Emma Watson", email: "emma@mayview.com", role: "Manager", status: "Active" },
+  { id: 4, name: "David Warner", email: "david@mayview.com", role: "Vendor", status: "Inactive" },
+];
+
+const tableBody = document.getElementById("tableBody");
+
+function renderTable() {
+  tableBody.innerHTML = "";
+
+  users.forEach((user, index) => {
+    tableBody.innerHTML += `
+      <tr class="hover:bg-gray-50 transition">
+        <td class="px-4 py-3">${index + 1}</td>
+        <td class="px-4 py-3 font-semibold text-gray-700">${user.name}</td>
+        <td class="px-4 py-3 text-gray-600">${user.email}</td>
+        <td class="px-4 py-3">${user.role}</td>
+        <td class="px-4 py-3">
+          <span class="px-3 py-1 rounded-full text-xs font-medium ${
+            user.status === "Active"
+              ? "bg-green-100 text-green-700"
+              : "bg-red-100 text-red-600"
+          }">
+            ${user.status}
+          </span>
+        </td>
+       <td class="px-4 py-3 text-right relative">
+  <div class="inline-block text-left dropdown-container">
+    
+    <button onclick="toggleDropdown(this)" 
+      class="p-2 hover:bg-gray-100 rounded-full transition">
+      <i class="bi bi-three-dots-vertical text-lg text-gray-600"></i>
+    </button>
+
+    <div class="dropdown-menu hidden absolute right-0 top-full mt-2 w-44 bg-white rounded-xl shadow-2xl border border-gray-100 z-[999]">
+      <div class="py-2">
+        <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition">
+          <i class="bi bi-person me-3"></i> View Profile
+        </a>
+        <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition">
+          <i class="bi bi-pencil-square me-3"></i> Edit
+        </a>
+        <button class="flex items-center w-full px-4 py-2 text-red-600 hover:bg-red-50 transition">
+          <i class="bi bi-trash3 me-3"></i> Delete
+        </button>
+      </div>
+    </div>
+
+  </div>
+</td>
+      </tr>
+    `;
+  });
+}
+
+function toggleDropdown(button) {
+  const currentDropdown = button.nextElementSibling;
+
+  document.querySelectorAll(".dropdown-menu").forEach(menu => {
+    if (menu !== currentDropdown) {
+      menu.classList.add("hidden");
+    }
+  });
+
+  currentDropdown.classList.toggle("hidden");
+}
+
+document.addEventListener("click", function(e) {
+  if (!e.target.closest(".dropdown-container")) {
+    document.querySelectorAll(".dropdown-menu").forEach(menu => {
+      menu.classList.add("hidden");
+    });
+  }
+});
+
+renderTable();
 </script>
 </body>
 </html>

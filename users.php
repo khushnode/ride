@@ -369,97 +369,114 @@
     <button type="reset" class="w-full bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-blue-700 transition-colors">Reset</button>
   </div>
 
-  <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200">
-    <div class="overflow-x-auto">
-      <table class="w-full text-left border-collapse">
-        <thead class="bg-gradient-to-r from-purple-700 to-indigo-800 text-white text-sm">
-          <tr>
-            <th class="p-4 font-semibold">Sr.No.</th>
-            <th class="p-4 font-semibold">Date & Time</th>
-            <th class="p-4 font-semibold">User ID.</th>
-            <th class="p-4 font-semibold">Contact</th>
-            <th class="p-4 font-semibold">Password</th>
-            <th class="p-4 font-semibold">Location</th>
-            <th class="p-4 font-semibold">Status</th>
-            <th class="p-4 font-semibold text-right">Actions</th>
-          </tr>
-        </thead>
-        <tbody class="text-xs text-gray-600 divide-y divide-gray-100">
-          <tr class="hover:bg-gray-50 transition-colors">
-            <td class="p-4">1</td>
-            <td class="p-4">
-              <div class="font-medium text-gray-900">10 May 2025</div>
-              <div class="text-gray-400">05:49 AM</div>
-            </td>
-            <td class="p-4">
-              <div class="font-medium text-gray-900">User_7446</div>
-              <div class="text-gray-400"><b>ID:</b> USER7774468212</div>
-            </td>
-            <td class="p-4">8651777446</td>
-            <td class="p-4">password</td>
-            <td class="p-4 max-w-[200px] truncate" title="a1,xyz palace near pqr, noid 123456">
-              a1,xyz palace near pqr, noid 123456
-            </td>
-            <td class="p-4">
-              <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-green-100 text-green-700 font-medium">
-                <i class="fas fa-signal text-[10px]"></i> Active
-              </span>
-            </td>
-           <td class="p-4 text-right">
-  <div class="relative inline-block text-left group">
-    <button class="p-2 hover:bg-gray-200 rounded-lg transition-colors focus:outline-none">
-      <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 128 512">
-        <path d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z"/>
-      </svg>
-    </button>
+ 
+<div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-visible">
+  <div class="overflow-visible">
+    <table class="w-full text-left border-collapse"  id="vendorTable">
 
-    <div class="hidden group-focus-within:block absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-xl z-30 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
-      
-      <button 
-        onclick="toggleModal('viewModal')" 
-        class="w-full text-left px-4 py-2.5 hover:bg-blue-50 text-gray-700 flex items-center gap-3 transition-colors border-b border-gray-100"
-      >
-        <i class="fas fa-user-circle text-blue-500 w-4"></i>
-        <span class="text-sm font-medium">View Profile</span>
-      </button>
+      <thead class="bg-gradient-to-r from-purple-700 to-indigo-800 text-white text-sm">
+        <tr>
+          <th class="p-4 font-semibold">Sr.No.</th>
+          <th class="p-4 font-semibold">Date & Time</th>
+          <th class="p-4 font-semibold">User ID.</th>
+          <th class="p-4 font-semibold">Contact</th>
+          <th class="p-4 font-semibold">Password</th>
+          <th class="p-4 font-semibold">Location</th>
+          <th class="p-4 font-semibold">Status</th>
+          <th class="p-4 font-semibold text-right">Actions</th>
+        </tr>
+      </thead>
 
-      <button 
-        onclick="toggleModal('orderModal')" 
-        class="w-full text-left px-4 py-2.5 hover:bg-blue-50 text-gray-700 flex items-center gap-3 transition-colors border-b border-gray-100"
-      >
-        <i class="fas fa-shopping-basket text-indigo-500 w-4"></i>
-        <span class="text-sm font-medium">Order History</span>
-      </button>
+      <tbody class="text-xs text-gray-600 divide-y divide-gray-100">
 
-      <button 
-        onclick="toggleModal('bookingModal')" 
-        class="w-full text-left px-4 py-2.5 hover:bg-blue-50 text-gray-700 flex items-center gap-3 transition-colors border-b border-gray-100"
-      >
-        <i class="fas fa-shopping-cart text-green-500 w-4"></i>
-        <span class="text-sm font-medium">View Cart</span>
-      </button>
+        <tr class="hover:bg-gray-50 transition-colors">
 
-      <button 
-        onclick="toggleModal('walletModal')" 
-        class="w-full text-left px-4 py-2.5 hover:bg-blue-50 text-gray-700 flex items-center gap-3 transition-colors border-b border-gray-100"
-      >
-        <i class="fas fa-wallet text-orange-500 w-4"></i>
-        <span class="text-sm font-medium">Payments</span>
-      </button>
+          <td class="p-4">1</td>
 
-      <button class="w-full text-left px-4 py-2.5 hover:bg-red-50 text-red-600 flex items-center gap-3 transition-colors">
-        <i class="fas fa-user-slash w-4"></i>
-        <span class="text-sm font-medium">Deactivate</span>
-      </button>
-      
-    </div>
+          <td class="p-4">
+            <div class="font-medium text-gray-900">10 May 2025</div>
+            <div class="text-gray-400">05:49 AM</div>
+          </td>
+
+          <td class="p-4">
+            <div class="font-medium text-gray-900">User_7446</div>
+            <div class="text-gray-400"><b>ID:</b> USER7774468212</div>
+          </td>
+
+          <td class="p-4">8651777446</td>
+          <td class="p-4">password</td>
+
+          <td class="p-4 max-w-[200px] truncate">
+            a1,xyz palace near pqr, noid 123456
+          </td>
+
+          <td class="p-4">
+           <div class="flex items-center">
+  <button onclick="toggleStatus(this)"
+    class="relative inline-flex h-6 w-12 items-center rounded-full bg-green-500 transition-colors duration-300 focus:outline-none">
+
+    <span class="inline-block h-5 w-5 transform rounded-full bg-white transition duration-300 translate-x-6"></span>
+  </button>
+</div>
+          </td>
+
+          <!-- Actions -->
+          <td class="p-4 text-right relative">
+
+            <div class="relative inline-block text-left">
+
+              <!-- Button -->
+              <button onclick="toggleDropdown(this)"
+                class="p-2 hover:bg-gray-200 rounded-lg transition-colors">
+                <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 128 512">
+                  <path d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z"/>
+                </svg>
+              </button>
+
+              <!-- Dropdown -->
+              <div class="custom-dropdown hidden absolute right-0 top-full mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-xl z-[9999] overflow-hidden">
+
+              <!-- View Profile -->
+<button onclick="toggleModal('viewModal'); closeDropdown(this)"
+  class="w-full text-left px-4 py-2.5 hover:bg-blue-50 border-b">
+  <i class="fas fa-user-circle text-blue-500 mr-2"></i>
+  View Profile
+</button>
+
+<!-- Order History -->
+<button onclick="toggleModal('orderModal'); closeDropdown(this)"
+  class="w-full text-left px-4 py-2.5 hover:bg-blue-50 border-b">
+  <i class="fas fa-shopping-basket text-indigo-500 mr-2"></i>
+  Order History
+</button>
+
+<!-- View Cart -->
+<button onclick="toggleModal('bookingModal'); closeDropdown(this)"
+  class="w-full text-left px-4 py-2.5 hover:bg-blue-50 border-b">
+  <i class="fas fa-shopping-cart text-green-500 mr-2"></i>
+  View Cart
+</button>
+
+<!-- Payments -->
+<button onclick="toggleModal('walletModal'); closeDropdown(this)"
+  class="w-full text-left px-4 py-2.5 hover:bg-blue-50 border-b">
+  <i class="fas fa-wallet text-orange-500 mr-2"></i>
+  Payments
+</button>
+              
+
+              </div>
+
+            </div>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+    </table>
   </div>
-</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+</div>
 
   <div class="flex flex-col md:flex-row justify-between items-center mt-6 gap-4">
     <div class="text-sm text-gray-500">
@@ -553,86 +570,117 @@
     </main>
 </body>
 <script>
-  // Action button
-  const actionBtn = document.querySelector("#actionBtn"); // aapka table button
-  const modal = document.querySelector("#myModal");
-  const closeModal = document.querySelector("#closeModal");
 
-  actionBtn.addEventListener("click", () => {
-    modal.classList.toggle("hidden"); // toggle visibility
-  });
+// =========================
+// MODAL FUNCTION
+// =========================
+function toggleModal(modalId) {
+  const modal = document.getElementById(modalId);
+  if (!modal) return;
 
-  closeModal.addEventListener("click", () => {
-    modal.classList.add("hidden"); // close modal
-  });
+  modal.classList.toggle("hidden");
 
-  // Modal ke bahar click pe bhi close karna
-  modal.addEventListener("click", (e) => {
-    if(e.target === modal){
-      modal.classList.add("hidden");
-    }
-  });
+  // Body scroll lock
+  if (modal.classList.contains("hidden")) {
+    document.body.style.overflow = "auto";
+  } else {
+    document.body.style.overflow = "hidden";
+  }
+}
 
-  const actionBtns = document.querySelectorAll(".actionBtn");
-const modal = document.querySelector("#myModal");
-const closeModal = document.querySelector("#closeModal");
-
-actionBtns.forEach(btn => {
-  btn.addEventListener("click", () => {
-    modal.classList.remove("hidden");
-  });
-});
-
-closeModal.addEventListener("click", () => {
-  modal.classList.add("hidden");
-});
-
-modal.addEventListener("click", (e) => {
-  if(e.target === modal){
-    modal.classList.add("hidden");
+// Close modal when clicking backdrop
+document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("fixed") && e.target.id) {
+    toggleModal(e.target.id);
   }
 });
 
- function toggleModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal.classList.contains('hidden')) {
-      modal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden'; // Stop scrolling background
-    } else {
-      modal.classList.add('hidden');
-      document.body.style.overflow = 'auto'; // Restore scrolling
-    }
-  }
 
-  // Close when clicking outside the white box (optional)
-  window.onclick = function(event) {
-    const modal = document.getElementById('walletModal');
-    if (event.target == modal) {
-      toggleModal('walletModal');
+// =========================
+// DROPDOWN FUNCTION
+// =========================
+function toggleDropdown(button) {
+
+  const allDropdowns = document.querySelectorAll(".custom-dropdown");
+
+  allDropdowns.forEach(d => {
+    if (d !== button.nextElementSibling) {
+      d.classList.add("hidden");
     }
+  });
+
+  button.nextElementSibling.classList.toggle("hidden");
+}
+
+// Close dropdown when clicking outside
+document.addEventListener("click", function(e) {
+  if (!e.target.closest(".inline-block")) {
+    document.querySelectorAll(".custom-dropdown").forEach(d => {
+      d.classList.add("hidden");
+    });
   }
+});
+function closeDropdown(el){
+  const dropdown = el.closest(".custom-dropdown");
+  dropdown.classList.add("hidden");
+}
+
 </script>
 <script>
-  function toggleModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (!modal) return;
-    
-    modal.classList.toggle('hidden');
-    
-    // Toggle body scroll to prevent background movement
-    if (modal.classList.contains('hidden')) {
-      document.body.style.overflow = 'auto';
-    } else {
-      document.body.style.overflow = 'hidden';
-    }
-  }
 
-  // Close modal if clicking on the dark backdrop
-  window.addEventListener('click', function(event) {
-    // Check if the click was on a modal wrapper (the backdrop)
-    if (event.target.classList.contains('fixed') && event.target.id) {
-      toggleModal(event.target.id);
-    }
-  });
+// PRINT
+document.getElementById("printButton").addEventListener("click", function () {
+  const printContents = document.getElementById("vendorTable").outerHTML;
+  const win = window.open("", "", "width=900,height=700");
+  win.document.write(`
+    <html>
+    <head>
+      <title>Print Table</title>
+      <style>
+        table { width:100%; border-collapse:collapse; }
+        th, td { border:1px solid #ddd; padding:8px; text-align:left; }
+        th { background:#4f46e5; color:white; }
+      </style>
+    </head>
+    <body>${printContents}</body></html>
+  `);
+  win.document.close();
+  win.print();
+});
+
+
+// EXCEL EXPORT
+document.getElementById("exportExcel").addEventListener("click", function () {
+  let table = document.getElementById("vendorTable").outerHTML;
+  let blob = new Blob([table], { type: "application/vnd.ms-excel" });
+  let url = URL.createObjectURL(blob);
+  let a = document.createElement("a");
+  a.href = url;
+  a.download = "vendors.xls";
+  a.click();
+});
+
+
+// PDF EXPORT
+document.getElementById("exportPdf").addEventListener("click", function () {
+  const printContents = document.getElementById("vendorTable").outerHTML;
+  const win = window.open("", "", "width=900,height=700");
+  win.document.write(`
+    <html>
+    <head>
+      <title>PDF</title>
+      <style>
+        table { width:100%; border-collapse:collapse; }
+        th, td { border:1px solid #ddd; padding:8px; text-align:left; }
+        th { background:#dc2626; color:white; }
+      </style>
+    </head>
+    <body>${printContents}</body></html>
+  `);
+  win.document.close();
+  win.print();
+});
+
+
 </script>
 </html>

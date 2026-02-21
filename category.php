@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Excel Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<!-- PDF Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
     <?php include 'include/header.php'; ?>
@@ -58,7 +64,6 @@
                 <a href="notifications.html" class="block p-4 text-center text-xs font-bold text-mayview-blue hover:bg-slate-50 transition-all uppercase tracking-widest">View All Alerts</a>
             </div>
         </div>
-
                 <div class="h-8 w-[1px] bg-slate-200 mx-2"></div>
  <div class="relative">
             <button id="adminBtn" class="flex items-center gap-3 p-1 pr-4 rounded-2xl hover:bg-slate-50 transition-all border border-transparent hover:border-slate-100">
@@ -91,24 +96,32 @@
         </div>
     </header>
     <div class="p-4 space-y-6">
-
   <!-- Header -->
   <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-    <h1 class="text-xl font-bold text-slate-800">Vendors Details</h1>
+    <h1 class="text-xl font-bold text-slate-800">Category Details</h1>
+<div class="flex items-center gap-4 p-2 bg-transparent w-fit">
+  
+  <button 
+    onclick="exportToExcel()" 
+    class="group p-3 text-green-600 transition-all duration-300 rounded-xl active:scale-90">
+    <i class="fa-solid fa-file-excel text-2xl group-hover:scale-125 group-hover:text-green-700 transition-all"></i>
+  </button>
 
-    <div class="flex items-center gap-3">
-      <button class="text-green-600 hover:scale-110 transition text-2xl" title="Excel">
-        <i class="fa-solid fa-file-excel"></i>
-      </button>
+  <button 
+    onclick="exportToPDF()" 
+    class="group p-3 text-red-600 transition-all duration-300 rounded-xl active:scale-90">
+    <i class="fa-solid fa-file-pdf text-2xl group-hover:scale-125 group-hover:text-red-700 transition-all"></i>
+  </button>
 
-      <button class="text-red-600 hover:scale-110 transition text-2xl" title="PDF">
-        <i class="fa-solid fa-file-pdf"></i>
-      </button>
+  <button 
+    onclick="window.print()" 
+    class="group p-3 text-emerald-600 transition-all duration-300 rounded-xl active:scale-90">
+    <i class="fa-solid fa-print text-2xl group-hover:scale-125 group-hover:text-emerald-700 transition-all"></i>
+  </button>
 
-      <button class="text-emerald-600 hover:scale-110 transition text-2xl" title="Print">
-        <i class="fa-solid fa-print"></i>
-      </button>
-    </div>
+</div>
+   
+
   </div>
 
   <!-- Stats Cards -->
@@ -204,10 +217,10 @@
     </div>
   </div>
 
-  <!-- Table -->
-  <div class="bg-white rounded-2xl shadow-sm border overflow-x-auto">
-    <table class="min-w-[800px] w-full text-sm">
-
+<!-- Table Wrapper -->
+<!-- Table Wrapper -->
+  <div class="bg-white rounded-2xl shadow-sm border overflow-visible">
+    <table class="min-w-[800px] w-full text-sm relative" id="myTable">
       <thead class="bg-indigo-600 text-white uppercase text-xs tracking-wider">
         <tr>
           <th class="px-6 py-4 text-left">Sr.No.</th>
@@ -217,80 +230,12 @@
           <th class="px-6 py-4 text-right">Actions</th>
         </tr>
       </thead>
-
-      <tbody class="divide-y">
-
-        <tr class="hover:bg-slate-50 transition">
-          <td class="px-6 py-4">1</td>
-
-          <td class="px-6 py-4">
-            10 May 2025<br>
-            <span class="text-xs text-slate-400">05:49 AM</span>
-          </td>
-
-          <td class="px-6 py-4 flex items-center gap-3">
-            <img src="./assets/images/img3.jpg"
-              class="w-10 h-10 rounded-full object-cover">
-            <div>
-              <p class="font-semibold">Liver</p>
-              <p class="text-xs text-slate-400">ID: LIVERID123</p>
-            </div>
-          </td>
-
-          <td class="px-6 py-4">
-            <span class="px-3 py-1 text-xs bg-emerald-100 text-emerald-600 rounded-full font-semibold">
-              Active
-            </span>
-          </td>
-
-          <!-- Action Dropdown -->
-          <td class="px-6 py-4 text-right relative">
-
-            <div class="relative inline-block">
-              <button onclick="toggleDropdown(this)"
-                class="p-2 rounded-lg hover:bg-slate-100">
-                <i class="fa-solid fa-ellipsis-vertical"></i>
-              </button>
-
-               <div class="dropdown-menu hidden absolute right-0 mt-2 w-44 
-            bg-white rounded-xl shadow-xl border py-2 z-50">
-
-  <!-- Edit -->
-  <button
-    onclick="openModal('editModal')"
-    class="flex items-center gap-3 w-full px-4 py-2 text-sm 
-           text-slate-700 hover:bg-slate-100 transition">
-    <i class="fa-solid fa-pen-to-square text-indigo-500 text-sm"></i>
-    Edit
-  </button>
-
-  <!-- Delete -->
-  <button
-    onclick="openModal('deleteModal')"
-    class="flex items-center gap-3 w-full px-4 py-2 text-sm 
-           text-red-600 hover:bg-red-50 transition">
-    <i class="fa-solid fa-trash text-red-500 text-sm"></i>
-    Delete
-  </button>
-
-  <!-- Deactivate -->
-  <button
-    class="flex items-center gap-3 w-full px-4 py-2 text-sm 
-           text-amber-600 hover:bg-amber-50 transition">
-    <i class="fa-solid fa-toggle-off text-amber-500 text-sm"></i>
-    Deactivate
-  </button>
-
-</div>
-
-            </div>
-
-          </td>
-        </tr>
-
+      <tbody id="categoryTable" class="divide-y overflow-visible">
+        <!-- Dynamic rows will go here -->
       </tbody>
     </table>
   </div>
+
 
   <!-- Pagination -->
   <div class="flex flex-col md:flex-row justify-between items-center gap-4">
@@ -309,84 +254,82 @@
   </div>
 </div>
 <!-- Edit Modal -->
-<div id="editModal"
-  class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm p-4">
-
+<!-- Edit Modal -->
+<div id="editModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm p-4">
   <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl scale-95 opacity-0 transition-all duration-300 modal-box">
-
-    <!-- Header -->
     <div class="flex justify-between items-center border-b px-6 py-4">
-      <h2 class="text-lg font-semibold text-slate-800">Edit Admin</h2>
-      <button onclick="closeModal('editModal')" class="text-slate-400 hover:text-red-500 text-xl">
-        &times;
-      </button>
+      <h2 class="text-lg font-semibold text-slate-800">Edit Category</h2>
+      <button onclick="closeModal('editModal')" class="text-slate-400 hover:text-red-500 text-xl">&times;</button>
     </div>
-
-    <!-- Body -->
     <div class="p-6 space-y-4">
+      <input type="hidden" id="editCategoryId">
       <div>
         <label class="text-sm font-medium text-slate-600">Name</label>
-        <input type="text"
-          class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none"
-          value="Product Name">
+        <input type="text" id="editCategoryName"
+          class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none">
       </div>
-
       <div>
-        <label class="text-sm font-medium text-slate-600">Image</label>
+        <label class="text-sm font-medium text-slate-600">Upload Image</label>
         <input type="file"
           class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none">
       </div>
+      <div>
+        <label class="text-sm font-medium text-slate-600">Status</label>
+        <select id="editCategoryStatus"
+          class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none">
+          <option>Active</option>
+          <option>Inactive</option>
+        </select>
+      </div>
     </div>
-
-    <!-- Footer -->
     <div class="flex justify-end gap-3 border-t px-6 py-4">
-      <button onclick="closeModal('editModal')"
-        class="px-4 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 transition">
-        Cancel
-      </button>
-      <button
-        class="flex-1 bg-indigo-600 text-white rounded-xl px-4 py-2 hover:bg-indigo-700 transition">
-        Save Changes
-      </button>
+      <button onclick="closeModal('editModal')" class="px-4 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 transition">Cancel</button>
+      <button onclick="saveEdit()" class="flex-1 bg-indigo-600 text-white rounded-xl px-4 py-2 hover:bg-indigo-700 transition">Save Changes</button>
     </div>
+  </div>
+</div>
 
+<!-- Delete Modal -->
+<div id="deleteModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+  <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl scale-95 opacity-0 transition-all duration-300 modal-box">
+    <div class="flex justify-between items-center border-b px-6 py-4">
+      <h2 class="text-lg font-semibold text-red-600">Confirm Delete</h2>
+      <button onclick="closeModal('deleteModal')" class="text-slate-400 hover:text-red-500 text-xl">&times;</button>
+    </div>
+    <div class="p-6 text-sm text-slate-600">
+      <p>Are you sure you want to <strong class="text-red-600">permanently delete</strong>
+        <span id="deleteCategoryName" class="text-amber-500 font-semibold"></span>?
+      </p>
+      <p class="text-xs text-slate-400 mt-2">This action cannot be undone.</p>
+      <input type="hidden" id="deleteCategoryId">
+    </div>
+    <div class="flex justify-end gap-3 border-t px-6 py-4">
+      <button onclick="closeModal('deleteModal')" class="px-4 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 transition">Cancel</button>
+      <button onclick="confirmDelete()" class="px-4 py-2 rounded-xl bg-red-600 text-white hover:bg-red-700 transition">Yes, Delete</button>
+    </div>
   </div>
 </div>
 <!-- Delete Modal -->
-<div id="deleteModal"
-  class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm p-4">
-
+<div id="deleteModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm p-4">
   <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl scale-95 opacity-0 transition-all duration-300 modal-box">
-
     <div class="flex justify-between items-center border-b px-6 py-4">
       <h2 class="text-lg font-semibold text-red-600">Confirm Delete</h2>
-      <button onclick="closeModal('deleteModal')" class="text-slate-400 hover:text-red-500 text-xl">
-        &times;
-      </button>
+      <button onclick="closeModal('deleteModal')" class="text-slate-400 hover:text-red-500 text-xl">&times;</button>
     </div>
-
     <div class="p-6 text-sm text-slate-600">
-      <p>
-        Are you sure you want to <strong class="text-red-600">permanently delete</strong>
-        <span class="text-amber-500 font-semibold">Chicken Breast</span>
-        from Category list?
+      <p>Are you sure you want to <strong class="text-red-600">permanently delete</strong>
+        <span id="deleteCategoryName" class="text-amber-500 font-semibold"></span>?
       </p>
       <p class="text-xs text-slate-400 mt-2">This action cannot be undone.</p>
+      <input type="hidden" id="deleteCategoryId">
     </div>
-
     <div class="flex justify-end gap-3 border-t px-6 py-4">
-      <button onclick="closeModal('deleteModal')"
-        class="px-4 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 transition">
-        Cancel
-      </button>
-      <button
-        class="px-4 py-2 rounded-xl bg-red-600 text-white hover:bg-red-700 transition">
-        Yes, Delete
-      </button>
+      <button onclick="closeModal('deleteModal')" class="px-4 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 transition">Cancel</button>
+      <button onclick="confirmDelete()" class="px-4 py-2 rounded-xl bg-red-600 text-white hover:bg-red-700 transition">Yes, Delete</button>
     </div>
-
   </div>
 </div>
+
 <!-- Add Category Modal -->
 <div id="addCategoryModal"
   class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm p-4">
@@ -500,6 +443,165 @@ document.addEventListener("click", function(e){
   }
 });
 </script>
+<script>
+
+function toggleDropdown(button) {
+  
+  // Close all other dropdowns
+  document.querySelectorAll(".dropdown-menu").forEach(menu => {
+    if(menu !== button.nextElementSibling) {
+      menu.classList.add("hidden");
+    }
+  });
+
+  // Toggle current
+  button.nextElementSibling.classList.toggle("hidden");
+}
+
+// Close on outside click
+document.addEventListener("click", function (e) {
+  if (!e.target.closest(".relative")) {
+    document.querySelectorAll(".dropdown-menu").forEach(menu => {
+      menu.classList.add("hidden");
+    });
+  }
+});
+
+</script>
+<script>
+// Dummy data
+let categories = [
+  {id:1, name:"Liver", status:"Active", date:"2026-02-21 05:49"},
+  {id:2, name:"Chicken Breast", status:"Inactive", date:"2026-02-20 11:20"},
+  {id:3, name:"Mutton Leg", status:"Active", date:"2026-02-19 08:10"},
+  {id:4, name:"Fish Fillet", status:"Inactive", date:"2026-02-18 14:45"},
+];
+
+// Render table
+function renderTable() {
+  const tbody = document.getElementById("categoryTable");
+  tbody.innerHTML = "";
+  categories.forEach((cat, index) => {
+    const tr = document.createElement("tr");
+    tr.className = "hover:bg-slate-50 transition relative";
+    tr.innerHTML = `
+      <td class="px-6 py-4">${index+1}</td>
+      <td class="px-6 py-4">
+        ${new Date(cat.date).toLocaleDateString()}<br>
+        <span class="text-xs text-slate-400">${new Date(cat.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+      </td>
+      <td class="px-6 py-4 flex items-center gap-3">
+        <img src="https://i.pravatar.cc/100?img=${cat.id}" class="w-10 h-10 rounded-full object-cover">
+        <div>
+          <p class="font-semibold">${cat.name}</p>
+          <p class="text-xs text-slate-400">ID: CAT${cat.id}</p>
+        </div>
+      </td>
+      <td class="px-6 py-4">
+        <span class="px-3 py-1 text-xs rounded-full font-semibold ${cat.status=='Active'?'bg-emerald-100 text-emerald-600':'bg-red-100 text-red-600'}">
+          ${cat.status}
+        </span>
+      </td>
+      <td class="px-6 py-4 text-right relative">
+        <div class="relative inline-block">
+          <button onclick="toggleDropdown(this)" class="p-2 rounded-lg hover:bg-slate-100"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+          <div class="dropdown-menu hidden absolute right-0 mt-2 w-44 bg-white rounded-xl shadow-xl border py-2 z-50">
+            <button onclick="openEditModal(${cat.id},'${cat.name}','${cat.status}')" class="flex items-center gap-3 w-full px-4 py-2 text-sm hover:bg-slate-100">
+              <i class="fa-solid fa-pen-to-square text-indigo-500 text-sm"></i>Edit
+            </button>
+            <button onclick="openDeleteModal(${cat.id},'${cat.name}')" class="flex items-center gap-3 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+              <i class="fa-solid fa-trash text-red-500 text-sm"></i>Delete
+            </button>
+          </div>
+        </div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// Dropdown
+function toggleDropdown(button) {
+  const menu = button.nextElementSibling;
+  document.querySelectorAll(".dropdown-menu").forEach(m => {if(m!==menu) m.classList.add("hidden");});
+  menu.classList.toggle("hidden");
+}
+document.addEventListener("click", e => {if(!e.target.closest(".relative.inline-block")) document.querySelectorAll(".dropdown-menu").forEach(m=>m.classList.add("hidden"));});
+
+// Modal functions
+function openModal(id){const modal=document.getElementById(id);const box=modal.querySelector(".modal-box");modal.classList.remove("hidden");modal.classList.add("flex");setTimeout(()=>{box.classList.remove("scale-95","opacity-0");box.classList.add("scale-100","opacity-100");},50);}
+function closeModal(id){const modal=document.getElementById(id);const box=modal.querySelector(".modal-box");box.classList.add("scale-95","opacity-0");setTimeout(()=>{modal.classList.add("hidden");modal.classList.remove("flex");},200);}
+document.addEventListener("click", function (e) {document.querySelectorAll("[id$='Modal']").forEach(modal => {if (e.target === modal) closeModal(modal.id);});});
+document.addEventListener("keydown", function(e){if(e.key==="Escape"){document.querySelectorAll("[id$='Modal']").forEach(modal=>closeModal(modal.id));}});
+
+// Edit modal
+function openEditModal(id,name,status){
+  openModal('editModal');
+  document.getElementById('editCategoryId').value=id;
+  document.getElementById('editCategoryName').value=name;
+  document.getElementById('editCategoryStatus').value=status;
+}
+
+function saveEdit(){
+  const id=parseInt(document.getElementById('editCategoryId').value);
+  const name=document.getElementById('editCategoryName').value;
+  const status=document.getElementById('editCategoryStatus').value;
+  categories=categories.map(c=>c.id===id?{...c,name,status}:c);
+  renderTable();
+  closeModal('editModal');
+}
+
+// Delete modal
+function openDeleteModal(id,name){
+  openModal('deleteModal');
+  document.getElementById('deleteCategoryId').value=id;
+  document.getElementById('deleteCategoryName').innerText=name;
+}
+
+function confirmDelete(){
+  const id=parseInt(document.getElementById('deleteCategoryId').value);
+  categories=categories.filter(c=>c.id!==id);
+  renderTable();
+  closeModal('deleteModal');
+}
+
+renderTable();
+
+function exportToExcel() {
+    const table = document.getElementById("myTable").cloneNode(true);
+
+    Array.from(table.rows).forEach(row => {
+        row.deleteCell(4);
+    });
+
+    const wb = XLSX.utils.table_to_book(table, { sheet: "Category Data" });
+    XLSX.writeFile(wb, "Category_List.xlsx");
+}
+
+function exportToPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'pt', 'a4');
+    
+  
+    doc.autoTable({ 
+        html: '#myTable',
+        margin: { top: 40 },
+        theme: 'striped',
+        headStyles: { fillColor: [79, 70, 229] }, 
+        columnStyles: {
+            4: { display: 'none' }
+        },
+        didParseCell: function(data) {
+            if (data.column.index === 4) {
+                data.cell.text = ''; // 
+            }
+        }
+    });
+    
+    doc.save("Table_Report.pdf");
+}
+</script>
+
 <footer class="mt-auto bg-white border-t border-slate-100 px-8 py-6">
         <div class="flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="text-center md:text-left">
