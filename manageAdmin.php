@@ -212,23 +212,24 @@
     </div>
   </div>
 
-  <!-- Table -->
-  <div class="bg-white rounded-2xl shadow-sm border overflow-x-auto mt-5">
-  <table class="min-w-[800px] w-full text-sm" id="dataTable">
-    <thead class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white uppercase text-xs tracking-wider">
-      <tr>
-        <th class="px-4 py-3 text-left font-medium">Sr. No.</th>
-        <th class="px-4 py-3 text-left font-medium">User Name</th>
-        <th class="px-4 py-3 text-left font-medium">Email</th>
-        <th class="px-4 py-3 text-left font-medium">Role</th>
-        <th class="px-4 py-3 text-left font-medium">Status</th>
-        <th class="px-4 py-3 text-right font-medium">Actions</th>
-      </tr>
-    </thead>
-    <tbody id="tableBody" class="divide-y divide-gray-200 bg-white">
-      <!-- Dynamic Data Here -->
-    </tbody>
-  </table>
+  <div class="bg-white rounded-2xl shadow-sm border mt-5 relative overflow-visible">
+  <div class="overflow-x-auto overflow-visible">
+    <table class="min-w-[800px] w-full text-sm" id="dataTable">
+      <thead class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white uppercase text-xs tracking-wider">
+        <tr>
+          <th class="px-4 py-3 text-left">Sr. No.</th>
+          <th class="px-4 py-3 text-left">User Name</th>
+          <th class="px-4 py-3 text-left">Email</th>
+          <th class="px-4 py-3 text-left">Role</th>
+          <th class="px-4 py-3 text-left">Status</th>
+          <th class="px-4 py-3 text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody" class="divide-y divide-gray-200 bg-white">
+        
+      </tbody>
+    </table>
+  </div>
 </div>
 
 
@@ -407,183 +408,87 @@
 
 <?php include 'include/footer.php'; ?>
 <script>
-  
-  document.getElementById("exportPdf").addEventListener("click", function () {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-
-    doc.autoTable({
-        html: '#dataTable'
-    });
-
-    doc.save("data.pdf");
-});
-
-
-document.getElementById("exportExcel").addEventListener("click", function () {
-    var table = document.getElementById("dataTable");
-    var wb = XLSX.utils.table_to_book(table, { sheet: "Sheet1" });
-    XLSX.writeFile(wb, "data.xlsx");
-});
-  // function toggleModal(modalId) {
-  //   const modal = document.getElementById(modalId);
-  //   if (!modal) return; // Check if modal exists
-
-  //   const modalContent = modal.querySelector('div:first-child > div'); 
-
-  //   if (modal.classList.contains('opacity-0')) {
-  //     // OPEN MODAL
-  //     modal.classList.remove('opacity-0', 'pointer-events-none');
-  //     modalContent.classList.remove('scale-95');
-  //     modalContent.classList.add('scale-100');
-  //     document.body.classList.add('overflow-hidden'); // Tailwind class to prevent scroll
-  //   } else {
-  //     // CLOSE MODAL
-  //     modal.classList.add('opacity-0', 'pointer-events-none');
-  //     modalContent.classList.add('scale-95');
-  //     modalContent.classList.remove('scale-100');
-  //     document.body.classList.remove('overflow-hidden'); 
-  //   }
-  // }
-
-  // Close modal when clicking outside the white card
-  window.addEventListener('click', function(event) {
-    const modal = document.getElementById('addRoleModal');
-    // Agar click modal background par ho (na ki content par), toh band kar do
-    if (event.target === modal) {
-      toggleModal('addRoleModal');
-    }
-  });
-</script>
-<script>
-  function toggleDropdown(button) {
-    // Sabhi dusre open dropdowns ko band karein
-    document.querySelectorAll('.dropdown-menu').forEach(menu => {
-      if (menu !== button.nextElementSibling) {
-        menu.classList.add('hidden');
-      }
-    });
-
-    // Current dropdown ko toggle karein
-    const dropdownMenu = button.nextElementSibling;
-    dropdownMenu.classList.toggle('hidden');
-  }
-
-  // Click outside to close dropdown
-  window.addEventListener('click', function(e) {
-    if (!e.target.closest('.dropdown-container')) {
-      document.querySelectorAll('.dropdown-menu').forEach(menu => {
-        menu.classList.add('hidden');
-      });
-    }
-  });
-</script>
-<script>
-function toggleModal(modalId) {
-  const modal = document.getElementById(modalId);
-  const modalContent = modal.querySelector('.relative');
-
-  const isOpening = modal.classList.contains('opacity-0');
-
-  if (isOpening) {
-    // Scrollbar width calculate karo
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-
-    // Open modal
-    modal.classList.remove('opacity-0', 'pointer-events-none');
-    modalContent.classList.remove('scale-95');
-    modalContent.classList.add('scale-100');
-
-    // Body scroll lock + compensate scrollbar
-    document.body.style.overflow = 'hidden';
-    document.body.style.paddingRight = scrollbarWidth + 'px';
-
-  } else {
-    // Close modal
-    modal.classList.add('opacity-0', 'pointer-events-none');
-    modalContent.classList.add('scale-95');
-    modalContent.classList.remove('scale-100');
-
-    // Restore body
-    document.body.style.overflow = '';
-    document.body.style.paddingRight = '';
-  }
-}
-</script>
-<script>
-const users = [
-  { id: 1, name: "Harry Potter", email: "harry@mayview.com", role: "Super Admin", status: "Active" },
-  { id: 2, name: "John Smith", email: "john@mayview.com", role: "HR", status: "Inactive" },
-  { id: 3, name: "Emma Watson", email: "emma@mayview.com", role: "Manager", status: "Active" },
-  { id: 4, name: "David Warner", email: "david@mayview.com", role: "Vendor", status: "Inactive" },
-];
-
 const tableBody = document.getElementById("tableBody");
+
+const users = [
+  { name: "John Doe", email: "john@example.com", role: "Admin", status: "Active" },
+  { name: "Jane Smith", email: "jane@example.com", role: "User", status: "Inactive" },
+  { name: "David Lee", email: "david@example.com", role: "Editor", status: "Active" }
+];
 
 function renderTable() {
   tableBody.innerHTML = "";
 
   users.forEach((user, index) => {
     tableBody.innerHTML += `
-      <tr class="hover:bg-gray-50 transition">
-        <td class="px-4 py-3">${index + 1}</td>
-        <td class="px-4 py-3 font-semibold text-gray-700">${user.name}</td>
-        <td class="px-4 py-3 text-gray-600">${user.email}</td>
-        <td class="px-4 py-3">${user.role}</td>
-        <td class="px-4 py-3">
-          <span class="px-3 py-1 rounded-full text-xs font-medium ${
+      <tr class="hover:bg-gray-50 transition border-b border-gray-100">
+        <td class="px-4 py-4 text-gray-500">${index + 1}</td>
+        <td class="px-4 py-4">
+            <div class="font-semibold text-gray-800">${user.name}</div>
+            <div class="text-xs text-gray-400 italic">ID: User${user.id || '000'}</div>
+        </td>
+        <td class="px-4 py-4 text-gray-600">${user.email}</td>
+        <td class="px-4 py-4 text-gray-600">${user.role}</td>
+        <td class="px-4 py-4">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium ${
             user.status === "Active"
-              ? "bg-green-100 text-green-700"
-              : "bg-red-100 text-red-600"
+              ? "bg-green-50 text-green-600"
+              : "bg-red-50 text-red-500"
           }">
+            <span class="w-1.5 h-1.5 rounded-full ${user.status === "Active" ? "bg-green-500" : "bg-red-500"}"></span>
             ${user.status}
           </span>
         </td>
-       <td class="px-4 py-3 text-right relative">
-  <div class="inline-block text-left dropdown-container">
-    
-    <button onclick="toggleDropdown(this)" 
-      class="p-2 hover:bg-gray-100 rounded-full transition">
-      <i class="bi bi-three-dots-vertical text-lg text-gray-600"></i>
-    </button>
 
-    <div class="dropdown-menu hidden absolute right-0 top-full mt-2 w-44 bg-white rounded-xl shadow-2xl border border-gray-100 z-[999]">
-      <div class="py-2">
-        <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition">
-          <i class="bi bi-person me-3"></i> View Profile
-        </a>
-        <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition">
-          <i class="bi bi-pencil-square me-3"></i> Edit
-        </a>
-        <button class="flex items-center w-full px-4 py-2 text-red-600 hover:bg-red-50 transition">
-          <i class="bi bi-trash3 me-3"></i> Delete
-        </button>
-      </div>
-    </div>
+        <td class="px-4 py-4 text-right">
+          <div class="relative inline-block text-left">
+            <button onclick="toggleDropdown(this)"
+              class="p-2 hover:bg-gray-100 rounded-lg transition border border-gray-200">
+              <i class="bi bi-three-dots-vertical text-gray-400"></i>
+            </button>
 
-  </div>
-</td>
+            <div class="dropdown-menu hidden absolute right-0 z-[9999] 
+                w-48 bg-white rounded-[25px] shadow-[0_10px_40px_rgba(0,0,0,0.2)] 
+                border border-gray-100 p-2 transition-all duration-200">
+
+              <div class="flex flex-col gap-1">
+                <button class="flex items-center gap-3 w-full px-4 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50 rounded-2xl transition">
+                  <i class="bi bi-eye text-indigo-600 text-lg"></i> View
+                </button>
+
+                <button class="flex items-center gap-3 w-full px-4 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50 rounded-2xl transition">
+                  <i class="bi bi-pencil text-green-500 text-lg"></i> Edit
+                </button>
+
+                <button class="flex items-center gap-3 w-full px-4 py-3 text-sm font-medium text-red-500 hover:bg-red-50 rounded-2xl transition">
+                  <i class="bi bi-trash text-lg"></i> Delete
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </td>
       </tr>
     `;
   });
 }
 
 function toggleDropdown(button) {
-  const currentDropdown = button.nextElementSibling;
+  const menu = button.nextElementSibling;
 
-  document.querySelectorAll(".dropdown-menu").forEach(menu => {
-    if (menu !== currentDropdown) {
-      menu.classList.add("hidden");
-    }
+  // Close all dropdowns
+  document.querySelectorAll(".dropdown-menu").forEach((el) => {
+    if (el !== menu) el.classList.add("hidden");
   });
 
-  currentDropdown.classList.toggle("hidden");
+  menu.classList.toggle("hidden");
 }
 
-document.addEventListener("click", function(e) {
-  if (!e.target.closest(".dropdown-container")) {
-    document.querySelectorAll(".dropdown-menu").forEach(menu => {
-      menu.classList.add("hidden");
+// Close dropdown when clicking outside
+window.addEventListener("click", function (e) {
+  if (!e.target.closest(".inline-block")) {
+    document.querySelectorAll(".dropdown-menu").forEach((el) => {
+      el.classList.add("hidden");
     });
   }
 });
