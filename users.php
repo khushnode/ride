@@ -285,7 +285,7 @@
 
     <div class="p-6 bg-gray-50 min-h-screen text-gray-800">
   <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-    <h1 class="text-2xl font-bold text-gray-900">Vendors Details</h1>
+    <h1 class="text-2xl font-bold text-gray-900">Customer's Details</h1>
 
     <div class="flex items-center gap-2">
       <button id="exportExcel" title="Excel" class="p-2 rounded-full hover:bg-green-50 text-green-600 transition-colors border border-transparent hover:border-green-200">

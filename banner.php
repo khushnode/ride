@@ -1,4 +1,12 @@
-<?php include 'include/header.php'; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <?php include 'include/header.php'; ?>
 <main class="flex-1 flex flex-col min-w-0">
          <header class="h-20 bg-white border-b border-slate-200 sticky top-0 z-30 px-8 flex items-center justify-between">
         <div>
@@ -96,17 +104,17 @@
   <!-- Filters -->
      <div class="flex justify-end mb-6">
         <button
-             onclick="openAddModal()"
+              onclick="openAddModal()"
             class="inline-block w-auto bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">
             + Add Banner
         </button>
     </div>
 
-<div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-visible">
-
-  <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-1">
-  <div class="overflow-x-auto" style="min-height: 300px;"> <table class="min-w-[900px] w-full text-sm">
-      <thead class="bg-indigo-600 text-white uppercase text-xs tracking-wider">
+<!-- TABLE CARD -->
+<div class="bg-white rounded-xl shadow-md border border-gray-100">
+  <div class="min-w-full">
+    <table class="w-full text-left border-collapse">
+      <thead class="bg-gradient-to-r from-purple-700 to-indigo-600 text-white">
         <tr>
           <th class="px-6 py-4 text-left">Sr. No.</th>
           <th class="px-6 py-4 text-left">Name</th>
@@ -116,75 +124,41 @@
           <th class="px-6 py-4 text-right">Action</th>
         </tr>
       </thead>
-
-      <tbody class="divide-y divide-slate-100">
-        <tr class="hover:bg-slate-50 transition">
-          <td class="px-6 py-4 text-slate-500 font-medium">01</td>
-          <td class="px-6 py-4 font-semibold text-slate-700">Premium Cuts Store</td>
-          <td class="px-6 py-4 text-slate-600">Hero Section</td>
-          <td class="px-6 py-4">
-            <img src="https://via.placeholder.com/150" class="w-12 h-12 rounded-lg object-cover border border-slate-200">
-          </td>
-          <td class="px-6 py-4">
-            <span class="px-3 py-1 text-xs bg-emerald-100 text-emerald-600 rounded-full font-semibold">Active</span>
-          </td>
-
-          <td class="px-6 py-4 text-right">
-            <div class="relative inline-block text-left">
-              <button onclick="toggleDropdown(this, event)" class="p-2 rounded-full hover:bg-slate-100 transition focus:outline-none">
-                <i class="fa-solid fa-ellipsis-vertical text-slate-500"></i>
-              </button>
-
-              <div class="dropdown-menu hidden absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-2xl border border-slate-100 py-2 z-[9999]">
-                <button onclick="openActionModal('active')" class="flex items-center gap-3 w-full px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 transition">
-                  <i class="fa-solid fa-circle-check text-emerald-500 w-4"></i> Active
-                </button>
-                <button onclick="openActionModal('deactivate')" class="flex items-center gap-3 w-full px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 transition">
-                  <i class="fa-solid fa-circle-pause text-amber-500 w-4"></i> Deactivate
-                </button>
-                <button onclick="openEditModal('1', 'Premium Cuts', 'heroSection')" class="flex items-center gap-3 w-full px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 transition">
-                  <i class="fa-solid fa-pen-to-square text-blue-500 w-4"></i> Edit
-                </button>
-                <div class="my-1 border-t border-slate-100"></div>
-                <button onclick="openActionModal('delete')" class="flex items-center gap-3 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition">
-                  <i class="fa-solid fa-trash w-4"></i> Delete
-                </button>
-              </div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
+      <tbody id="bannerTableBody" class="divide-y divide-gray-100 text-sm text-gray-600">
+</tbody>
     </table>
   </div>
+
 </div>
 
-  <!-- Pagination -->
-  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-6">
-    <p class="text-sm text-slate-500">
-      Page <span class="font-semibold">1</span> of
-      <span class="font-semibold">3</span>
-    </p>
 
-    <div class="flex items-center gap-2">
-      <button class="px-4 py-2 text-sm rounded-xl bg-slate-100 hover:bg-slate-200">
-        Prev
-      </button>
-      <button class="px-4 py-2 text-sm rounded-xl bg-indigo-600 text-white">
-        1
-      </button>
-      <button class="px-4 py-2 text-sm rounded-xl bg-slate-100 hover:bg-slate-200">
-        2
-      </button>
-      <button class="px-4 py-2 text-sm rounded-xl bg-slate-100 hover:bg-slate-200">
-        3
-      </button>
-      <button class="px-4 py-2 text-sm rounded-xl bg-slate-100 hover:bg-slate-200">
-        Next
-      </button>
-    </div>
+<!-- PAGINATION (SEPARATE) -->
+<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-6">
+  <p class="text-sm text-slate-500">
+    Page <span class="font-semibold">1</span> of
+    <span class="font-semibold">3</span>
+  </p>
+
+  <div class="flex items-center gap-2">
+    <button class="px-4 py-2 text-sm rounded-xl bg-slate-100 hover:bg-slate-200">
+      Prev
+    </button>
+    <button class="px-4 py-2 text-sm rounded-xl bg-indigo-600 text-white">
+      1
+    </button>
+    <button class="px-4 py-2 text-sm rounded-xl bg-slate-100 hover:bg-slate-200">
+      2
+    </button>
+    <button class="px-4 py-2 text-sm rounded-xl bg-slate-100 hover:bg-slate-200">
+      3
+    </button>
+    <button class="px-4 py-2 text-sm rounded-xl bg-slate-100 hover:bg-slate-200">
+      Next
+    </button>
   </div>
-
 </div>
+
+
 <!-- Modal Backdrop -->
 <div id="addBannerModal"
      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-sm p-4">
@@ -284,10 +258,10 @@
         Cancel
       </button>
 
-      <button 
-        class="px-4 py-2 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
-        Confirm
-      </button>
+      <button onclick="confirmAction()"
+  class="px-4 py-2 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+  Confirm
+</button>
     </div>
 
   </div>
@@ -385,31 +359,130 @@
             </div>
         </div>
     </footer>
-<script>
-  // Modal open karne ka function
-function openEditModal(id, name, location) {
-    const modal = document.getElementById('editBannerModal');
-    
-    // Values ko fields mein set karna
-    document.getElementById('edit_banner_id').value = id;
-    document.getElementById('edit_bannername').value = name;
-    document.getElementById('edit_location').value = location;
+ <script>
 
-    // Modal dikhane ke liye
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
+/* ===============================
+   DUMMY DATA (Dynamic)
+=================================*/
+
+let banners = [
+    {
+        id: 1,
+        name: "Premium Cuts Store",
+        location: "Hero Section",
+        image: "https://via.placeholder.com/150",
+        status: "Active"
+    },
+    {
+        id: 2,
+        name: "Fresh Organic",
+        location: "Sidebar Section",
+        image: "https://via.placeholder.com/150",
+        status: "Inactive"
+    }
+];
+
+let selectedBannerId = null;
+const tbody = document.getElementById("bannerTableBody");
+
+
+/* ===============================
+   RENDER TABLE
+=================================*/
+
+function renderTable() {
+
+    tbody.innerHTML = "";
+
+    banners.forEach((banner, index) => {
+
+        const row = `
+        <tr class="hover:bg-slate-50 transition">
+            <td class="px-6 py-4 text-slate-500 font-medium">${index + 1}</td>
+            <td class="px-6 py-4 font-semibold text-slate-700">${banner.name}</td>
+            <td class="px-6 py-4 text-slate-600">${banner.location}</td>
+            <td class="px-6 py-4">
+                <img src="${banner.image}" class="w-12 h-12 rounded-lg object-cover border border-slate-200">
+            </td>
+            <td class="px-6 py-4">
+                <span class="px-3 py-1 text-xs rounded-full font-semibold 
+                ${banner.status === "Active" 
+                    ? "bg-emerald-100 text-emerald-600" 
+                    : "bg-red-100 text-red-600"}">
+                    ${banner.status}
+                </span>
+            </td>
+
+            <td class="px-6 py-4 text-right">
+                <div class="relative inline-block text-left group">
+                    <button onclick="toggleDropdown(this, event)" 
+                        class="p-2 rounded-full hover:bg-slate-100 transition">
+                        <i class="fa-solid fa-ellipsis-vertical text-slate-500"></i>
+                    </button>
+
+                    <div class="dropdown-menu hidden absolute right-0 mt-2 w-44 bg-white rounded-xl shadow-xl border border-slate-100 py-2 z-50">
+
+                        <!-- STATUS TOGGLE -->
+                        <button onclick="toggleStatus(${banner.id})" 
+                            class="flex items-center gap-3 w-full px-4 py-2 text-sm text-slate-600 hover:bg-slate-50">
+
+                            ${
+                                banner.status === "Active"
+                                ? `<i class="fa-solid fa-circle-pause text-amber-500 w-4"></i> Deactivate`
+                                : `<i class="fa-solid fa-circle-check text-emerald-500 w-4"></i> Activate`
+                            }
+
+                        </button>
+
+                        <!-- EDIT -->
+                        <button onclick="openEditModal('${banner.id}','${banner.name}','${banner.location}')" 
+                            class="flex items-center gap-3 w-full px-4 py-2 text-sm text-slate-600 hover:bg-slate-50">
+                            <i class="fa-solid fa-pen-to-square text-blue-500 w-4"></i> Edit
+                        </button>
+
+                        <!-- DELETE -->
+                        <button onclick="openActionModal('delete', ${banner.id})" 
+                            class="flex items-center gap-3 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                            <i class="fa-solid fa-trash w-4"></i> Delete
+                        </button>
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        `;
+
+        tbody.innerHTML += row;
+    });
+
+    if (banners.length === 0) {
+        tbody.innerHTML = `
+        <tr>
+            <td colspan="6" class="text-center py-10 text-slate-400">
+                No banners found
+            </td>
+        </tr>
+        `;
+    }
+}
+function toggleStatus(id) {
+
+    const banner = banners.find(b => b.id === id);
+
+    if (banner) {
+        banner.status = banner.status === "Active" ? "Inactive" : "Active";
+    }
+
+    renderTable();
 }
 
-// Modal close karne ka function
-function closeEditModal() {
-    const modal = document.getElementById('editBannerModal');
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
-}
 
-/* ------------------ DROPDOWN ------------------ */
+/* ===============================
+   DROPDOWN
+=================================*/
 
 function toggleDropdown(btn, e) {
+
     e.stopPropagation();
 
     document.querySelectorAll('.dropdown-menu').forEach(menu => {
@@ -428,55 +501,138 @@ document.addEventListener('click', function () {
 });
 
 
-/* ------------------ ADD BANNER MODAL ------------------ */
+/* ===============================
+   ADD BANNER
+=================================*/
 
-function openAddModal() {
-    document.getElementById('addBannerModal').classList.remove('hidden');
-    document.getElementById('addBannerModal').classList.add('flex');
+document.getElementById("bannerForm").addEventListener("submit", function(e) {
+
+    e.preventDefault();
+
+    const name = this.bannername.value;
+    const location = this.location.value;
+
+    const newBanner = {
+        id: Date.now(),
+        name: name,
+        location: location === "heroSection" ? "Hero Section" : "Sidebar Section",
+        image: "https://via.placeholder.com/150",
+        status: "Active"
+    };
+
+    banners.push(newBanner);
+
+    this.reset();
+    closeAddModal();
+    renderTable();
+});
+
+
+/* ===============================
+   EDIT BANNER
+=================================*/
+
+function openEditModal(id, name, location) {
+
+    document.getElementById('edit_banner_id').value = id;
+    document.getElementById('edit_bannername').value = name;
+    document.getElementById('edit_location').value =
+        location === "Hero Section" ? "heroSection" : "sidebarSection";
+
+    document.getElementById('editBannerModal').classList.remove('hidden');
+    document.getElementById('editBannerModal').classList.add('flex');
 }
 
-function closeAddModal() {
-    document.getElementById('addBannerModal').classList.add('hidden');
+function closeEditModal() {
+    document.getElementById('editBannerModal').classList.add('hidden');
+    document.getElementById('editBannerModal').classList.remove('flex');
 }
 
+document.getElementById("editBannerForm").addEventListener("submit", function(e){
 
-/* ------------------ ACTION MODAL (Edit/Delete/Active) ------------------ */
+    e.preventDefault();
 
-function openActionModal(action) {
+    const id = parseInt(this.banner_id.value);
+    const name = this.bannername.value;
+    const location = this.location.value;
 
-    // Close dropdown first
+    const banner = banners.find(b => b.id === id);
+
+    if(banner){
+        banner.name = name;
+        banner.location = location === "heroSection" ? "Hero Section" : "Sidebar Section";
+    }
+
+    closeEditModal();
+    renderTable();
+});
+
+
+/* ===============================
+   DELETE ACTION
+=================================*/
+
+function openActionModal(action, id) {
+
+    selectedBannerId = id;
+
     document.querySelectorAll('.dropdown-menu').forEach(menu => {
         menu.classList.add('hidden');
     });
 
-    const modal = document.getElementById("actionModal");
-    const title = document.getElementById("modalTitle");
+    document.getElementById("modalTitle").innerText =
+        action.charAt(0).toUpperCase() + action.slice(1);
 
-    title.innerText = action.charAt(0).toUpperCase() + action.slice(1);
-
-    modal.classList.remove("hidden");
-    modal.classList.add("flex");
+    document.getElementById("actionModal").classList.remove("hidden");
+    document.getElementById("actionModal").classList.add("flex");
 }
 
 function closeActionModal() {
-    document.getElementById("actionModal").classList.add("hidden");
+    const modal = document.getElementById("actionModal");
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+}
+
+function confirmAction() {
+
+    banners = banners.filter(banner => banner.id !== selectedBannerId);
+
+    closeActionModal();
+    renderTable();
 }
 
 
-/* ------------------ CLOSE MODAL OUTSIDE CLICK ------------------ */
+/* ===============================
+   INIT
+=================================*/
 
-document.getElementById("addBannerModal").addEventListener("click", function(e) {
-    if (e.target.id === "addBannerModal") {
-        closeAddModal();
-    }
+renderTable();
+
+function openAddModal() {
+    const modal = document.getElementById('addBannerModal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+}
+
+function closeAddModal() {
+    const modal = document.getElementById('addBannerModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+}
+
+window.addEventListener("click", function(e) {
+
+    const addModal = document.getElementById("addBannerModal");
+    const editModal = document.getElementById("editBannerModal");
+    const actionModal = document.getElementById("actionModal");
+
+    if (e.target === addModal) closeAddModal();
+    if (e.target === editModal) closeEditModal();
+    if (e.target === actionModal) closeActionModal();
 });
-
-document.getElementById("actionModal").addEventListener("click", function(e) {
-    if (e.target.id === "actionModal") {
-        closeActionModal();
-    }
-});
-
 </script>
+
 </main>
 <?php include 'include/footer.php'; ?>
+</body>
+</html>

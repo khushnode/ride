@@ -98,7 +98,7 @@
     <div class="bg-gray-100 p-4">
          <!-- Header Section -->
   <div class="flex flex-col md:flex-row justify-between items-center mb-6">
-    <h1 class="text-2xl font-bold text-gray-800 mb-4 md:mb-0">Manage Admin Detail Details</h1>
+    <h1 class="text-2xl font-bold text-gray-800 mb-4 md:mb-0">Manage Admin Details</h1>
 
     <div class="flex space-x-3">
       <!-- Excel -->
@@ -212,10 +212,10 @@
     </div>
   </div>
 
-  <div class="bg-white rounded-2xl shadow-sm border mt-5 relative overflow-visible">
-  <div class="overflow-x-auto overflow-visible">
-    <table class="min-w-[800px] w-full text-sm" id="dataTable">
-      <thead class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white uppercase text-xs tracking-wider">
+  <div class="bg-white rounded-xl shadow-md border border-gray-100">
+  <div class="min-w-full">
+    <table class="w-full text-left border-collapse" id="dataTable">
+      <thead class="bg-gradient-to-r from-purple-700 to-indigo-600 text-white">
         <tr>
           <th class="px-4 py-3 text-left">Sr. No.</th>
           <th class="px-4 py-3 text-left">User Name</th>
@@ -225,14 +225,12 @@
           <th class="px-4 py-3 text-right">Actions</th>
         </tr>
       </thead>
-      <tbody id="tableBody" class="divide-y divide-gray-200 bg-white">
+      <tbody id="tableBody" class="divide-y divide-gray-100 text-sm text-gray-600">
         
       </tbody>
     </table>
   </div>
 </div>
-
-
   <!-- Pagination -->
   <div class="flex justify-between items-center mt-4">
     <div class="text-gray-500 text-sm">
@@ -250,136 +248,114 @@
       </button>
     </div>
   </div>
-
-    </div>
-   <div 
-  id="addRoleModal" 
-  class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 overflow-y-auto"
+</div>
+ 
+<div id="addRoleModal" 
+  class="fixed inset-0 z-[10000] flex items-center justify-center bg-slate-900/50 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300 overflow-y-auto"
 >
-  <div 
-  class="relative bg-white w-full max-w-4xl my-10 rounded-2xl shadow-2xl transform scale-95 transition-transform duration-300"
->
-    <div class="flex items-center justify-between p-6 border-b border-slate-100">
-      <h5 class="text-xl font-bold text-slate-800">Add Organize Task</h5>
-      <button 
-        onclick="toggleModal('addRoleModal')" 
-        class="text-slate-400 hover:text-red-500 transition-colors"
-      >
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
+  <div class="relative bg-white w-full max-w-4xl my-10 rounded-[30px] shadow-2xl transform scale-95 transition-all duration-300 border border-indigo-50">
+    
+    <div class="flex items-center justify-between p-6 border-b border-slate-100 bg-gradient-to-r from-indigo-700 to-blue-600 rounded-t-[30px]">
+      <div class="flex items-center gap-3 text-white">
+        <i class="bi bi-person-plus-fill text-xl"></i>
+        <h5 class="text-xl font-bold tracking-wide">Add New Admin</h5>
+      </div>
+      <button onclick="toggleModal('addRoleModal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 transition shadow-inner">
+        <i class="bi bi-x-lg text-sm"></i>
       </button>
     </div>
 
-    <div class="p-6 max-h-[75vh] overflow-y-auto">
-      <div class="bg-white rounded-lg shadow-sm p-10 border border-slate-200">
-      <form id="manageAdminForm" class="space-y-6">
+    <div class="p-8 max-h-[75vh] overflow-y-auto bg-slate-50/50">
+      <form id="manageAdminForm" class="space-y-8">
         
-        <div>
-          <label class="block text-sm font-medium text-slate-600 mb-1">Name</label>
-          <input 
-            type="text" 
-            placeholder="Name" 
-            class="w-full px-4 py-2 border border-slate-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all"
-          />
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <h6 class="text-indigo-600 font-bold text-xs uppercase tracking-widest mb-4 border-b pb-2">Basic Information</h6>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Full Name</label>
+              <input type="text" placeholder="Enter full name" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all" />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Email Address</label>
+              <input type="email" placeholder="admin@example.com" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all" />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Create Password</label>
+              <input type="password" placeholder="••••••••" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all" />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Admin Role</label>
+              <input type="text" placeholder="e.g. Sub-Admin" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all" />
+            </div>
+          </div>
         </div>
 
-        <div>
-          <label class="block text-sm font-medium text-slate-600 mb-1">Email</label>
-          <input 
-            type="email" 
-            placeholder="Email" 
-            class="w-full px-4 py-2 border border-slate-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all"
-          />
-        </div>
-
-        <div>
-          <label class="block text-sm font-medium text-slate-600 mb-1">Create Password</label>
-          <input 
-            type="password" 
-            placeholder="*****" 
-            class="w-full px-4 py-2 border border-slate-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all"
-          />
-        </div>
-
-        <div>
-          <label class="block text-sm font-medium text-slate-600 mb-1">Role</label>
-          <input 
-            type="text" 
-            placeholder="Role" 
-            class="w-full px-4 py-2 border border-slate-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all"
-          />
-        </div>
-
-        <div>
-          <label class="block text-sm font-bold text-slate-700 mb-4">Assign Modules</label>
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <h6 class="text-indigo-600 font-bold text-xs uppercase tracking-widest mb-4 border-b pb-2">Assign Module Permissions</h6>
           
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-y-3 gap-x-8 text-sm text-slate-600">
-            
-            <div class="space-y-3">
-              <label class="flex items-center gap-3">
-                <input type="checkbox" checked class="w-4 h-4 text-blue-600 rounded"> Active User
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-slate-600">
+            <div class="space-y-1">
+              <label class="flex items-center gap-3 p-2 hover:bg-indigo-50/50 rounded-xl cursor-pointer transition group">
+                <input type="checkbox" class="w-5 h-5 accent-indigo-600 rounded"> 
+                <span class="group-hover:text-indigo-700 transition">Active User</span>
               </label>
-              <label class="flex items-center gap-3">
-                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> User Status
+              <label class="flex items-center gap-3 p-2 hover:bg-indigo-50/50 rounded-xl cursor-pointer transition group">
+                <input type="checkbox" class="w-5 h-5 accent-indigo-600 rounded"> 
+                <span class="group-hover:text-indigo-700 transition">User Status</span>
               </label>
-              <label class="flex items-center gap-3">
-                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> Scheme Transaction
+              <label class="flex items-center gap-3 p-2 hover:bg-indigo-50/50 rounded-xl cursor-pointer transition group">
+                <input type="checkbox" class="w-5 h-5 accent-indigo-600 rounded"> 
+                <span class="group-hover:text-indigo-700 transition">Notification</span>
               </label>
-              <label class="flex items-center gap-3">
-                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> Notification
-              </label>
-            </div>
-
-            <div class="space-y-3">
-              <label class="flex items-center gap-3">
-                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> User Profile
-              </label>
-              <label class="flex items-center gap-3">
-                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> My Products
-              </label>
-              <label class="flex items-center gap-3">
-                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> Catelogue
-              </label>
-              <label class="flex items-center gap-3">
-                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> Manage Page
+              <label class="flex items-center gap-3 p-2 hover:bg-indigo-50/50 rounded-xl cursor-pointer transition group">
+                <input type="checkbox" class="w-5 h-5 accent-indigo-600 rounded"> 
+                <span class="group-hover:text-indigo-700 transition">Scheme Transaction</span>
               </label>
             </div>
 
-            <div class="space-y-3">
-              <label class="flex items-center gap-3">
-                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> Ranking
+            <div class="space-y-1">
+              <label class="flex items-center gap-3 p-2 hover:bg-indigo-50/50 rounded-xl cursor-pointer transition group">
+                <input type="checkbox" class="w-5 h-5 accent-indigo-600 rounded"> 
+                <span class="group-hover:text-indigo-700 transition">My Products</span>
               </label>
-              <label class="flex items-center gap-3">
-                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> Cash Transaction
+              <label class="flex items-center gap-3 p-2 hover:bg-indigo-50/50 rounded-xl cursor-pointer transition group">
+                <input type="checkbox" class="w-5 h-5 accent-indigo-600 rounded"> 
+                <span class="group-hover:text-indigo-700 transition">Catalogue</span>
               </label>
-              <label class="flex items-center gap-3">
-                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> Order
+              <label class="flex items-center gap-3 p-2 hover:bg-indigo-50/50 rounded-xl cursor-pointer transition group">
+                <input type="checkbox" class="w-5 h-5 accent-indigo-600 rounded"> 
+                <span class="group-hover:text-indigo-700 transition">Order Management</span>
               </label>
-              <label class="flex items-center gap-3">
-                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> Scheme / Offer
-              </label>
-              <label class="flex items-center gap-3">
-                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> History
+              <label class="flex items-center gap-3 p-2 hover:bg-indigo-50/50 rounded-xl cursor-pointer transition group">
+                <input type="checkbox" class="w-5 h-5 accent-indigo-600 rounded"> 
+                <span class="group-hover:text-indigo-700 transition">Manage Page</span>
               </label>
             </div>
 
-            <div class="space-y-3">
-              <label class="flex items-center gap-3">
-                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> Feedback
+            <div class="space-y-1">
+              <label class="flex items-center gap-3 p-2 hover:bg-indigo-50/50 rounded-xl cursor-pointer transition group">
+                <input type="checkbox" class="w-5 h-5 accent-indigo-600 rounded"> 
+                <span class="group-hover:text-indigo-700 transition">Scheme / Offer</span>
               </label>
-              <label class="flex items-center gap-3">
-                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded"> Complaints
+              <label class="flex items-center gap-3 p-2 hover:bg-indigo-50/50 rounded-xl cursor-pointer transition group">
+                <input type="checkbox" class="w-5 h-5 accent-indigo-600 rounded"> 
+                <span class="group-hover:text-indigo-700 transition">History</span>
+              </label>
+              <label class="flex items-center gap-3 p-2 hover:bg-indigo-50/50 rounded-xl cursor-pointer transition group">
+                <input type="checkbox" class="w-5 h-5 accent-indigo-600 rounded"> 
+                <span class="group-hover:text-indigo-700 transition">Complaints</span>
+              </label>
+              <label class="flex items-center gap-3 p-2 hover:bg-indigo-50/50 rounded-xl cursor-pointer transition group">
+                <input type="checkbox" class="w-5 h-5 accent-indigo-600 rounded"> 
+                <span class="group-hover:text-indigo-700 transition">Feedback</span>
               </label>
             </div>
           </div>
         </div>
 
-        <div class="flex justify-center pt-6">
-          <button 
-            type="submit" 
-            class="bg-[#001f3f] text-white px-10 py-2 rounded font-bold uppercase tracking-wider hover:bg-slate-800 transition-colors shadow-lg"
-          >
+        <div class="flex justify-end gap-4 pt-4 border-t border-slate-100">
+          <button type="button" onclick="toggleModal('addRoleModal')" class="px-8 py-3 bg-slate-100 text-slate-600 rounded-2xl font-bold hover:bg-slate-200 transition-all">Cancel</button>
+          <button type="submit" class="px-10 py-3 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition-all active:scale-95 uppercase tracking-wider text-sm">
             Assign Roles
           </button>
         </div>
@@ -387,8 +363,157 @@
       </form>
     </div>
   </div>
-</div></div>
+</div>
+
+
 <div>
+ <div id="viewModal"
+  class="fixed inset-0 z-[10000] flex items-center justify-center bg-slate-900/40 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+
+  <div class="bg-white w-full max-w-md rounded-[30px] shadow-[0_20px_60px_rgba(0,0,0,0.15)] overflow-hidden transform scale-95 transition-transform duration-300 border border-indigo-50">
+    
+    <div class="bg-gradient-to-r from-indigo-600 to-blue-500 px-6 py-4 flex justify-between items-center text-white">
+      <div class="flex items-center gap-2">
+        <i class="bi bi-person-badge text-xl"></i>
+        <h2 class="text-lg font-semibold tracking-wide">User Profile Details</h2>
+      </div>
+      <button onclick="toggleModal('viewModal')" 
+        class="w-8 h-8 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition shadow-inner">
+        <i class="bi bi-x-lg text-sm"></i>
+      </button>
+    </div>
+
+    <div class="p-8">
+      <div id="viewContent" class="space-y-4">
+        <div class="flex flex-col items-center mb-4">
+            <div class="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center mb-2">
+                <i class="bi bi-person text-4xl text-indigo-500"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-800" id="userNameDetail">John Doe</h3>
+            <span class="px-3 py-1 bg-green-50 text-green-600 text-xs rounded-full font-medium">Active Account</span>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4 text-sm">
+            <div class="p-3 bg-slate-50 rounded-2xl flex items-center gap-3 border border-slate-100">
+                <i class="bi bi-envelope text-indigo-500"></i>
+                <div>
+                    <p class="text-slate-400 text-[10px] uppercase font-bold">Email Address</p>
+                    <p class="text-slate-700 font-medium">john@example.com</p>
+                </div>
+            </div>
+            
+            <div class="p-3 bg-slate-50 rounded-2xl flex items-center gap-3 border border-slate-100">
+                <i class="bi bi-shield-check text-indigo-500"></i>
+                <div>
+                    <p class="text-slate-400 text-[10px] uppercase font-bold">Account Role</p>
+                    <p class="text-slate-700 font-medium">Administrator</p>
+                </div>
+            </div>
+        </div>
+      </div>
+      
+      <button onclick="toggleModal('viewModal')" 
+        class="w-full mt-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl font-semibold shadow-lg shadow-indigo-200 transition-all active:scale-95">
+        Done
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="editModal"
+  class="fixed inset-0 z-[10000] flex items-center justify-center bg-slate-900/50 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300 overflow-y-auto">
+
+  <div class="relative bg-white w-full max-w-4xl my-10 rounded-[30px] shadow-2xl transform scale-95 transition-all duration-300 border border-indigo-50">
+    
+    <div class="flex items-center justify-between p-6 border-b border-slate-100 bg-gradient-to-r from-indigo-700 to-blue-600 rounded-t-[30px]">
+      <div class="flex items-center gap-3 text-white">
+        <i class="bi bi-pencil-square text-xl"></i>
+        <h5 class="text-xl font-bold tracking-wide">Edit Admin Details</h5>
+      </div>
+      <button onclick="toggleModal('editModal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 transition shadow-inner">
+        <i class="bi bi-x-lg text-sm"></i>
+      </button>
+    </div>
+
+    <div class="p-8 max-h-[75vh] overflow-y-auto bg-slate-50/50">
+      <form id="editForm" class="space-y-8">
+        
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <h6 class="text-indigo-600 font-bold text-xs uppercase tracking-widest mb-4 border-b pb-2">Basic Info</h6>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Full Name</label>
+                    <input id="editName" type="text" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all" />
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Email Address</label>
+                    <input id="editEmail" type="email" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all" />
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Change Role</label>
+                    <input id="editRole" type="text" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all" />
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Reset Password (Optional)</label>
+                    <input type="password" placeholder="Leave blank to keep current" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all" />
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <h6 class="text-indigo-600 font-bold text-xs uppercase tracking-widest mb-4 border-b pb-2">Update Module Permissions</h6>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-slate-600">
+            <div class="space-y-3">
+              <label class="flex items-center gap-3 p-2 hover:bg-slate-50 rounded-lg cursor-pointer transition">
+                <input type="checkbox" class="w-5 h-5 accent-indigo-600 rounded"> <span>Active User</span>
+              </label>
+              <label class="flex items-center gap-3 p-2 hover:bg-slate-50 rounded-lg cursor-pointer transition">
+                <input type="checkbox" class="w-5 h-5 accent-indigo-600 rounded"> <span>User Status</span>
+              </label>
+              <label class="flex items-center gap-3 p-2 hover:bg-slate-50 rounded-lg cursor-pointer transition">
+                <input type="checkbox" class="w-5 h-5 accent-indigo-600 rounded"> <span>Notification</span>
+              </label>
+            </div>
+
+            <div class="space-y-3">
+              <label class="flex items-center gap-3 p-2 hover:bg-slate-50 rounded-lg cursor-pointer transition">
+                <input type="checkbox" class="w-5 h-5 accent-indigo-600 rounded"> <span>My Products</span>
+              </label>
+              <label class="flex items-center gap-3 p-2 hover:bg-slate-50 rounded-lg cursor-pointer transition">
+                <input type="checkbox" class="w-5 h-5 accent-indigo-600 rounded"> <span>Catalogue</span>
+              </label>
+              <label class="flex items-center gap-3 p-2 hover:bg-slate-50 rounded-lg cursor-pointer transition">
+                <input type="checkbox" class="w-5 h-5 accent-indigo-600 rounded"> <span>Order Management</span>
+              </label>
+            </div>
+
+            <div class="space-y-3">
+              <label class="flex items-center gap-3 p-2 hover:bg-slate-50 rounded-lg cursor-pointer transition">
+                <input type="checkbox" class="w-5 h-5 accent-indigo-600 rounded"> <span>Scheme / Offer</span>
+              </label>
+              <label class="flex items-center gap-3 p-2 hover:bg-slate-50 rounded-lg cursor-pointer transition">
+                <input type="checkbox" class="w-5 h-5 accent-indigo-600 rounded"> <span>History</span>
+              </label>
+              <label class="flex items-center gap-3 p-2 hover:bg-slate-50 rounded-lg cursor-pointer transition">
+                <input type="checkbox" class="w-5 h-5 accent-indigo-600 rounded"> <span>Complaints</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-4 pt-4 border-t border-slate-100">
+          <button type="button" onclick="toggleModal('editModal')" class="px-8 py-3 bg-slate-100 text-slate-600 rounded-2xl font-bold hover:bg-slate-200 transition-all">Cancel</button>
+          <button type="submit" class="px-10 py-3 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition-all active:scale-95 uppercase tracking-wider text-sm">
+            Save Changes
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
     <footer class="mt-auto bg-white border-t border-slate-100 px-8 py-6">
         <div class="flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="text-center md:text-left">
@@ -440,35 +565,35 @@ function renderTable() {
           </span>
         </td>
 
-        <td class="px-4 py-4 text-right">
-          <div class="relative inline-block text-left">
-            <button onclick="toggleDropdown(this)"
-              class="p-2 hover:bg-gray-100 rounded-lg transition border border-gray-200">
-              <i class="bi bi-three-dots-vertical text-gray-400"></i>
-            </button>
+        <td class="px-2 py-2 text-right w-16">
+  <div class="relative inline-block text-left">  
+    <button onclick="toggleDropdown(this)"
+      class="p-1.5 hover:bg-gray-100 rounded-md transition border border-gray-200">
+      <i class="bi bi-three-dots-vertical text-gray-400 text-sm"></i>
+    </button>
 
-            <div class="dropdown-menu hidden absolute right-0 z-[9999] 
-                w-48 bg-white rounded-[25px] shadow-[0_10px_40px_rgba(0,0,0,0.2)] 
-                border border-gray-100 p-2 transition-all duration-200">
+    <div class="dropdown-menu hidden absolute right-0 mt-2 z-[9999] 
+        w-44 bg-white rounded-[20px] shadow-[0_10px_40px_rgba(0,0,0,0.2)] 
+        border border-gray-100 p-2">
 
-              <div class="flex flex-col gap-1">
-                <button class="flex items-center gap-3 w-full px-4 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50 rounded-2xl transition">
-                  <i class="bi bi-eye text-indigo-600 text-lg"></i> View
-                </button>
+      <button onclick="openView(${index})"
+class="flex items-center gap-3 w-full px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 rounded-xl transition">
+<i class="bi bi-eye text-indigo-600"></i> View
+</button>
 
-                <button class="flex items-center gap-3 w-full px-4 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50 rounded-2xl transition">
-                  <i class="bi bi-pencil text-green-500 text-lg"></i> Edit
-                </button>
+      <button onclick="openEdit(${index})"
+class="flex items-center gap-3 w-full px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 rounded-xl transition">
+<i class="bi bi-pencil text-green-500"></i> Edit
+</button>
 
-                <button class="flex items-center gap-3 w-full px-4 py-3 text-sm font-medium text-red-500 hover:bg-red-50 rounded-2xl transition">
-                  <i class="bi bi-trash text-lg"></i> Delete
-                </button>
-              </div>
+      <button class="flex items-center gap-3 w-full px-3 py-2 text-sm font-medium text-red-500 hover:bg-red-50 rounded-xl transition">
+        <i class="bi bi-trash"></i> Delete
+      </button>
 
-            </div>
-          </div>
-        </td>
-      </tr>
+    </div>
+  </div>
+</td>
+</tr>
     `;
   });
 }
@@ -494,6 +619,125 @@ window.addEventListener("click", function (e) {
 });
 
 renderTable();
+
+
+function toggleModal(id) {
+  const modal = document.getElementById(id);
+  modal.classList.toggle("opacity-0");
+  modal.classList.toggle("pointer-events-none");
+}
+
+// VIEW
+function openView(index) {
+  document.querySelectorAll(".dropdown-menu").forEach(el => el.classList.add("hidden"));
+  const user = users[index];
+
+  document.getElementById("viewContent").innerHTML = `
+    <p><strong>Name:</strong> ${user.name}</p>
+    <p><strong>Email:</strong> ${user.email}</p>
+    <p><strong>Role:</strong> ${user.role}</p>
+    <p><strong>Status:</strong> ${user.status}</p>
+  `;
+
+  toggleModal("viewModal");
+}
+
+// EDIT
+function openEdit(index) {
+  document.querySelectorAll(".dropdown-menu").forEach(el => el.classList.add("hidden"));
+  const user = users[index];
+
+  document.getElementById("editName").value = user.name;
+  document.getElementById("editEmail").value = user.email;
+  document.getElementById("editRole").value = user.role;
+
+  toggleModal("editModal");
+}
+</script>
+<script>
+document.getElementById("exportPdf").addEventListener("click", function () {
+
+    const { jsPDF } = window.jspdf;
+    let doc = new jsPDF();
+
+    // Table clone karo
+    let table = document.getElementById("dataTable").cloneNode(true);
+
+    // Har row ka last column remove karo
+    table.querySelectorAll("tr").forEach(row => {
+        row.deleteCell(-1);   // -1 = last column
+    });
+
+    // AutoTable me clone pass karo
+    doc.autoTable({
+        html: table
+    });
+
+    doc.save("table-data.pdf");
+});
+</script>
+
+<script>
+document.getElementById("exportExcel").addEventListener("click", function () {
+
+    // Original table clone karo
+    let table = document.getElementById("dataTable").cloneNode(true);
+
+    // Har row se last cell remove karo
+    table.querySelectorAll("tr").forEach(row => {
+        row.deleteCell(-1);   // -1 = last column
+    });
+
+    // Export
+    let blob = new Blob([table.outerHTML], {
+        type: "application/vnd.ms-excel"
+    });
+
+    let url = window.URL.createObjectURL(blob);
+    let a = document.createElement("a");
+
+    a.href = url;
+    a.download = "table-data.xls";
+    a.click();
+});
+</script>
+<script>
+document.getElementById("printButton").addEventListener("click", function () {
+    let table = document.getElementById("dataTable").outerHTML;
+
+    let newWin = window.open("");
+    newWin.document.write(`
+        <html>
+        <head>
+            <title>Print</title>
+            <style>
+                /* Yahan hum 'Action' column ko hide kar rahe hain */
+                /* Maan lijiye Action column table ka aakhri (last) column hai */
+                th:last-child, td:last-child {
+                    display: none;
+                }
+                
+                /* Agar aapne kisi specific class ka use kiya hai, 
+                   to aap .action-column { display: none; } bhi likh sakte hain */
+                   
+                table { width: 100%; border-collapse: collapse; }
+                th, td { border: 1px solid black; padding: 8px; text-align: left; }
+            </style>
+        </head>
+        <body>
+            ${table}
+        </body>
+        </html>
+    `);
+
+    newWin.document.close();
+    
+    // Thoda delay taaki styles load ho jayein
+    setTimeout(function() {
+        newWin.print();
+        newWin.close();
+    }, 500);
+});
 </script>
 </body>
 </html>
