@@ -10,7 +10,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="flex min-h-screen bg-gray-50">
+<body class="flex min-h-screen bg-gray-50 overflow-x-hidden">
     <?php include 'include/header.php'; ?>
     <div class="flex flex-col flex-1 min-h-screen">
     <main class="flex-1 flex flex-col min-w-0">
@@ -439,7 +439,7 @@ $partners = [
     </div>
 
     <div class="p-4 overflow-x-auto">
-      <table class="w-full text-left border-collapse min-w-[1000px]">
+      <table class="w-full text-left border-collapse">
         <thead>
           <tr class="bg-blue-600 text-white text-xs uppercase">
             <th class="p-3 border">Sr. No.</th>
@@ -508,346 +508,370 @@ $partners = [
   </div>
 </div>
 </div>
- </main>        
-</body>
+ </main> 
 <script>
-    // --- Modal Logic ---
-function toggleModal(modalId) {
-  const modal = document.getElementById(modalId);
-  if (modal) {
-    modal.classList.toggle('hidden');
-    // Toggle body scroll
-    if (!modal.classList.contains('hidden')) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
+// =========================
+// HEADER DROPDOWN FUNCTIONS (NOTIFICATION & ADMIN)
+// =========================
+document.addEventListener('DOMContentLoaded', function() {
+    const notiBtn = document.getElementById('notiBtn');
+    const notiBar = document.getElementById('notiBar');
+    const adminBtn = document.getElementById('adminBtn');
+    const adminBar = document.getElementById('adminBar');
+
+    // Toggle notification dropdown
+    if (notiBtn && notiBar) {
+        notiBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            notiBar.classList.toggle('hidden');
+            // Close admin dropdown if open
+            if (adminBar && !adminBar.classList.contains('hidden')) {
+                adminBar.classList.add('hidden');
+            }
+        });
     }
-  }
+
+    // Toggle admin dropdown
+    if (adminBtn && adminBar) {
+        adminBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            adminBar.classList.toggle('hidden');
+            // Close notification dropdown if open
+            if (notiBar && !notiBar.classList.contains('hidden')) {
+                notiBar.classList.add('hidden');
+            }
+        });
+    }
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+        if (notiBar && !notiBar.classList.contains('hidden') && 
+            !notiBtn.contains(e.target) && !notiBar.contains(e.target)) {
+            notiBar.classList.add('hidden');
+        }
+        
+        if (adminBar && !adminBar.classList.contains('hidden') && 
+            !adminBtn.contains(e.target) && !adminBar.contains(e.target)) {
+            adminBar.classList.add('hidden');
+        }
+    });
+
+    // Prevent closing when clicking inside dropdowns
+    if (notiBar) {
+        notiBar.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    }
+    
+    if (adminBar) {
+        adminBar.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    }
+});
+
+// =========================
+// MODAL LOGIC
+// =========================
+function toggleModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.toggle('hidden');
+        // Toggle body scroll
+        if (!modal.classList.contains('hidden')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+    }
 }
 
-// --- Dropdown Logic ---
+// =========================
+// TABLE DROPDOWN LOGIC (FOR ACTION BUTTONS)
+// =========================
 function toggleDropdown(event, dropdownId) {
-  event.stopPropagation(); // Prevents the window click listener from closing it immediately
-  
-  const targetDropdown = document.getElementById(dropdownId);
-  
-  // Close all other dropdowns first
-  document.querySelectorAll('[id^="dropdown-"]').forEach(dropdown => {
-    if (dropdown.id !== dropdownId) {
-      dropdown.classList.add('hidden');
-    }
-  });
+    event.stopPropagation();
+    event.preventDefault();
+    
+    // Close all other dropdowns first
+    document.querySelectorAll('[id^="dropdown-"]').forEach(dropdown => {
+        if (dropdown.id !== dropdownId) {
+            dropdown.classList.add('hidden');
+        }
+    });
 
-  // Toggle the clicked one
-  targetDropdown.classList.toggle('hidden');
+    // Toggle the clicked one
+    const targetDropdown = document.getElementById(dropdownId);
+    if (targetDropdown) {
+        targetDropdown.classList.toggle('hidden');
+    }
 }
 
 function closeAllDropdowns() {
-  document.querySelectorAll('[id^="dropdown-"]').forEach(dropdown => {
-    dropdown.classList.add('hidden');
-  });
+    document.querySelectorAll('[id^="dropdown-"]').forEach(dropdown => {
+        dropdown.classList.add('hidden');
+    });
 }
 
-// Close dropdowns and modals when clicking outside
+// Close dropdowns when clicking outside
 window.addEventListener('click', function(event) {
-  // Close dropdowns
-  if (!event.target.closest('.relative')) {
-    closeAllDropdowns();
-  }
-
-  // Close modals if clicking the dark backdrop
-  if (event.target.classList.contains('fixed')) {
-    event.target.classList.add('hidden');
-    document.body.style.overflow = 'auto';
-  }
+    // Close table dropdowns if clicking outside
+    if (!event.target.closest('.relative.inline-block')) {
+        closeAllDropdowns();
+    }
 });
 
 // Close on Escape key
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    closeAllDropdowns();
-    document.querySelectorAll('.fixed').forEach(m => m.classList.add('hidden'));
-    document.body.style.overflow = 'auto';
-  }
+    if (e.key === 'Escape') {
+        closeAllDropdowns();
+        document.querySelectorAll('.fixed').forEach(m => {
+            m.classList.add('hidden');
+        });
+        document.body.style.overflow = 'auto';
+    }
 });
-</script>
-<script>
-function toggleDropdown(event, id) {
-    event.stopPropagation();
-    // Saare dusre dropdowns band karein
-    document.querySelectorAll('[id^="dropdown-"]').forEach(el => {
-        if (el.id !== id) el.classList.add('hidden');
-    });
-    // Current dropdown toggle karein
-    const dropdown = document.getElementById(id);
-    dropdown.classList.toggle('hidden');
-}
 
-</script>
-<script>
-
+// =========================
+// PARTNERS DATA
+// =========================
 const partnersData = {
-  1: {
-    name: "Partner_7446",
-    firstName: "Neeraj",
-    phone: "9876543210",
-    shop: "Mayview Fresh",
-    pin: "123569",
-    branch: "SBI Main Branch",
-    account: "12345678901",
-    ifsc: "SBIN0001234",
-    shopImage: "./assets/images/img2.jpg",
-    licenseImage: "./assets/images/img2.jpg",
-
-    orders: [
-      {
-        date: "30 Apr 2025",
-        time: "02:41 AM",
-        id: "ORDER7774468212",
-        amount: "₹150.00",
-        customer: "Adil Hussain",
-        status: "Completed"
-      }
-    ],
-
-    inventory: [
-      {
-        product: "Chicken Breast",
-        qty: "50 Kg",
-        price: "₹200",
-        value: "₹10,000",
-        status: "Available",
-        image: "./assets/images/img2.jpg"
-      }
-    ],
-
-    earnings: [
-      {
-        product: "Chicken Breast",
-        paid: "₹50,000",
-        commission: "₹500",
-        earning: "₹1,00,000"
-      }
-    ]
-  },
-
-  2: {
-    name: "Partner_9921",
-    firstName: "Rohit",
-    phone: "9988776655",
-    shop: "Daily Needs",
-    pin: "400001",
-    branch: "HDFC Branch",
-    account: "45678912345",
-    ifsc: "HDFC0005678",
-    shopImage: "./assets/images/img2.jpg",
-    licenseImage: "./assets/images/img2.jpg",
-    orders: [],
-    inventory: [],
-    earnings: []
-  }
+    1: {
+        name: "Partner_7446",
+        firstName: "Neeraj",
+        phone: "9876543210",
+        shop: "Mayview Fresh",
+        pin: "123569",
+        branch: "SBI Main Branch",
+        account: "12345678901",
+        ifsc: "SBIN0001234",
+        shopImage: "./assets/images/img2.jpg",
+        licenseImage: "./assets/images/img2.jpg",
+        orders: [
+            {
+                date: "30 Apr 2025",
+                time: "02:41 AM",
+                id: "ORDER7774468212",
+                amount: "₹150.00",
+                customer: "Adil Hussain",
+                status: "Completed"
+            }
+        ],
+        inventory: [
+            {
+                product: "Chicken Breast",
+                qty: "50 Kg",
+                price: "₹200",
+                value: "₹10,000",
+                status: "Available",
+                image: "./assets/images/img2.jpg"
+            }
+        ],
+        earnings: [
+            {
+                product: "Chicken Breast",
+                paid: "₹50,000",
+                commission: "₹500",
+                earning: "₹1,00,000"
+            }
+        ]
+    },
+    2: {
+        name: "Partner_9921",
+        firstName: "Rohit",
+        phone: "9988776655",
+        shop: "Daily Needs",
+        pin: "400001",
+        branch: "HDFC Branch",
+        account: "45678912345",
+        ifsc: "HDFC0005678",
+        shopImage: "./assets/images/img2.jpg",
+        licenseImage: "./assets/images/img2.jpg",
+        orders: [],
+        inventory: [],
+        earnings: []
+    }
 };
 
-
-
-// ================= VIEW MODAL =================
-
+// =========================
+// VIEW MODAL
+// =========================
 function openViewModal(id) {
-  closeAllDropdowns();   // 👈 ADD THIS LINE
-
-  const p = partnersData[id];
-
-  document.getElementById("v_firstName").innerText = p.firstName || "";
-  document.getElementById("v_lastName").innerText = "";
-  document.getElementById("v_phone").innerText = p.phone || "";
-  document.getElementById("v_shopName").innerText = p.shop || "";
-  document.getElementById("v_ownerName").innerText = p.name || "";
-  document.getElementById("v_shopAddress").innerText = "";
-  document.getElementById("v_pinCode").innerText = p.pin || "";
-
-  document.getElementById("v_accHolder").innerText = p.name || "";
-  document.getElementById("v_accNumber").innerText = p.account || "";
-  document.getElementById("v_ifsc").innerText = p.ifsc || "";
-
-  toggleModal("viewModal");
+    closeAllDropdowns();
+    const p = partnersData[id];
+    
+    document.getElementById("v_firstName").innerText = p.firstName || "";
+    document.getElementById("v_lastName").innerText = "";
+    document.getElementById("v_phone").innerText = p.phone || "";
+    document.getElementById("v_shopName").innerText = p.shop || "";
+    document.getElementById("v_ownerName").innerText = p.name || "";
+    document.getElementById("v_shopAddress").innerText = "";
+    document.getElementById("v_pinCode").innerText = p.pin || "";
+    document.getElementById("v_accHolder").innerText = p.name || "";
+    document.getElementById("v_accNumber").innerText = p.account || "";
+    document.getElementById("v_ifsc").innerText = p.ifsc || "";
+    
+    toggleModal("viewModal");
 }
 
-
-
-// ================= ORDER MODAL =================
-
+// =========================
+// ORDER MODAL
+// =========================
 function openOrderModal(id) {
-  closeAllDropdowns();
-  const p = partnersData[id];
-  const tbody = document.getElementById("orderTableBody");
-  tbody.innerHTML = "";
+    closeAllDropdowns();
+    const p = partnersData[id];
+    const tbody = document.getElementById("orderTableBody");
+    tbody.innerHTML = "";
 
-  if (p.orders.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center">No Orders Found</td></tr>`;
-  } else {
-    p.orders.forEach((o, index) => {
-      tbody.innerHTML += `
-        <tr>
-          <td class="p-3 border">${index+1}</td>
-          <td class="p-3 border">${o.date}<br><span class="text-gray-400">${o.time}</span></td>
-          <td class="p-3 border font-semibold">${o.id}</td>
-          <td class="p-3 border font-bold">${o.amount}</td>
-          <td class="p-3 border">${o.customer}</td>
-          <td class="p-3 border text-center">
-            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full font-bold">${o.status}</span>
-          </td>
-        </tr>
-      `;
-    });
-  }
-
-  toggleModal("orderModal");
+    if (!p.orders || p.orders.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-gray-500">No Orders Found</td></tr>`;
+    } else {
+        p.orders.forEach((o, index) => {
+            tbody.innerHTML += `
+                <tr>
+                    <td class="p-3 border">${index+1}</td>
+                    <td class="p-3 border">${o.date}<br><span class="text-gray-400">${o.time}</span></td>
+                    <td class="p-3 border font-semibold">${o.id}</td>
+                    <td class="p-3 border font-bold">${o.amount}</td>
+                    <td class="p-3 border">${o.customer}</td>
+                    <td class="p-3 border text-center">
+                        <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full font-bold">${o.status}</span>
+                    </td>
+                </tr>
+            `;
+        });
+    }
+    toggleModal("orderModal");
 }
 
-
-
-// ================= INVENTORY MODAL =================
-
+// =========================
+// INVENTORY MODAL
+// =========================
 function openInventoryModal(id) {
-  closeAllDropdowns();
-  const p = partnersData[id];
-  const tbody = document.getElementById("inventoryTableBody");
-  tbody.innerHTML = "";
+    closeAllDropdowns();
+    const p = partnersData[id];
+    const tbody = document.getElementById("inventoryTableBody");
+    tbody.innerHTML = "";
 
-  p.inventory.forEach(item => {
-    tbody.innerHTML += `
-      <tr>
-        <td class="p-3 flex items-center gap-3 text-left">
-          <img src="${item.image}" class="w-10 h-10 rounded-full border">
-          <div>
-            <p class="font-bold">${item.product}</p>
-          </div>
-        </td>
-        <td class="p-3">${item.qty}</td>
-        <td class="p-3">${item.price}</td>
-        <td class="p-3 font-bold text-green-600">${item.value}</td>
-        <td class="p-3">
-          <span class="bg-blue-100 text-blue-600 px-2 py-1 rounded text-xs font-semibold">${item.status}</span>
-        </td>
-      </tr>
-    `;
-  });
-
-  toggleModal("inventoryModal");
+    if (!p.inventory || p.inventory.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-gray-500">No Inventory Found</td></tr>`;
+    } else {
+        p.inventory.forEach(item => {
+            tbody.innerHTML += `
+                <tr>
+                    <td class="p-3 flex items-center gap-3 text-left">
+                        <img src="${item.image}" class="w-10 h-10 rounded-full border" onerror="this.src='https://via.placeholder.com/40'">
+                        <div>
+                            <p class="font-bold">${item.product}</p>
+                        </div>
+                    </td>
+                    <td class="p-3">${item.qty}</td>
+                    <td class="p-3">${item.price}</td>
+                    <td class="p-3 font-bold text-green-600">${item.value}</td>
+                    <td class="p-3">
+                        <span class="bg-blue-100 text-blue-600 px-2 py-1 rounded text-xs font-semibold">${item.status}</span>
+                    </td>
+                </tr>
+            `;
+        });
+    }
+    toggleModal("inventoryModal");
 }
 
-
-
-// ================= EARNING MODAL =================
-
+// =========================
+// EARNING MODAL
+// =========================
 function openEarningModal(id) {
-  closeAllDropdowns();
+    closeAllDropdowns();
+    const p = partnersData[id];
+    const tbody = document.getElementById("earningTableBody");
+    tbody.innerHTML = "";
 
-  const p = partnersData[id];
-  const tbody = document.getElementById("earningTableBody");
-  tbody.innerHTML = "";
-
-  if (!p || !p.earnings || p.earnings.length === 0) {
-    tbody.innerHTML = `
-      <tr>
-        <td colspan="5" class="p-4 text-center text-gray-500">
-          No Earnings Data Found
-        </td>
-      </tr>
-    `;
-  } else {
-    p.earnings.forEach((e, index) => {
-      tbody.innerHTML += `
-        <tr class="hover:bg-gray-50 transition-colors">
-          <td class="p-3">${index + 1}</td>
-          <td class="p-3 font-medium">${e.product}</td>
-          <td class="p-3 text-right">${e.paid}</td>
-          <td class="p-3 text-red-500">${e.commission}</td>
-          <td class="p-3 text-right font-bold text-green-600">${e.earning}</td>
-        </tr>
-      `;
-    });
-  }
-
-  toggleModal("earningModal");
+    if (!p || !p.earnings || p.earnings.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="5" class="p-4 text-center text-gray-500">
+                    No Earnings Data Found
+                </td>
+            </tr>
+        `;
+    } else {
+        p.earnings.forEach((e, index) => {
+            tbody.innerHTML += `
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="p-3">${index + 1}</td>
+                    <td class="p-3 font-medium">${e.product}</td>
+                    <td class="p-3 text-right">${e.paid}</td>
+                    <td class="p-3 text-red-500">${e.commission}</td>
+                    <td class="p-3 text-right font-bold text-green-600">${e.earning}</td>
+                </tr>
+            `;
+        });
+    }
+    toggleModal("earningModal");
 }
 
+// =========================
+// EXPORT FUNCTIONS
+// =========================
+document.addEventListener('DOMContentLoaded', function() {
+    // Export Excel
+    const exportExcelBtn = document.getElementById("exportExcel");
+    if (exportExcelBtn) {
+        exportExcelBtn.addEventListener("click", function() {
+            const table = document.getElementById("vendorTable");
+            const wb = XLSX.utils.table_to_book(table, { sheet: "Vendors" });
+            XLSX.writeFile(wb, "vendors.xlsx");
+        });
+    }
+
+    // Export PDF
+    const exportPdfBtn = document.getElementById("exportPdf");
+    if (exportPdfBtn) {
+        exportPdfBtn.addEventListener("click", function() {
+            const element = document.getElementById("vendorTable");
+            const opt = {
+                margin: 0.5,
+                filename: 'vendors.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'landscape' }
+            };
+            html2pdf().set(opt).from(element).save();
+        });
+    }
+
+    // Print
+    const printBtn = document.getElementById("printButton");
+    if (printBtn) {
+        printBtn.addEventListener("click", function() {
+            const printContents = document.getElementById("vendorTable").outerHTML;
+            const win = window.open("", "", "width=900,height=650");
+            win.document.write(`
+                <html>
+                <head>
+                    <title>Print Vendors</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; padding: 20px; }
+                        table { width: 100%; border-collapse: collapse; }
+                        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                        th { background: #7c3aed; color: white; }
+                    </style>
+                </head>
+                <body>
+                    ${printContents}
+                </body>
+                </html>
+            `);
+            win.document.close();
+            win.print();
+        });
+    }
+});
 </script>
-<script>
-document.getElementById("exportExcel").addEventListener("click", function () {
-    const table = document.getElementById("vendorTable");
-    const wb = XLSX.utils.table_to_book(table, { sheet: "Vendors" });
-    XLSX.writeFile(wb, "vendors.xlsx");
-});
-
-document.getElementById("exportPdf").addEventListener("click", function () {
-    const element = document.getElementById("vendorTable");
-
-    const opt = {
-        margin: 0.5,
-        filename: 'vendors.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'in', format: 'a4', orientation: 'landscape' }
-    };
-
-    html2pdf().set(opt).from(element).save();
-});
-
-document.getElementById("printButton").addEventListener("click", function () {
-    const printContents = document.getElementById("vendorTable").outerHTML;
-    const win = window.open("", "", "width=900,height=650");
-    
-    win.document.write(`
-        <html>
-        <head>
-            <title>Print Vendors</title>
-        </head>
-        <body>
-            ${printContents}
-        </body>
-        </html>
-    `);
-
-    win.document.close();
-    win.print();
-});
-function closeAllDropdowns() {
-  document.querySelectorAll('[id^="dropdown-"]').forEach(dropdown => {
-    dropdown.classList.add('hidden');
-  });
-}
+</body>
 
 
-function populateEarningTable() {
-  const tableBody = document.getElementById('earningTableBody');
-  tableBody.innerHTML = ''; // Purana data clear karne ke liye
-
-  earningData.forEach((item, index) => {
-    // Earning calculation: (Price * Commission) / 100
-    const earning = (item.paidPrice * item.commission) / 100;
-
-    const row = `
-      <tr class="hover:bg-gray-50 transition-colors">
-        <td class="p-3 text-gray-600">${index + 1}</td>
-        <td class="p-3 font-medium text-gray-800">${item.product}</td>
-        <td class="p-3 text-right text-gray-700">₹${item.paidPrice}</td>
-        <td class="p-3 text-center">
-            <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-md text-xs font-bold">
-                ${item.commission}%
-            </span>
-        </td>
-        <td class="p-3 text-right font-bold text-green-600">
-            ₹${earning.toFixed(2)}
-        </td>
-      </tr>
-    `;
-    
-    tableBody.innerHTML += row;
-  });
-}
-
-// Function ko call karein
-populateEarningTable();
-</script>
 </html>

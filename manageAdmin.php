@@ -117,7 +117,6 @@
       </button>
     </div>
   </div>
-
   <!-- Stats Cards -->
   <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
     <!-- Total Orders -->
@@ -172,7 +171,6 @@
       </div>
     </div>
   </div>
-
   <!-- Filters Section -->
    <div class="bg-white rounded-2xl shadow-sm border p-4">
     <div class="grid grid-cols-1 md:grid-cols-6 gap-3">
@@ -206,12 +204,9 @@
 >
   + Add
 </button>
-
       </div>
-
     </div>
   </div>
-
   <div class="bg-white rounded-xl shadow-md border border-gray-100">
   <div class="min-w-full">
     <table class="w-full text-left border-collapse" id="dataTable">

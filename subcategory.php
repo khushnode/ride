@@ -31,6 +31,15 @@
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
+/* Hide scrollbar but allow scrolling */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 </style>
 </head>
 <body>
@@ -240,17 +249,12 @@
         <tr>
           <th class="px-4 py-4 text-left">Sr.No</th>
           <th class="px-4 py-4 text-left">Created At</th>
-          <th class="px-4 py-4 text-left">Vendor Name</th>
-          <th class="px-4 py-4 text-left">Shop Name</th>
           <th class="px-4 py-4 text-left">Category</th>
           <th class="px-4 py-4 text-left">Subcategory</th>
           <th class="px-4 py-4 text-left">Name</th>
           <th class="px-4 py-4 text-left w-1/4">Description</th>
-          <th class="px-4 py-4 text-left">Price</th>
-          <th class="px-4 py-4 text-left">Qty</th>
-          <th class="px-4 py-4 text-left">In Stock</th>
-          <th class="px-4 py-4 text-left">Unit</th>
           <th class="px-4 py-4 text-center">Images</th>
+          <th class="px-4 py-4 text-center">Status</th>
           <th class="px-4 py-4 text-right">Actions</th>
         </tr>
       </thead>
@@ -273,89 +277,7 @@
     </div>
   </div>
   
-  <div id="editModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm p-4">
-  <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl scale-95 opacity-0 transition-all duration-300 modal-box overflow-hidden">
-    
-    <div class="flex justify-between items-center border-b px-6 py-4 bg-slate-50">
-      <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
-        <i data-lucide="pencil-line" class="w-5 h-5 text-indigo-600"></i>
-        Edit Product Details
-      </h2>
-      <button onclick="closeModal('editModal')" class="text-slate-400 hover:text-red-500 transition-colors text-2xl">&times;</button>
-    </div>
-
-    <div class="p-6 max-h-[70vh] overflow-y-auto custom-scrollbar no-scrollbar">
-      <input type="hidden" id="editProductId">
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label class="text-xs font-bold text-slate-500 uppercase">Category</label>
-          <input type="text" id="editCategory" class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none">
-        </div>
-        <div>
-          <label class="text-xs font-bold text-slate-500 uppercase">Subcategory</label>
-          <input type="text" id="editSubcategory" class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none">
-        </div>
-
-        <div>
-          <label class="text-xs font-bold text-slate-500 uppercase">Vendor Name</label>
-          <input type="text" id="editVendor" class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none">
-        </div>
-        <div>
-          <label class="text-xs font-bold text-slate-500 uppercase">Shop Name</label>
-          <input type="text" id="editShop" class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none">
-        </div>
-
-        <div class="md:col-span-1">
-          <label class="text-xs font-bold text-slate-500 uppercase">Product Name</label>
-          <input type="text" id="editProductName" class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none">
-        </div>
-        <div>
-          <label class="text-xs font-bold text-slate-500 uppercase">Price (₹)</label>
-          <input type="number" id="editPrice" class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none">
-        </div>
-
-        <div>
-          <label class="text-xs font-bold text-slate-500 uppercase">Quantity</label>
-          <input type="number" id="editQty" class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none">
-        </div>
-        <div>
-          <label class="text-xs font-bold text-slate-500 uppercase">Unit</label>
-          <select id="editUnit" class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none">
-            <option>kg</option>
-            <option>gram</option>
-            <option>pcs</option>
-            <option>ltr</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="mt-4">
-        <label class="text-xs font-bold text-slate-500 uppercase">Description</label>
-        <textarea id="editDesc" rows="3" class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none"></textarea>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-        <div>
-          <label class="text-xs font-bold text-slate-500 uppercase">In Stock</label>
-          <select id="editStock" class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none">
-            <option>Yes</option>
-            <option>No</option>
-          </select>
-        </div>
-        <div>
-          <label class="text-xs font-bold text-slate-500 uppercase">Update Image</label>
-          <input type="file" class="w-full mt-1 text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
-        </div>
-      </div>
-    </div>
-
-    <div class="flex justify-end gap-3 border-t px-6 py-4 bg-slate-50">
-      <button onclick="closeModal('editModal')" class="px-6 py-2 rounded-xl bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 transition font-medium">Cancel</button>
-      <button onclick="saveEdit()" class="px-8 bg-indigo-600 text-white rounded-xl py-2 hover:bg-indigo-700 shadow-lg shadow-indigo-100 transition font-medium">Update Product</button>
-    </div>
-  </div>
-</div>
+  
 
 </div>
 <div id="deleteModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm p-4">
@@ -377,93 +299,163 @@
     </div>
   </div>
 </div>
+
+
+
 <div id="addCategoryModal"
-  class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm p-4">
-  <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl scale-95 opacity-0 transition-all duration-300 modal-box max-h-[90vh] overflow-y-auto custom-scroll">
-    <div class="flex justify-between items-center border-b px-6 py-4">
+class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+
+  <div class="bg-white w-full max-w-xl max-h-[90vh] rounded-2xl shadow-2xl scale-95 opacity-0 transition-all duration-300 modal-box flex flex-col">
+
+    <!-- Header (Sticky) -->
+    <div class="flex justify-between items-center border-b px-6 py-4 bg-slate-50 sticky top-0 z-10">
       <h2 class="text-lg font-semibold text-slate-800">Add New Subcategory</h2>
-      <button onclick="closeModal('addCategoryModal')" class="text-slate-400 hover:text-red-500 text-xl">
+      <button onclick="closeModal('addCategoryModal')" class="text-slate-400 hover:text-red-500 text-2xl">
         &times;
       </button>
     </div>
 
-    <form class="p-6 space-y-4 max-w-4xl mx-auto bg-white rounded-2xl shadow-sm">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div>
-      <label class="text-sm font-medium text-slate-600">Category <span class="text-red-500">*</span></label>
-      <input type="text" id="category" class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none border-transparent focus:border-indigo-500" placeholder="e.g., Rice">
-    </div>
-    <div>
-      <label class="text-sm font-medium text-slate-600">Subcategory <span class="text-red-500">*</span></label>
-      <input type="text" id="subcategory" class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="e.g., Grains">
-    </div>
+    <!-- Scrollable Form Body -->
+    <form onsubmit="addSubCategory(event)" class="flex flex-col flex-1 overflow-hidden">
 
-    <div>
-      <label class="text-sm font-medium text-slate-600">Vendor Name</label>
-      <input type="text" id="vendor" class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="e.g., Fresh Mart">
-    </div>
-    <div>
-      <label class="text-sm font-medium text-slate-600">Shop Name</label>
-      <input type="text" id="shop" class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="e.g., City Store">
-    </div>
+      <div class="p-6 space-y-4 overflow-y-auto hide-scrollbar flex-1">
 
-    <div>
-      <label class="text-sm font-medium text-slate-600">Product Name <span class="text-red-500">*</span></label>
-      <input type="text" id="productName" class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="e.g., Basmati Rice">
-    </div>
-    <div>
-      <label class="text-sm font-medium text-slate-600">Price (₹)</label>
-      <input type="number" id="price" class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="e.g., 150.00">
-    </div>
+        <div>
+          <label class="text-sm font-medium text-slate-600">Category *</label>
+          <input type="text" id="category"
+          class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none" required>
+        </div>
 
-    <div>
-      <label class="text-sm font-medium text-slate-600">Quantity</label>
-      <input type="number" id="qty" class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="e.g., 200">
-    </div>
-    <div>
-      <label class="text-sm font-medium text-slate-600">Unit</label>
-      <select id="unit" class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none">
-        <option value="kg">kg</option>
-        <option value="gram">gram</option>
-        <option value="ltr">ltr</option>
-        <option value="pcs">pcs</option>
-      </select>
-    </div>
-  </div>
+        <div>
+          <label class="text-sm font-medium text-slate-600">Subcategory *</label>
+          <input type="text" id="subcategory"
+          class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none" required>
+        </div>
 
-  <div>
-    <label class="text-sm font-medium text-slate-600">Description</label>
-    <textarea rows="3" id="desc" class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Enter product details..."></textarea>
-  </div>
+        <div>
+          <label class="text-sm font-medium text-slate-600">Name *</label>
+          <input type="text" id="productName"
+          class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none" required>
+        </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div>
-      <label class="text-sm font-medium text-slate-600">Upload Product Image</label>
-      <input type="file" id="image" class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:bg-indigo-50 file:text-indigo-700">
-    </div>
+        <div>
+          <label class="text-sm font-medium text-slate-600">Description</label>
+          <textarea id="desc" rows="3"
+          class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none"></textarea>
+        </div>
 
-    <div>
-      <label class="text-sm font-medium text-slate-600">In Stock</label>
-      <select id="inStock" class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none">
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-      </select>
-    </div>
-  </div>
+        <div>
+          <label class="text-sm font-medium text-slate-600">Image</label>
+          <input type="file" id="image"
+          class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 outline-none">
+        </div>
 
-  <div class="flex justify-end gap-3 pt-6 border-t mt-4">
-    <button type="button" onclick="closeModal()" 
-      class="px-6 py-2 rounded-xl bg-slate-200 text-slate-700 font-semibold hover:bg-slate-300 transition">
-      Cancel
-    </button>
-    <button type="submit" 
-      class="px-10 bg-indigo-600 text-white rounded-xl font-semibold py-2 hover:bg-indigo-700 shadow-lg shadow-indigo-200 transition">
-      Save Product
-    </button>
-  </div>
-</form>
+        <div>
+          <label class="text-sm font-medium text-slate-600">Status</label>
+          <select id="status"
+          class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none">
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+
+      </div>
+
+      <!-- Sticky Footer -->
+      <div class="flex justify-end gap-3 border-t px-6 py-4 bg-slate-50 sticky bottom-0">
+        <button type="button" onclick="closeModal('addCategoryModal')"
+        class="px-6 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 transition">
+          Cancel
+        </button>
+
+        <button type="submit"
+        class="px-8 bg-indigo-600 text-white rounded-xl py-2 hover:bg-indigo-700 transition">
+          Save
+        </button>
+      </div>
+
+    </form>
+
   </div>
 </div>
+
+<div id="editModal"
+class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+
+  <div class="bg-white w-full max-w-xl max-h-[90vh] rounded-2xl shadow-2xl scale-95 opacity-0 transition-all duration-300 modal-box flex flex-col">
+
+    <!-- Header (Sticky) -->
+    <div class="flex justify-between items-center border-b px-6 py-4 bg-slate-50 sticky top-0 z-10">
+      <h2 class="text-lg font-bold text-slate-800">Edit Subcategory</h2>
+      <button onclick="closeModal('editModal')" class="text-slate-400 hover:text-red-500 text-2xl">
+        &times;
+      </button>
+    </div>
+
+    <!-- Scrollable Body -->
+    <div class="p-6 space-y-4 overflow-y-auto hide-scrollbar flex-1">
+
+      <input type="hidden" id="editProductId">
+
+      <div>
+        <label class="text-sm font-medium text-slate-600">Category</label>
+        <input type="text" id="editCategory"
+        class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none">
+      </div>
+
+      <div>
+        <label class="text-sm font-medium text-slate-600">Subcategory</label>
+        <input type="text" id="editSubcategory"
+        class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none">
+      </div>
+
+      <div>
+        <label class="text-sm font-medium text-slate-600">Name</label>
+        <input type="text" id="editProductName"
+        class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none">
+      </div>
+
+      <div>
+        <label class="text-sm font-medium text-slate-600">Description</label>
+        <textarea id="editDesc" rows="3"
+        class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none"></textarea>
+      </div>
+
+      <div>
+        <label class="text-sm font-medium text-slate-600">Status</label>
+        <select id="editStatus"
+        class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none">
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="text-sm font-medium text-slate-600">Update Image</label>
+        <input type="file" id="editImage"
+        class="w-full mt-1 px-4 py-2 rounded-xl bg-slate-100 outline-none">
+      </div>
+
+    </div>
+
+    <!-- Footer (Sticky) -->
+    <div class="flex justify-end gap-3 border-t px-6 py-4 bg-slate-50 sticky bottom-0">
+      <button onclick="closeModal('editModal')"
+      class="px-6 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 transition">
+        Cancel
+      </button>
+
+      <button onclick="saveEdit()"
+      class="px-8 bg-indigo-600 text-white rounded-xl py-2 hover:bg-indigo-700 transition">
+        Update
+      </button>
+    </div>
+
+  </div>
+</div>
+
+
+
     <footer class="mt-auto bg-white border-t border-slate-100 px-8 py-6">
         <div class="flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="text-center md:text-left">
@@ -523,13 +515,7 @@ document.addEventListener("keydown", function(e){
     });
   }
 });
-function toggleDropdown(btn) {
-  const menu = btn.parentElement.querySelector(".dropdown-menu");
-  document.querySelectorAll(".dropdown-menu").forEach(m => {
-    if (m !== menu) m.classList.add("hidden");
-  });
-  menu.classList.toggle("hidden");
-}
+
 
 document.addEventListener("click", function(e){
   if(!e.target.closest(".relative.inline-block")){
@@ -540,19 +526,6 @@ document.addEventListener("click", function(e){
 });
 </script>
 <script>
-
-function toggleDropdown(button) {
-  
-  // Close all other dropdowns
-  document.querySelectorAll(".dropdown-menu").forEach(menu => {
-    if(menu !== button.nextElementSibling) {
-      menu.classList.add("hidden");
-    }
-  });
-
-  // Toggle current
-  button.nextElementSibling.classList.toggle("hidden");
-}
 
 // Close on outside click
 document.addEventListener("click", function (e) {
@@ -580,35 +553,50 @@ function closeModal(id){const modal=document.getElementById(id);const box=modal.
 document.addEventListener("click", function (e) {document.querySelectorAll("[id$='Modal']").forEach(modal => {if (e.target === modal) closeModal(modal.id);});});
 document.addEventListener("keydown", function(e){if(e.key==="Escape"){document.querySelectorAll("[id$='Modal']").forEach(modal=>closeModal(modal.id));}});
 
-// Edit modal
-function openEditModal(id,name,status){
-  openModal('editModal');
-  document.getElementById('editCategoryId').value=id;
-  document.getElementById('editCategoryName').value=name;
-  document.getElementById('editCategoryStatus').value=status;
+function openEditModal(id) {
+  const item = subCategories.find(i => i.id === id);
+  if (!item) return;
+
+  document.getElementById("editProductId").value = item.id;
+  document.getElementById("editCategory").value = item.category;
+  document.getElementById("editSubcategory").value = item.subcategory;
+  document.getElementById("editProductName").value = item.name;
+  document.getElementById("editDesc").value = item.description;
+
+  openModal("editModal");
 }
 
-function saveEdit(){
-  const id=parseInt(document.getElementById('editCategoryId').value);
-  const name=document.getElementById('editCategoryName').value;
-  const status=document.getElementById('editCategoryStatus').value;
-  categories=categories.map(c=>c.id===id?{...c,name,status}:c);
+function saveEdit() {
+  const id = parseInt(document.getElementById("editProductId").value);
+
+  const item = subCategories.find(i => i.id === id);
+  if (!item) return;
+
+  item.category = document.getElementById("editCategory").value;
+  item.subcategory = document.getElementById("editSubcategory").value;
+  item.name = document.getElementById("editProductName").value;
+  item.description = document.getElementById("editDesc").value;
+
   renderTable();
-  closeModal('editModal');
+  closeModal("editModal");
 }
 
-// Delete modal
-function openDeleteModal(id,name){
-  openModal('deleteModal');
-  document.getElementById('deleteCategoryId').value=id;
-  document.getElementById('deleteCategoryName').innerText=name;
+function openDeleteModal(id, name) {
+  document.getElementById("deleteCategoryId").value = id;
+  document.getElementById("deleteCategoryName").innerText = name;
+  openModal("deleteModal");
 }
 
-function confirmDelete(){
-  const id=parseInt(document.getElementById('deleteCategoryId').value);
-  categories=categories.filter(c=>c.id!==id);
+function confirmDelete() {
+  const id = parseInt(document.getElementById("deleteCategoryId").value);
+
+  const index = subCategories.findIndex(i => i.id === id);
+  if (index !== -1) {
+    subCategories.splice(index, 1);
+  }
+
   renderTable();
-  closeModal('deleteModal');
+  closeModal("deleteModal");
 }
 
 renderTable();
@@ -648,92 +636,149 @@ function exportToPDF() {
 }</script>
  <script>
     // 1. Dummy Data matching your image
-    const products = [
-      {
-        id: 1,
-        createdAt: "27 May 2025",
-        vendor: "N/A",
-        shop: "N/A",
-        category:"Daal's",
-        subcategory: "Pulses (Dal)",
-        name: "Chana Dal",
-        desc: "Sourced from certified organic farms, our Premium Organic Chana Dal is unpolished, retaining all natural nutrients.",
-        price: "129.00",
-        qty: 500,
-        inStock: "Yes",
-        unit: "kg",
-        image: null // null matlab 'No Image' text dikhayenge
-      },
-      {
-        id: 2,
-        createdAt: "28 May 2025",
-        vendor: "Fresh Mart",
-        shop: "City Store",
-        category:"Rice",
-        subcategory: "Grains",
-        name: "Basmati Rice",
-        desc: "Long-grain aromatic rice perfect for biryani and special occasions.",
-        price: "150.00",
-        qty: 200,
-        inStock: "Yes",
-        unit: "kg",
-        image: "https://via.placeholder.com/40"
-      }
-    ];
+   const subCategories = [
+  {
+    id: 1,
+    createdAt: "27 May 2025",
+    category: "Daal's",
+    subcategory: "Pulses",
+    name: "Chana Dal",
+    description: "High quality organic chana dal sourced from farms.",
+    image: null,
+    status: "Active"
+  },
+  {
+    id: 2,
+    createdAt: "28 May 2025",
+    category: "Rice",
+    subcategory: "Grains",
+    name: "Basmati Rice",
+    description: "Premium long grain aromatic rice.",
+    image: "https://via.placeholder.com/40",
+    status: "Inactive"
+  }
+];
 
-    // 2. Function to Render Table
+function addSubCategory(e) {
+  e.preventDefault();
+
+  const newItem = {
+    id: subCategories.length + 1,
+    createdAt: new Date().toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric"
+    }),
+    category: document.getElementById("category").value,
+    subcategory: document.getElementById("subcategory").value,
+    name: document.getElementById("productName").value,
+    description: document.getElementById("desc").value,
+    image: null,
+    status: document.getElementById("status").value
+  };
+
+  subCategories.push(newItem);
+  renderTable();
+  closeModal("addCategoryModal");
+}
+
     function renderTable() {
-      const tableBody = document.getElementById('categoryTable');
-      tableBody.innerHTML = products.map((item, index) => `
-        <tr class="hover:bg-gray-50 transition-colors">
-          <td class="px-4 py-4 text-gray-500">${index + 1}</td>
-          <td class="px-4 py-4 whitespace-nowrap">${item.createdAt}</td>
-          <td class="px-4 py-4 text-gray-400">${item.vendor}</td>
-          <td class="px-4 py-4 text-gray-400">${item.shop}</td>
-                    <td class="px-4 py-4 font-medium text-indigo-600">${item.category}</td>
-          <td class="px-4 py-4 font-medium text-indigo-600">${item.subcategory}</td>
-          <td class="px-4 py-4 font-semibold text-gray-800">${item.name}</td>
-          <td class="px-4 py-4 text-gray-500 leading-relaxed text-xs">${item.desc}</td>
-          <td class="px-4 py-4 font-bold text-gray-900">₹${item.price}</td>
-          <td class="px-4 py-4">${item.qty}</td>
-          <td class="px-4 py-4">
-            <span class="${item.inStock === 'Yes' ? 'text-green-600' : 'text-red-600'} font-bold">
-              ${item.inStock}
-            </span>
-          </td>
-          <td class="px-4 py-4">${item.unit}</td>
-          <td class="px-4 py-4 text-center">
-            ${item.image ? `<img src="${item.image}" class="w-10 h-10 rounded border mx-auto">` : '<span class="text-gray-400 italic text-xs">No Image</span>'}
-          </td>
-         <td class="px-4 py-4 text-right whitespace-nowrap">
-  <div class="flex justify-end gap-2">
-    
-    <button 
-      onclick="openEditModal(${item.id}, '${item.name}', '${item.inStock}')"
-      class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-sm group"
-      title="Edit Item">
-      <i data-lucide="pencil-line" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
-    </button>
+  const tableBody = document.getElementById('categoryTable');
 
-    <button 
-      onclick="openDeleteModal(${item.id}, '${item.name}')"
-      class="flex items-center justify-center w-8 h-8 rounded-full bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 shadow-sm group"
-      title="Delete Item">
-      <i data-lucide="trash-2" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
-    </button>
+  tableBody.innerHTML = subCategories.map((item, index) => `
+    <tr class="hover:bg-gray-50 transition-colors">
+      
+      <td class="px-4 py-4 text-gray-500">${index + 1}</td>
+      <td class="px-4 py-4 whitespace-nowrap">${item.createdAt}</td>
+      <td class="px-4 py-4 font-medium text-indigo-600">${item.category}</td>
+      <td class="px-4 py-4 font-medium text-indigo-600">${item.subcategory}</td>
+      <td class="px-4 py-4 font-semibold text-gray-800">${item.name}</td>
+      <td class="px-4 py-4 text-gray-500 text-xs">${item.description}</td>
 
-  </div>
-</td>
-</td>
-      `).join('');
+      <td class="px-4 py-4 text-center">
+        ${item.image 
+          ? `<img src="${item.image}" class="w-10 h-10 rounded border mx-auto">`
+          : '<span class="text-gray-400 italic text-xs">No Image</span>'}
+      </td>
 
-        // Icons trigger karna na bhulein
-        lucide.createIcons();
-      }
+      <td class="px-4 py-4 text-center">
+        <span class="${item.status === 'Active' 
+          ? 'text-green-600 bg-green-100 px-2 py-1 rounded-full text-xs font-bold' 
+          : 'text-red-600 bg-red-100 px-2 py-1 rounded-full text-xs font-bold'}">
+          ${item.status}
+        </span>
+      </td>
 
-      lucide.createIcons(); // Icons active karne ke liye
-    
+      <td class="px-4 py-4 text-right whitespace-nowrap">
+        <div class="flex justify-end gap-2">
+          
+          <button 
+            onclick="openEditModal(${item.id})"
+            class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition">
+            <i data-lucide="pencil-line" class="w-4 h-4"></i>
+          </button>
 
-    renderTable();
+          <button 
+            onclick="openDeleteModal(${item.id}, '${item.name}')"
+            class="flex items-center justify-center w-8 h-8 rounded-full bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition">
+            <i data-lucide="trash-2" class="w-4 h-4"></i>
+          </button>
+
+        </div>
+      </td>
+    </tr>
+  `).join('');
+
+  lucide.createIcons();
+}
+document.addEventListener("DOMContentLoaded", function () {
+  renderTable();
+});
   </script>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const notiBtn = document.getElementById("notiBtn");
+  const notiBar = document.getElementById("notiBar");
+
+  if(notiBtn && notiBar){
+    notiBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      notiBar.classList.toggle("hidden");
+    });
+
+    // Outside click close
+    document.addEventListener("click", function (e) {
+      if (!e.target.closest("#notiBar") && !e.target.closest("#notiBtn")) {
+        notiBar.classList.add("hidden");
+      }
+    });
+  }
+
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const notiBtn = document.getElementById("notiBtn");
+  const notiBar = document.getElementById("notiBar");
+
+  if (notiBtn && notiBar) {
+
+    notiBtn.addEventListener("click", function (e) {
+      e.stopPropagation();   // VERY IMPORTANT
+      notiBar.classList.toggle("hidden");
+    });
+
+    // Close when clicking outside
+    document.addEventListener("click", function (e) {
+      if (!notiBar.contains(e.target) && !notiBtn.contains(e.target)) {
+        notiBar.classList.add("hidden");
+      }
+    });
+
+  }
+
+});
+</script>
 </html>

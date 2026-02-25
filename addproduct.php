@@ -1,4 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Product</title>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+/* Hide Scrollbar but Keep Scroll */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
 
+.no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+}
+</style>
+</head>
+<body>
+  
 <?php include 'include/header.php'; ?>
 <main class="flex-1 flex flex-col min-w-0">
         <header class="h-20 bg-white border-b border-slate-200 sticky top-0 z-30 px-8 flex items-center justify-between">
@@ -193,9 +213,10 @@
                 <button class="flex-1 bg-slate-200 text-slate-700 py-2 rounded-xl text-sm font-bold hover:bg-slate-300 transition">
                     Reset
                 </button>
-                <button onclick="openModal('addProductModal')" 
+               <button onclick="openModal('addProductModal')" 
 class="bg-mayview-blue text-white px-4 py-2 rounded-xl text-sm font-bold">
 + Add
+
 </button>
 
             </div>
@@ -325,6 +346,38 @@ class="bg-mayview-blue text-white px-4 py-2 rounded-xl text-sm font-bold">
   </div>
 </div>
 </div>
+<!-- DELETE MODAL -->
+<div id="deleteModal"
+  class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+
+  <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl scale-95 opacity-0 transition-all duration-300 modal-box">
+    
+    <div class="px-6 py-4 border-b bg-slate-50 flex justify-between items-center">
+      <h2 class="text-lg font-bold text-red-600">Delete Product</h2>
+      <button onclick="closeModal('deleteModal')" class="text-xl text-slate-400 hover:text-red-500">&times;</button>
+    </div>
+
+    <div class="p-6 text-center">
+      <input type="hidden" id="deleteProductId">
+      <p class="text-slate-600">
+        Are you sure you want to delete this product?
+      </p>
+    </div>
+
+    <div class="flex justify-end gap-3 px-6 py-4 border-t bg-slate-50">
+      <button onclick="closeModal('deleteModal')"
+        class="px-6 py-2 rounded-xl bg-slate-200 hover:bg-slate-300">
+        Cancel
+      </button>
+
+      <button onclick="confirmDelete()"
+        class="px-6 py-2 rounded-xl bg-red-600 text-white hover:bg-red-700">
+        Delete
+      </button>
+    </div>
+
+  </div>
+</div>
 <footer class="mt-auto bg-white border-t border-slate-100 px-8 py-6">
         <div class="flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="text-center md:text-left">
@@ -340,195 +393,12 @@ class="bg-mayview-blue text-white px-4 py-2 rounded-xl text-sm font-bold">
         </div>
     </footer>
 </main>
-<div id="viewModal" class="fixed inset-0 z-50 hidden items-center justify-end bg-black/50 pr-[100px]">
-  <div class="bg-white w-full max-w-4xl rounded-[2rem] shadow-xl animate-scale">
-
-    <div class="flex justify-between items-center p-6 border-b">
-      <h2 class="text-lg font-black text-mayview-dark">Product Details</h2>
-      <button onclick="closeModal('viewModal')" class="text-slate-400 hover:text-black text-xl">&times;</button>
-    </div>
-
-    <div class="p-6 space-y-6 max-h-[80vh] overflow-y-auto">
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <img src="./assets/images/img1.jpg" class="rounded-2xl w-full object-cover">
-
-        <div class="md:col-span-2 space-y-3">
-          <p><span class="font-bold">Category:</span> Non-Vegetarian</p>
-          <p><span class="font-bold">Product Name:</span> Chicken Biryani</p>
-          <span class="px-3 py-1 text-xs bg-emerald-50 text-emerald-600 rounded-full font-bold">
-            Active
-          </span>
-        </div>
-      </div>
-
-      <div>
-        <h3 class="font-bold mb-3">Product Variants</h3>
-
-        <div class="overflow-x-auto border rounded-2xl">
-          <table class="min-w-full text-sm">
-            <thead class="bg-slate-100 text-xs uppercase">
-              <tr>
-                <th class="px-4 py-3 text-left">SR</th>
-                <th class="px-4 py-3 text-left">Qty</th>
-                <th class="px-4 py-3 text-left">Unit</th>
-                <th class="px-4 py-3 text-left">Pieces</th>
-                <th class="px-4 py-3 text-left">MRP</th>
-                <th class="px-4 py-3 text-left">Sell</th>
-                <th class="px-4 py-3 text-left">Offer</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y">
-              <tr>
-                <td class="px-4 py-3">1</td>
-                <td class="px-4 py-3">500</td>
-                <td class="px-4 py-3">Gram</td>
-                <td class="px-4 py-3">6-8 pieces</td>
-                <td class="px-4 py-3">₹200</td>
-                <td class="px-4 py-3">₹180</td>
-                <td class="px-4 py-3">₹20</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-</div>
-<div id="addProductModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 p-4">
-
-    <div class="bg-white w-full max-w-6xl rounded-xl shadow-2xl overflow-hidden">
-        
-        <div class="flex justify-between items-center p-4 border-b border-gray-100">
-            <h2 class="text-gray-700 font-medium">Add New Product</h2>
-            <button onclick="closeModal('addProductModal')" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
-        </div>
-
-        <div class="p-6 space-y-6">
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Select Category</label>
-                    <select class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-gray-50 text-gray-500 focus:outline-none focus:ring-1 focus:ring-yellow-400">
-                        <option>Select category</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Product Image</label>
-                    <div class="flex items-center border border-gray-200 rounded-lg overflow-hidden">
-                        <label class="bg-gray-100 px-4 py-3 text-sm border-r border-gray-200 cursor-pointer hover:bg-gray-200 transition">Choose File</label>
-                        <span class="px-4 text-gray-400 text-sm">No file chosen</span>
-                        <input type="file" class="hidden">
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Product Name</label>
-                    <input type="text" placeholder="Enter product name" class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-gray-50 focus:outline-none focus:ring-1 focus:ring-yellow-400">
-                </div>
-            </div>
-
-    <div class="flex justify-between items-center mb-4">
-        <h3 class="font-bold text-gray-800">Product Variants</h3>
-
-        <button type="button"
-            onclick="addVariant()"
-            class="text-yellow-500 border border-yellow-500 px-4 py-1 rounded-lg text-sm font-medium hover:bg-yellow-50 transition">
-            Add Variant
-        </button>
-    </div>           
-
-                <div id="variantContainer" class="space-y-4">
-
-        <!-- Single Variant Template -->
-        <div class="variant-item relative grid grid-cols-1 md:grid-cols-6 gap-4 p-4 border border-gray-100 rounded-xl bg-white shadow-sm">
-
-            <button type="button"
-                onclick="removeVariant(this)"
-                class="absolute -top-2 -right-2 bg-white text-gray-400 border border-gray-200 rounded-full w-6 h-6 flex items-center justify-center text-xs hover:text-red-500 shadow-sm">
-                ✕
-            </button>
-
-            <div>
-                <label class="block text-xs font-semibold text-gray-600 mb-1">Quantity</label>
-                <input type="text" class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">
-            </div>
-
-            <div>
-                <label class="block text-xs font-semibold text-gray-600 mb-1">Unit</label>
-                <select class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">
-                    <option>Gram</option>
-                    <option>Kg</option>
-                    <option>Piece</option>
-                </select>
-            </div>
-
-            <div>
-                <label class="block text-xs font-semibold text-gray-600 mb-1">Piece</label>
-                <input type="text" class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">
-            </div>
-
-            <div>
-                <label class="block text-xs font-semibold text-gray-600 mb-1">MRP</label>
-                <input type="text" class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">
-            </div>
-
-            <div>
-                <label class="block text-xs font-semibold text-gray-600 mb-1">Selling Price</label>
-                <input type="text" class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">
-            </div>
-
-            <div>
-                <label class="block text-xs font-semibold text-gray-600 mb-1">Save Offer</label>
-                <input type="text" class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">
-            </div>
-
-        </div>
-
-    </div>
-</div>
-<div class="flex justify-end gap-3 p-6 pt-0">
-            <button class="bg-mayview-blue text-white px-4 py-2 rounded-xl text-sm font-bold">
-                Add Product
-            </button>
-            <button class="px-8 py-3 bg-gray-500 text-white font-bold rounded-xl hover:bg-gray-600 transition shadow-md" onclick="closeModal('addProductModal')">
-                Cancel
-            </button>
-        </div>
-    </div>
-</div>
-            </div>
-        </div>
-
-     
-        <div id="deleteModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm p-4">
-  <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl scale-95 opacity-0 transition-all duration-300 modal-box">
-    <div class="flex justify-between items-center border-b px-6 py-4">
-      <h2 class="text-lg font-semibold text-red-600">Confirm Delete</h2>
-      <button onclick="closeModal('deleteModal')" class="text-slate-400 hover:text-red-500 text-xl">&times;</button>
-    </div>
-    <div class="p-6 text-sm text-slate-600">
-      <p>Are you sure you want to <strong class="text-red-600">permanently delete</strong>
-        <span id="deleteCategoryName" class="text-amber-500 font-semibold"></span>?
-      </p>
-      <p class="text-xs text-slate-400 mt-2">This action cannot be undone.</p>
-      <input type="hidden" id="deleteCategoryId">
-    </div>
-    <div class="flex justify-end gap-3 border-t px-6 py-4">
-      <button onclick="closeModal('deleteModal')" class="px-4 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 transition">Cancel</button>
-      <button onclick="confirmDelete()" class="px-4 py-2 rounded-xl bg-red-600 text-white hover:bg-red-700 transition">Yes, Delete</button>
-    </div>
-  </div>
-</div>
-<div id="addCategoryModal"
+<div id="addProductModal"
   class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm p-4">
-  <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl scale-95 opacity-0 transition-all duration-300 modal-box max-h-[90vh] overflow-y-auto custom-scroll">
+  <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl scale-95 opacity-0 transition-all duration-300 modal-box max-h-[90vh] overflow-y-auto no-scrollbar">
     <div class="flex justify-between items-center border-b px-6 py-4">
       <h2 class="text-lg font-semibold text-slate-800">Add New Product</h2>
-      <button onclick="closeModal('addCategoryModal')" class="text-slate-400 hover:text-red-500 text-xl">
+      <button onclick="closeModal('addProductModal')" class="text-slate-400 hover:text-red-500 text-xl">
         &times;
       </button>
     </div>
@@ -598,7 +468,7 @@ class="bg-mayview-blue text-white px-4 py-2 rounded-xl text-sm font-bold">
   </div>
 
   <div class="flex justify-end gap-3 pt-6 border-t mt-4">
-    <button type="button" onclick="closeModal()" 
+    <button type="button" onclick="closeModal('addProductModal')" 
       class="px-6 py-2 rounded-xl bg-slate-200 text-slate-700 font-semibold hover:bg-slate-300 transition">
       Cancel
     </button>
@@ -609,107 +479,62 @@ class="bg-mayview-blue text-white px-4 py-2 rounded-xl text-sm font-bold">
   </div>
 </form>
   </div>
+</div>
+</div>
 
+    
 <script>
-    function openModal(id) {
+function deleteProduct(id) {
+  if (confirm("Are you sure you want to delete this product?")) {
+    products = products.filter(product => product.id !== id);
+    renderTable();
+  }
+}
+// ---------- MODAL ----------
+function openModal(id){
   const modal = document.getElementById(id);
   const box = modal.querySelector(".modal-box");
 
   modal.classList.remove("hidden");
   modal.classList.add("flex");
 
-  setTimeout(() => {
-    box.classList.remove("scale-95", "opacity-0");
-    box.classList.add("scale-100", "opacity-100");
-  }, 50);
+  if(box){
+    setTimeout(()=>{
+      box.classList.remove("scale-95","opacity-0");
+      box.classList.add("scale-100","opacity-100");
+    },50);
+  }
 }
 
-function closeModal(id) {
+function closeModal(id){
   const modal = document.getElementById(id);
   const box = modal.querySelector(".modal-box");
 
-  box.classList.add("scale-95", "opacity-0");
+  if(box){
+    box.classList.add("scale-95","opacity-0");
+  }
 
-  setTimeout(() => {
+  setTimeout(()=>{
     modal.classList.add("hidden");
     modal.classList.remove("flex");
-  }, 200);
-}
-
-document.addEventListener("click", function (e) {
-  document.querySelectorAll("[id$='Modal']").forEach(modal => {
-    if (e.target === modal) {
-      closeModal(modal.id);
-    }
-  });
-});
-
-document.addEventListener("keydown", function(e){
-  if(e.key === "Escape"){
-    document.querySelectorAll("[id$='Modal']").forEach(modal=>{
-      closeModal(modal.id);
-    });
-  }
-});
-function toggleDropdown(btn) {
-  const menu = btn.parentElement.querySelector(".dropdown-menu");
-  document.querySelectorAll(".dropdown-menu").forEach(m => {
-    if (m !== menu) m.classList.add("hidden");
-  });
-  menu.classList.toggle("hidden");
-}
-
-document.addEventListener("click", function(e){
-  if(!e.target.closest(".relative.inline-block")){
-    document.querySelectorAll(".dropdown-menu").forEach(m=>{
-      m.classList.add("hidden");
-    });
-  }
-});
-</script>
-<script>
-
-function toggleDropdown(button) {
-  
-  // Close all other dropdowns
-  document.querySelectorAll(".dropdown-menu").forEach(menu => {
-    if(menu !== button.nextElementSibling) {
-      menu.classList.add("hidden");
-    }
-  });
-
-  // Toggle current
-  button.nextElementSibling.classList.toggle("hidden");
+  },200);
 }
 
 // Close on outside click
 document.addEventListener("click", function (e) {
-  if (!e.target.closest(".relative")) {
-    document.querySelectorAll(".dropdown-menu").forEach(menu => {
-      menu.classList.add("hidden");
-    });
+  document.querySelectorAll("[id$='Modal']").forEach(modal => {
+    if (e.target === modal) closeModal(modal.id);
+  });
+});
+
+// Close on ESC
+document.addEventListener("keydown", function(e){
+  if(e.key==="Escape"){
+    document.querySelectorAll("[id$='Modal']").forEach(modal=>closeModal(modal.id));
   }
 });
 
-</script>
-<script>
-
-// Dropdown
-function toggleDropdown(button) {
-  const menu = button.nextElementSibling;
-  document.querySelectorAll(".dropdown-menu").forEach(m => {if(m!==menu) m.classList.add("hidden");});
-  menu.classList.toggle("hidden");
-}
-document.addEventListener("click", e => {if(!e.target.closest(".relative.inline-block")) document.querySelectorAll(".dropdown-menu").forEach(m=>m.classList.add("hidden"));});
-
-// Modal functions
-function openModal(id){const modal=document.getElementById(id);const box=modal.querySelector(".modal-box");modal.classList.remove("hidden");modal.classList.add("flex");setTimeout(()=>{box.classList.remove("scale-95","opacity-0");box.classList.add("scale-100","opacity-100");},50);}
-function closeModal(id){const modal=document.getElementById(id);const box=modal.querySelector(".modal-box");box.classList.add("scale-95","opacity-0");setTimeout(()=>{modal.classList.add("hidden");modal.classList.remove("flex");},200);}
-document.addEventListener("click", function (e) {document.querySelectorAll("[id$='Modal']").forEach(modal => {if (e.target === modal) closeModal(modal.id);});});
-document.addEventListener("keydown", function(e){if(e.key==="Escape"){document.querySelectorAll("[id$='Modal']").forEach(modal=>closeModal(modal.id));}});
-
-
-// Delete modal
+// ---------- DELETE ----------
 function openDeleteModal(id,name){
   openModal('deleteModal');
   document.getElementById('deleteCategoryId').value=id;
@@ -717,136 +542,195 @@ function openDeleteModal(id,name){
 }
 
 function confirmDelete(){
-  const id=parseInt(document.getElementById('deleteCategoryId').value);
-  categories=categories.filter(c=>c.id!==id);
+  const id = parseInt(document.getElementById('deleteCategoryId').value);
+  const index = products.findIndex(p => p.id === id);
+  if(index !== -1){
+    products.splice(index,1);
+  }
   renderTable();
   closeModal('deleteModal');
 }
 
-renderTable();
+// ---------- TABLE DATA ----------
+const products = [
+  {
+    id: 1,
+    createdAt: "27 May 2025",
+    vendor: "N/A",
+    shop: "N/A",
+    category:"Daal's",
+    subcategory: "Pulses (Dal)",
+    name: "Chana Dal",
+    desc: "Premium Organic Chana Dal.",
+    price: "129.00",
+    qty: 500,
+    inStock: "Yes",
+    unit: "kg",
+    image: null
+  },
+  {
+    id: 2,
+    createdAt: "28 May 2025",
+    vendor: "Fresh Mart",
+    shop: "City Store",
+    category:"Rice",
+    subcategory: "Grains",
+    name: "Basmati Rice",
+    desc: "Long-grain aromatic rice perfect for biryani.",
+    price: "150.00",
+    qty: 200,
+    inStock: "Yes",
+    unit: "kg",
+    image: "https://via.placeholder.com/40"
+  },
+  {
+    id: 3,
+    createdAt: "29 May 2025",
+    vendor: "Green Farm",
+    shop: "Village Market",
+    category:"Spices",
+    subcategory: "Masala",
+    name: "Turmeric Powder",
+    desc: "Pure and natural haldi powder with rich color.",
+    price: "80.00",
+    qty: 100,
+    inStock: "No",
+    unit: "gram",
+    image: null
+  },
+  {
+    id: 4,
+    createdAt: "30 May 2025",
+    vendor: "Daily Needs",
+    shop: "Super Store",
+    category:"Oil",
+    subcategory: "Cooking Oil",
+    name: "Mustard Oil",
+    desc: "Cold pressed mustard oil for healthy cooking.",
+    price: "180.00",
+    qty: 50,
+    inStock: "Yes",
+    unit: "ltr",
+    image: "https://via.placeholder.com/40"
+  }
+];
 
-function exportToExcel() {
-    const table = document.getElementById("myTable").cloneNode(true);
+function renderTable(){
+  const tableBody = document.getElementById('categoryTable');
+  if(products.length === 0){
+    tableBody.innerHTML = `
+      <tr>
+        <td colspan="14" class="text-center py-6 text-gray-400">
+          No Products Found
+        </td>
+      </tr>
+    `;
+    return;
+  }
 
-    Array.from(table.rows).forEach(row => {
-        row.deleteCell(4);
-    });
+  tableBody.innerHTML = products.map((item,index)=>`
+    <tr class="hover:bg-gray-50 transition-colors">
 
-    const wb = XLSX.utils.table_to_book(table, { sheet: "Category Data" });
-    XLSX.writeFile(wb, "Category_List.xlsx");
+      <td class="px-4 py-4 text-gray-500">${index+1}</td>
+
+      <td class="px-4 py-4 whitespace-nowrap">${item.createdAt}</td>
+
+      <td class="px-4 py-4 text-gray-400">${item.vendor}</td>
+
+      <td class="px-4 py-4 text-gray-400">${item.shop}</td>
+
+      <td class="px-4 py-4 font-medium text-indigo-600">${item.category}</td>
+
+      <td class="px-4 py-4 font-medium text-indigo-600">${item.subcategory}</td>
+
+      <td class="px-4 py-4 font-semibold text-gray-800">${item.name}</td>
+
+      <td class="px-4 py-4 text-gray-500 text-xs">${item.desc}</td>
+
+      <td class="px-4 py-4 font-bold text-gray-900">₹${item.price}</td>
+
+      <td class="px-4 py-4">${item.qty}</td>
+
+      <td class="px-4 py-4">
+        <span class="${item.inStock === 'Yes' ? 'text-green-600' : 'text-red-600'} font-bold">
+          ${item.inStock}
+        </span>
+      </td>
+
+      <td class="px-4 py-4">${item.unit}</td>
+
+      <td class="px-4 py-4 text-center">
+        ${
+          item.image 
+          ? `<img src="${item.image}" class="w-10 h-10 rounded border mx-auto object-cover">`
+          : '<span class="text-gray-400 italic text-xs">No Image</span>'
+        }
+      </td>
+
+            <!-- ACTION ICONS -->
+      <td class="px-4 py-4 text-right">
+        <div class="flex justify-end gap-3">
+
+          <!-- Edit Icon -->
+          <button onclick="editProduct(${item.id})"
+            class="text-blue-600 hover:text-blue-800 transition">
+            <i data-lucide="pencil" class="w-5 h-5"></i>
+          </button>
+
+          <!-- Delete Icon -->
+          <button onclick="openDeleteModal(${item.id})"
+            class="text-red-600 hover:text-red-800 transition">
+            <i data-lucide="trash-2" class="w-5 h-5"></i>
+          </button>
+
+        </div>
+      </td>
+
+
+    </tr>
+  `).join('');
+    lucide.createIcons();
 }
 
-function exportToPDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF('p', 'pt', 'a4');
-    
-  
-    doc.autoTable({ 
-        html: '#myTable',
-        margin: { top: 40 },
-        theme: 'striped',
-        headStyles: { fillColor: [79, 70, 229] }, 
-        columnStyles: {
-            4: { display: 'none' }
-        },
-        didParseCell: function(data) {
-            if (data.column.index === 4) {
-                data.cell.text = ''; // 
-            }
-        }
-    });
-    
-    doc.save("Table_Report.pdf");
-}</script>
- <script>
-    // 1. Dummy Data matching your image
-    const products = [
-      {
-        id: 1,
-        createdAt: "27 May 2025",
-        vendor: "N/A",
-        shop: "N/A",
-        category:"Daal's",
-        subcategory: "Pulses (Dal)",
-        name: "Chana Dal",
-        desc: "Sourced from certified organic farms, our Premium Organic Chana Dal is unpolished, retaining all natural nutrients.",
-        price: "129.00",
-        qty: 500,
-        inStock: "Yes",
-        unit: "kg",
-        image: null // null matlab 'No Image' text dikhayenge
-      },
-      {
-        id: 2,
-        createdAt: "28 May 2025",
-        vendor: "Fresh Mart",
-        shop: "City Store",
-        category:"Rice",
-        subcategory: "Grains",
-        name: "Basmati Rice",
-        desc: "Long-grain aromatic rice perfect for biryani and special occasions.",
-        price: "150.00",
-        qty: 200,
-        inStock: "Yes",
-        unit: "kg",
-        image: "https://via.placeholder.com/40"
-      }
-    ];
+renderTable();
 
-    // 2. Function to Render Table
-    function renderTable() {
-      const tableBody = document.getElementById('categoryTable');
-      tableBody.innerHTML = products.map((item, index) => `
-        <tr class="hover:bg-gray-50 transition-colors">
-          <td class="px-4 py-4 text-gray-500">${index + 1}</td>
-          <td class="px-4 py-4 whitespace-nowrap">${item.createdAt}</td>
-          <td class="px-4 py-4 text-gray-400">${item.vendor}</td>
-          <td class="px-4 py-4 text-gray-400">${item.shop}</td>
-                    <td class="px-4 py-4 font-medium text-indigo-600">${item.category}</td>
-          <td class="px-4 py-4 font-medium text-indigo-600">${item.subcategory}</td>
-          <td class="px-4 py-4 font-semibold text-gray-800">${item.name}</td>
-          <td class="px-4 py-4 text-gray-500 leading-relaxed text-xs">${item.desc}</td>
-          <td class="px-4 py-4 font-bold text-gray-900">₹${item.price}</td>
-          <td class="px-4 py-4">${item.qty}</td>
-          <td class="px-4 py-4">
-            <span class="${item.inStock === 'Yes' ? 'text-green-600' : 'text-red-600'} font-bold">
-              ${item.inStock}
-            </span>
-          </td>
-          <td class="px-4 py-4">${item.unit}</td>
-          <td class="px-4 py-4 text-center">
-            ${item.image ? `<img src="${item.image}" class="w-10 h-10 rounded border mx-auto">` : '<span class="text-gray-400 italic text-xs">No Image</span>'}
-          </td>
-         <td class="px-4 py-4 text-right whitespace-nowrap">
-  <div class="flex justify-end gap-2">
-    
-    <button 
-      onclick="openEditModal(${item.id}, '${item.name}', '${item.inStock}')"
-      class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-sm group"
-      title="Edit Item">
-      <i data-lucide="pencil-line" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
-    </button>
+function editProduct(id){
+  const product = products.find(p => p.id === id);
+  if(!product) return;
 
-    <button 
-      onclick="openDeleteModal(${item.id}, '${item.name}')"
-      class="flex items-center justify-center w-8 h-8 rounded-full bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 shadow-sm group"
-      title="Delete Item">
-      <i data-lucide="trash-2" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
-    </button>
+  document.getElementById("editProductId").value = product.id;
+  document.getElementById("editCategory").value = product.category;
+  document.getElementById("editSubcategory").value = product.subcategory;
+  document.getElementById("editVendor").value = product.vendor;
+  document.getElementById("editShop").value = product.shop;
+  document.getElementById("editProductName").value = product.name;
+  document.getElementById("editPrice").value = product.price;
+  document.getElementById("editQty").value = product.qty;
+  document.getElementById("editUnit").value = product.unit;
+  document.getElementById("editDesc").value = product.desc;
+  document.getElementById("editStock").value = product.inStock;
 
-  </div>
-</td>
+  openModal('editModal');
+}
 
-      `).join('');
+function openDeleteModal(id){
+  document.getElementById('deleteProductId').value = id;
+  openModal('deleteModal');
+}
 
-        // Icons trigger karna na bhulein
-        lucide.createIcons();
-      }
+function confirmDelete(){
+  const id = parseInt(document.getElementById('deleteProductId').value);
+  const index = products.findIndex(p => p.id === id);
+  if(index !== -1){
+    products.splice(index,1);
+  }
+  renderTable();
+  closeModal('deleteModal');
+}
+</script>
 
-      lucide.createIcons(); // Icons active karne ke liye
-    
-
-    renderTable();
-  </script>
 
 <?php include 'include/footer.php'; ?>
+
+</body>
+</html>

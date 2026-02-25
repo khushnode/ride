@@ -6,6 +6,10 @@
     <title>User's</title>
        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
         <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://kit.fontawesome.com/your-kit-id.js" crossorigin="anonymous"></script>
+<!-- Or use the free CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
 </head>
 <body>
      <?php include 'include/header.php'; ?>
@@ -661,26 +665,121 @@ document.getElementById("exportExcel").addEventListener("click", function () {
 });
 
 
-// PDF EXPORT
 document.getElementById("exportPdf").addEventListener("click", function () {
-  const printContents = document.getElementById("vendorTable").outerHTML;
+
+  const table = document.getElementById("vendorTable").cloneNode(true);
+
+  const rows = table.querySelectorAll("tr");
+
+  rows.forEach(row => {
+
+    if (row.lastElementChild) {
+      row.removeChild(row.lastElementChild);
+    }
+
+    const statusCell = row.children[6]; // adjust index if needed
+
+    if (statusCell) {
+      const toggle = statusCell.querySelector("input[type='checkbox']");
+
+      if (toggle) {
+        statusCell.innerHTML = toggle.checked ? "Active" : "Deactive";
+      }
+    }
+
+  });
+
+  const printContents = table.outerHTML;
+
   const win = window.open("", "", "width=900,height=700");
+
   win.document.write(`
     <html>
     <head>
-      <title>PDF</title>
+      <title>Vendor Report</title>
       <style>
+        body { font-family: Arial, sans-serif; padding:20px; }
         table { width:100%; border-collapse:collapse; }
         th, td { border:1px solid #ddd; padding:8px; text-align:left; }
         th { background:#dc2626; color:white; }
       </style>
     </head>
-    <body>${printContents}</body></html>
+    <body>
+      <h2>Vendor Report</h2>
+      ${printContents}
+    </body>
+    </html>
   `);
+
   win.document.close();
   win.print();
 });
 
 
 </script>
+
+<script>
+// =========================
+// HEADER DROPDOWN FUNCTIONS
+// =========================
+document.addEventListener('DOMContentLoaded', function() {
+    const notiBtn = document.getElementById('notiBtn');
+    const notiBar = document.getElementById('notiBar');
+    const adminBtn = document.getElementById('adminBtn');
+    const adminBar = document.getElementById('adminBar');
+
+    // Toggle notification dropdown
+    if (notiBtn && notiBar) {
+        notiBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            notiBar.classList.toggle('hidden');
+            // Close admin dropdown if open
+            if (adminBar && !adminBar.classList.contains('hidden')) {
+                adminBar.classList.add('hidden');
+            }
+        });
+    }
+
+    // Toggle admin dropdown
+    if (adminBtn && adminBar) {
+        adminBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            adminBar.classList.toggle('hidden');
+            // Close notification dropdown if open
+            if (notiBar && !notiBar.classList.contains('hidden')) {
+                notiBar.classList.add('hidden');
+            }
+        });
+    }
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+        if (notiBar && !notiBar.classList.contains('hidden') && 
+            !notiBtn.contains(e.target) && !notiBar.contains(e.target)) {
+            notiBar.classList.add('hidden');
+        }
+        
+        if (adminBar && !adminBar.classList.contains('hidden') && 
+            !adminBtn.contains(e.target) && !adminBar.contains(e.target)) {
+            adminBar.classList.add('hidden');
+        }
+    });
+
+    // Prevent closing when clicking inside dropdowns
+    if (notiBar) {
+        notiBar.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    }
+    
+    if (adminBar) {
+        adminBar.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    }
+});
+
+// Your existing modal and dropdown functions remain here...
+</script>
+
 </html>
